@@ -1,0 +1,7 @@
+# directories
+.vs/
+Binary/
+Intermediate/
+
+# files
+*.user
