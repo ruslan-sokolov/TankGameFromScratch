@@ -1,3 +1,5 @@
+#include <PCH.h>
+
 #include "Log.h"
 
 namespace Engine

@@ -12,11 +12,6 @@ public:
 	{
 
 	}
-
-	void Run()
-	{
-		while (true);
-	}
 };
 
 Engine::Application* Engine::CreateApplication()
