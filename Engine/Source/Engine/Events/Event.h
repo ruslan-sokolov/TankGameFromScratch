@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <PCH.h>
 #include <Engine/Core.h>
 
 namespace Engine {
@@ -82,7 +83,7 @@ namespace Engine {
 		Event& EventToDispatch;
 	};
 
-	std::ostream& operator << (std::ostream& os, const Event& e)
+	inline std::ostream& operator << (std::ostream& os, const Event& e)
 	{
 		return os << e.ToString();
 	}

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "PCH.h"
 #include "Core.h"
 
 namespace Engine {
@@ -11,6 +12,10 @@ namespace Engine {
 		virtual ~Application();
 
 		virtual void Run();
+
+	private:
+		std::unique_ptr<class Window> m_Window;
+		bool bIsRunning = true;
 
 	};
 

@@ -57,7 +57,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>ENGINE_WIN_PLATFORM;ENGINE_BUILD_DLL;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ENGINE_ENABLE_ASSERTS;ENGINE_WIN_PLATFORM;ENGINE_BUILD_DLL;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Vendor\GLFW\include;$(SolutionDir)Engine\Vendor\spdlog\include;</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -94,6 +94,7 @@
   <ItemGroup>
     <ClCompile Include="Source\Engine\Log.cpp" />
     <ClCompile Include="Source\Engine\Application.cpp" />
+    <ClCompile Include="Source\Platform\WindowsWindow.cpp" />
     <ClCompile Include="Source\PCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -108,6 +109,8 @@
     <ClInclude Include="Source\Engine\Application.h" />
     <ClInclude Include="Source\Engine\Core.h" />
     <ClInclude Include="Source\Engine.h" />
+    <ClInclude Include="Source\Engine\Window.h" />
+    <ClInclude Include="Source\Platform\WindowsWindow.h" />
     <ClInclude Include="Source\PCH.h" />
     <ClInclude Include="Vendor\GLFW\include\GLFW\glfw3.h" />
     <ClInclude Include="Vendor\GLFW\include\GLFW\glfw3native.h" />
