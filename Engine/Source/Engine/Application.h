@@ -1,7 +1,8 @@
 #pragma once
 
-#include "PCH.h"
 #include "Core.h"
+
+#include <Engine/Events/ApplicationEvent.h>
 
 namespace Engine {
 
@@ -13,10 +14,18 @@ namespace Engine {
 
 		virtual void Run();
 
+		void OnEvent(Event& e);
+
 	private:
 		std::unique_ptr<class Window> m_Window;
 		bool bIsRunning = true;
 
+		inline bool OnWindowClose(WindowCloseEvent& e)
+		{
+			ENGINE_LOG(LOG_WARN, "Success distpatch to WindowClose.");
+			bIsRunning = false;
+			return true;
+		}
 	};
 
 	Application* CreateApplication();

@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GLFW", "Engine\Vendor\GLFW\GLFW.vcxproj", "{6A68A5EB-25F5-4647-9849-285F1BAB32B2}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcxproj", "{31D448CC-AA44-4AAE-BBE3-ADB6595F2138}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6A68A5EB-25F5-4647-9849-285F1BAB32B2} = {6A68A5EB-25F5-4647-9849-285F1BAB32B2}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EngineTest", "EngineTest\EngineTest.vcxproj", "{EB1A5819-43E6-4F05-97DD-42851881FF63}"
 EndProject

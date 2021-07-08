@@ -10,10 +10,10 @@ namespace Engine {
 		MouseMovedEvent(float X, float Y)
 			: MouseX(X), MouseY(Y) {}
 
-		float GetX() const { return MouseX; }
-		float GetY() const { return MouseY; }
+		inline float GetX() const { return MouseX; }
+		inline float GetY() const { return MouseY; }
 
-		std::string ToString() const override
+		inline std::string ToString() const override
 		{
 			std::stringstream ss;
 			ss << "MouseMovedEvent: " << GetX() << ", " << GetY();
@@ -34,8 +34,8 @@ namespace Engine {
 		MouseScrolledEvent(float OffsetX, float OffsetY) :
 			OffsetX(OffsetX), OffsetY(OffsetY) {}
 
-		float GetOffsetX() const { return OffsetX; }
-		float GetOffsetY() const { return OffsetY; }
+		inline float GetOffsetX() const { return OffsetX; }
+		inline float GetOffsetY() const { return OffsetY; }
 
 		std::string ToString() const override
 		{
@@ -56,7 +56,7 @@ namespace Engine {
 	class ENGINE_API MouseButtonEvent : public Event
 	{
 	public:
-		int GetMouseButton() const { return Button; }
+		inline int GetMouseButton() const { return Button; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 
@@ -74,7 +74,7 @@ namespace Engine {
 		MouseButtonPressedEvent(int Button)
 			: MouseButtonEvent(Button) {}
 
-		std::string ToString() const override
+		inline std::string ToString() const override
 		{
 			std::stringstream ss;
 			ss << "MouseButtonPressedEvent: " << Button;
@@ -91,7 +91,7 @@ namespace Engine {
 		MouseButtonReleasedEvent(int Button)
 			: MouseButtonEvent(Button) {}
 
-		std::string ToString() const override
+		inline std::string ToString() const override
 		{
 			std::stringstream ss;
 			ss << "MouseButtonReleasedEvent: " << Button;

@@ -30,8 +30,8 @@ namespace Engine {
 
 // used in event class definitions to quickly implement necessary member functions
 #define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::##type; }\
-                               virtual EventType GetEventType() const override { return GetStaticType(); }\
-                               virtual const char* GetName() const override { return #type; }
+                               inline virtual EventType GetEventType() const override { return GetStaticType(); }\
+                               inline virtual const char* GetName() const override { return #type; }
 
 // used in event class definitions to quickly implement necessary member function
 #define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
@@ -48,9 +48,9 @@ namespace Engine {
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;
 		virtual int GetCategoryFlags() const = 0;
-		virtual std::string ToString() const { return GetName(); }
+		inline virtual std::string ToString() const { return GetName(); }
 
-		bool IsInCategory(EventCategory Category) { return GetCategoryFlags() & Category; }
+		inline bool IsInCategory(EventCategory Category) { return GetCategoryFlags() & Category; }
 	
 	protected:
 		bool Handled = false;
@@ -87,4 +87,8 @@ namespace Engine {
 	{
 		return os << e.ToString();
 	}
+
+// Macro to bind event
+#define BIND_EVENT(x) std::bind(&x, this, std::placeholders::_1)
+
 }

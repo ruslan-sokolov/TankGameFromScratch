@@ -1,4 +1,4 @@
-#include "PCH.h"
+#include <PCH.h>
 #include "Application.h"
 
 #include <Platform/WindowsWindow.h>
@@ -9,12 +9,21 @@ namespace Engine {
 	Application::Application()
 	{
 		m_Window = std::unique_ptr<class Window>(WindowsWindow::Create());
+		m_Window->SetEventCb(BIND_EVENT(Application::OnEvent));
 	}
 
 	Application::~Application()
 	{
 	}
 	
+	void Application::OnEvent(Event& e)
+	{
+		EventDistpatcher Distpatcher(e);
+		Distpatcher.Dispatch<WindowCloseEvent>(BIND_EVENT(Application::OnWindowClose));
+
+		ENGINE_LOG(LOG_INFO, "{0}", e);
+	}
+
 	void Application::Run()
 	{
 		while (bIsRunning)

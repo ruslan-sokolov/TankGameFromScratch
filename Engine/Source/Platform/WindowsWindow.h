@@ -18,17 +18,18 @@ namespace Engine {
 
 		void OnUpdate() override;
 
-		unsigned int GetWidth() const override { return Data.Width; }
-		unsigned int GetHeight() const override { return Data.Height; }
+		inline unsigned int GetWidth() const override { return Data.Width; }
+		inline unsigned int GetHeight() const override { return Data.Height; }
 
 		// Window attrubutes
-		void SetEventCb(const EventCbFn& Cb) override { Data.Cb = Cb; }
+		inline void SetEventCb(const EventCbFn& Cb) override { Data.Cb = Cb; }
 		void SetVSync(bool Enabled) override;
 		bool IsVSync() const override;
 
 	private:
-		virtual void Init(const WindowProps& Props);
-		virtual void Shutdown();
+		void Init(const WindowProps& Props);
+		void Shutdown();
+		void SetGLFWEvents();
 
 		GLFWwindow* GL_Window;
 
