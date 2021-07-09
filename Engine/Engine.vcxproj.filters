@@ -77,5 +77,11 @@
     <ClInclude Include="Source\Platform\WindowsWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Engine\Layer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\LayerStack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

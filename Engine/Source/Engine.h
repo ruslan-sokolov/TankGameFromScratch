@@ -1,10 +1,13 @@
-#pragma once
+// Code in this file use source from and inspired by TheCherno/Hazel engine project
+// https://github.com/TheCherno/Hazel/
 
+
+#pragma once
 
 // For use in client apps
 
+#include "PCH.h"
 #include "Engine/Application.h"
-#include "Engine/Log.h"
 
 // --- Entry Point ------------------------------------------------------------
 #ifdef ENGINE_WIN_PLATFORM
@@ -15,10 +18,8 @@ int main(int argc, char** argv)
 {
 	// initilize
 	Engine::Log::Init();
-	ENGINE_LOG(warn, "Initialized Core Log1");
-	APP_LOG(info, "Initialized Client Log1");
-
-
+	APP_LOG(info, "Initialized Client Log");
+	ENGINE_LOG(warn, "Initialized Core Log");
 
 	auto app = Engine::CreateApplication();
 	app->Run();

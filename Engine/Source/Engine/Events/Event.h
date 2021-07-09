@@ -1,10 +1,14 @@
-// Code in this file is moslty copied from TheCherno/Hazel engine project
+// Code in this file use source from and inspired by TheCherno/Hazel engine project
 // https://github.com/TheCherno/Hazel/
+
 
 #pragma once
 
-#include <PCH.h>
 #include <Engine/Core.h>
+
+#include <iostream>
+#include <functional>
+#include <string>
 
 namespace Engine {
 
@@ -31,7 +35,6 @@ namespace Engine {
 // used in event class definitions to quickly implement necessary member functions
 #define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::##type; }\
                                inline virtual EventType GetEventType() const override { return GetStaticType(); }\
-                               inline virtual const char* GetName() const override { return #type; }
 
 // used in event class definitions to quickly implement necessary member function
 #define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
@@ -46,11 +49,11 @@ namespace Engine {
 	
 	public:
 		virtual EventType GetEventType() const = 0;
-		virtual const char* GetName() const = 0;
 		virtual int GetCategoryFlags() const = 0;
-		inline virtual std::string ToString() const { return GetName(); }
+		inline virtual std::string ToString() const { return "Event"; }
 
 		inline bool IsInCategory(EventCategory Category) { return GetCategoryFlags() & Category; }
+		inline bool IsHandled() const { return Handled; }
 	
 	protected:
 		bool Handled = false;

@@ -1,3 +1,7 @@
+// Code in this file use source from and inspired by TheCherno/Hazel engine project
+// https://github.com/TheCherno/Hazel/
+
+
 #pragma once
 
 #include "Event.h"

@@ -59,7 +59,11 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>ENGINE_WIN_PLATFORM;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine\Vendor\spdlog\include;$(SolutionDir)Engine\Source;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\Source;$(SolutionDir)Engine\Vendor\spdlog\include;</AdditionalIncludeDirectories>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <ForcedIncludeFiles>PCH.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -81,7 +85,11 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>ENGINE_WIN_PLATFORM;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine\Vendor\spdlog\include;$(SolutionDir)Engine\Source;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\Source;$(SolutionDir)Engine\Vendor\spdlog\include;</AdditionalIncludeDirectories>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <ForcedIncludeFiles>PCH.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

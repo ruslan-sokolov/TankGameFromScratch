@@ -1,32 +1,40 @@
+// Code in this file use source from and inspired by TheCherno/Hazel engine project
+// https://github.com/TheCherno/Hazel/
+
+
 #pragma once
 
 #include "Core.h"
-
 #include <Engine/Events/ApplicationEvent.h>
+#include <Engine/LayerStack.h>
+
+#include <memory>
 
 namespace Engine {
 
 	class ENGINE_API Application
 	{
+		std::unique_ptr<class Window> m_Window;
+		bool bIsRunning = true;
+		
+		bool OnWindowClose(class WindowCloseEvent& e);
+
+	protected:
+		LayerStack Layers;
+
 	public:
 		Application();
 		virtual ~Application();
 
-		virtual void Run();
-
+		void Run();
 		void OnEvent(Event& e);
 
-	private:
-		std::unique_ptr<class Window> m_Window;
-		bool bIsRunning = true;
+		inline void PushLayer(Layer* layer) { Layers.PushLayer(layer); }
+		inline void PushOverlay(Layer* layer) { Layers.PushOverlay(layer); }
 
-		inline bool OnWindowClose(WindowCloseEvent& e)
-		{
-			ENGINE_LOG(LOG_WARN, "Success distpatch to WindowClose.");
-			bIsRunning = false;
-			return true;
-		}
 	};
 
 	Application* CreateApplication();
+
 }
+

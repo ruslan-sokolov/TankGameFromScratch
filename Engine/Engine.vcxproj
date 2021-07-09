@@ -105,6 +105,8 @@
     <ClInclude Include="Source\Engine\Events\Event.h" />
     <ClInclude Include="Source\Engine\Events\KeyEvent.h" />
     <ClInclude Include="Source\Engine\Events\MouseEvent.h" />
+    <ClInclude Include="Source\Engine\Layer.h" />
+    <ClInclude Include="Source\Engine\LayerStack.h" />
     <ClInclude Include="Source\Engine\Log.h" />
     <ClInclude Include="Source\Engine\Application.h" />
     <ClInclude Include="Source\Engine\Core.h" />
