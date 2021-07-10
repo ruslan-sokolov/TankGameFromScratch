@@ -6,7 +6,7 @@
 
 // For use in client apps
 
-#include "PCH.h"
+#include "Engine/Log.h"
 #include "Engine/Application.h"
 
 // --- Entry Point ------------------------------------------------------------
@@ -18,8 +18,8 @@ int main(int argc, char** argv)
 {
 	// initilize
 	Engine::Log::Init();
-	APP_LOG(info, "Initialized Client Log");
-	ENGINE_LOG(warn, "Initialized Core Log");
+	GAME_LOG(info, "Initialized Game Log");
+	ENGINE_LOG(warn, "Initialized Engine Log");
 
 	auto app = Engine::CreateApplication();
 	app->Run();

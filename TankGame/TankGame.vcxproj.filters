@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\MainApp.cpp">
+    <ClCompile Include="Source\Game\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

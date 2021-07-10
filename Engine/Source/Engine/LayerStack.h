@@ -23,9 +23,17 @@ namespace Engine {
 		inline std::vector<Layer*>::iterator end() { return Layers.end(); }
 		inline unsigned int Size() { return Layers.size(); }
 
-		inline void PushLayer(Layer* layer) { LayerInsert = Layers.emplace(LayerInsert, layer); }
+		inline void PushLayer(Layer* layer) 
+		{ 
+			LayerInsert = Layers.emplace(LayerInsert, layer);
+			layer->OnAttach();
+		}
 		
-		inline void PushOverlay(Layer* overlay) { Layers.emplace_back(overlay); }
+		inline void PushOverlay(Layer* overlay) 
+		{ 
+			Layers.emplace_back(overlay);
+			overlay->OnAttach();
+		}
 		
 		inline void PopLayer(Layer* layer)
 		{
@@ -34,14 +42,18 @@ namespace Engine {
 			{
 				Layers.erase(it);
 				--LayerInsert;
+				(*it)->OnDetach();
 			}
 		}
 
 		inline void PopOverlay(Layer* overlay)
 		{
 			std::vector<Layer*>::iterator it = std::find(Layers.begin(), Layers.end(), overlay);
-			if (it != Layers.end())
+			if (it != Layers.end()) 
+			{
 				Layers.erase(it);
+				(*it)->OnDetach();
+			}
 		}
 
 	};
