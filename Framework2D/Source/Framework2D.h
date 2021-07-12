@@ -1,45 +1,31 @@
 #pragma once
 
 #include <Engine.h>
+#include <EntryPoint.h>
+
 #include <Framework2D/Initializer.h>
+
+#include "Framework2D/Graphic2D/Layer2D.h"
 
 namespace Framework2D {
 
-	class MainLayer : public Engine::Layer
+	class Game2D : public Engine::Application
 	{
+		Layer2D* DebugLayer;
+		Layer2D* HUDLayer;
+		Layer2D* MainLayer;
+
 	public:
-		MainLayer()
-			: Layer("MainLayer") {}
-
-		void OnUpdate() override
+		Game2D()
 		{
+			// create layers
+			DebugLayer = new Layer2D("DebugLayer");
+			HUDLayer = new Layer2D("HUDLayer");
+			MainLayer = new Layer2D("MainLayer");
 
-		}
-
-		void OnAttach() override
-		{
-
-		}
-
-		void OnDetach() override
-		{
-
-		}
-
-		void OnEvent(Engine::Event& e) override
-		{
-			// debug
-			GAME_LOG(LOG_INFO, "[Framework2D::MainLayer] OnEvent {0}", e);
-		}
-	};
-
-	class MainLoop : public Engine::Application
-	{
-	public:
-		MainLoop()
-		{
-			// create main layer
-			PushLayer(new MainLayer());
+			PushLayer(MainLayer);
+			PushOverlay(DebugLayer);
+			PushOverlay(HUDLayer);
 
 			// framework initializer
 			auto Initializer = CreateInitializer();
@@ -47,15 +33,22 @@ namespace Framework2D {
 			delete Initializer;
 		}
 
-		~MainLoop()
+		~Game2D()
 		{
 
 		}
+
+		inline Layer2D* GetDebugLayer() const { return DebugLayer; }
+		inline Layer2D* GetHUDLayer() const { return HUDLayer; }
+		inline Layer2D* GetMainLayer() const { return MainLayer; }
 	};
+
+	static Game2D* Game;
+	static inline Game2D* GetGame() { return Game; }
 
 }
 
 Engine::Application* Engine::CreateApplication()
 {
-	return new Framework2D::MainLoop();
+	return new Framework2D::Game2D();
 }

@@ -112,6 +112,7 @@
     <ClInclude Include="Source\Engine\Core.h" />
     <ClInclude Include="Source\Engine.h" />
     <ClInclude Include="Source\Engine\Window.h" />
+    <ClInclude Include="Source\EntryPoint.h" />
     <ClInclude Include="Source\Platform\WindowsWindow.h" />
     <ClInclude Include="Source\PCH.h" />
     <ClInclude Include="Vendor\GLFW\include\GLFW\glfw3.h" />

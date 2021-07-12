@@ -56,6 +56,24 @@ namespace Engine {
 			}
 		}
 
+		inline Layer* GetLayer(Layer* layer)
+		{
+			std::vector<Layer*>::iterator it = std::find(Layers.begin(), Layers.end(), layer);
+			if (it != Layers.end())
+				return *it;
+			else
+				return nullptr;
+		}
+
+		inline Layer* GetLayer(const std::string& LayerName)
+		{
+			for (auto& layer : Layers)
+			{
+				if (layer->GetName() == LayerName)
+					return layer;
+			}
+			return nullptr;
+		}
 	};
 
 }
