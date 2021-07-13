@@ -5,6 +5,15 @@
 
 namespace Framework2D {
 
+	Group::~Group()
+	{
+		for (auto& Entity : Entities)
+		{
+			Entity->EntityGroup = nullptr;
+			delete Entity;
+		}
+	}
+
 	bool Group::AddEntity(BaseEntity* Entity)
 	{
 		if (Entity->HasGroup()) return false;

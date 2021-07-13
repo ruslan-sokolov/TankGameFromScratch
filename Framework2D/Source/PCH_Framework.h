@@ -15,3 +15,6 @@
 #include <unordered_set>
 
 #include <Engine/Log.h>
+
+#include <cmath>
+#include <Framework2D/Structs/VecInt2D.h>

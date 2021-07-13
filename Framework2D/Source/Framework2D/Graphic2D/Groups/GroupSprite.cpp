@@ -1,4 +1,4 @@
-#include "PCH_Framework.h"
+#include <PCH_Framework.h>
 #include "GroupSprite.h"
 #include <Framework2D/Graphic2D/Entities/SpriteEntity.h>
 

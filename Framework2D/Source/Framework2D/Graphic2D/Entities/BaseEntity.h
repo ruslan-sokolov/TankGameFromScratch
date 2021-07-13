@@ -3,6 +3,8 @@
 #include <Framework2D/Framework2DAPI.h>
 #include "Engine.h"
 
+#include <Framework2D/Structs/VecInt2D.h>
+
 namespace Framework2D {
 
 	class Group;
@@ -15,8 +17,13 @@ namespace Framework2D {
 		Group* EntityGroup;
 		const std::string Name;
 
-		BaseEntity(const std::string& Name) : Name(Name), EntityGroup(nullptr) {}
+		BaseEntity(const std::string& Name) : Name(Name), EntityGroup(nullptr), bRenderEnabled(false) {}
 		virtual ~BaseEntity();
+
+		VecInt2D Size;
+		VecInt2D Position;
+
+		bool bRenderEnabled;
 
 	public:
 		inline Group* GetGroup() const { return EntityGroup; }

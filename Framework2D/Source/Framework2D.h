@@ -16,7 +16,8 @@ namespace Framework2D {
 		Layer2D* MainLayer;
 
 	public:
-		Game2D()
+		Game2D(const char* Title, unsigned int Width, unsigned int Height)
+			: Application(Title, Width, Height)
 		{
 			// create layers
 			DebugLayer = new Layer2D("DebugLayer");
@@ -50,5 +51,5 @@ namespace Framework2D {
 
 Engine::Application* Engine::CreateApplication()
 {
-	return new Framework2D::Game2D();
+	return new Framework2D::Game2D("Tanki Game", 640, 480);
 }

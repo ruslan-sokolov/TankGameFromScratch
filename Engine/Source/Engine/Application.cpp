@@ -10,9 +10,9 @@
 
 namespace Engine {
 
-	Application::Application()
+	Application::Application(const char* Title, unsigned int Width, unsigned int Height)
 	{
-		m_Window = std::unique_ptr<class Window>(WindowsWindow::Create());
+		m_Window = std::unique_ptr<class Window>(WindowsWindow::Create( { Title, Width, Height } ));
 		m_Window->SetEventCb(BIND_EVENT(Application::OnEvent));
 	}
 

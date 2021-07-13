@@ -15,14 +15,7 @@ namespace Framework2D {
 		friend class BaseEntity;
 
 	public:
-		virtual ~Group() 
-		{
-			/*for (auto& Entity : Entities)
-			{
-				Entity->EntityGroup = nullptr;
-				delete Entity;
-			}*/
-		}
+		virtual ~Group();
 
 		virtual void OnUpdate(float DeltaTime) =0;
 		virtual void OnEvent(Engine::Event& e) =0;

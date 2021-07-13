@@ -69,6 +69,9 @@
       <AdditionalLibraryDirectories>$(SolutionDir)Binary\$(Configuration)\GLFW;</AdditionalLibraryDirectories>
       <AdditionalDependencies>GLFW.lib;opengl32.lib;User32.lib;Gdi32.lib;Shell32.lib</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y /d "$(SolutionDir)Binary\$(Configuration)\Engine\Engine.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -90,6 +93,9 @@
       <AdditionalLibraryDirectories>$(SolutionDir)Binary\$(Configuration)\GLFW;</AdditionalLibraryDirectories>
       <AdditionalDependencies>GLFW.lib;opengl32.lib;User32.lib;Gdi32.lib;Shell32.lib</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y /d "$(SolutionDir)Binary\$(Configuration)\Engine\Engine.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Engine\Log.cpp" />

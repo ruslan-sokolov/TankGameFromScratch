@@ -75,8 +75,7 @@
       </Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>xcopy /y /d "$(SolutionDir)Binary\$(Configuration)\Framework2D\Framework2D.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -105,8 +104,7 @@
       </Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>xcopy /y /d "$(SolutionDir)Binary\$(Configuration)\Framework2D\Framework2D.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -124,7 +122,10 @@
     <ClInclude Include="Source\Framework2D\Graphic2D\Groups\GroupSolid.h" />
     <ClInclude Include="Source\Framework2D\Graphic2D\Groups\GroupSprite.h" />
     <ClInclude Include="Source\Framework2D\Graphic2D\Layer2D.h" />
+    <ClInclude Include="Source\Framework2D\Graphic2D\Resources\ResourceLoader.h" />
+    <ClInclude Include="Source\Framework2D\Graphic2D\Resources\Texture.h" />
     <ClInclude Include="Source\Framework2D\Initializer.h" />
+    <ClInclude Include="Source\Framework2D\Structs\VecInt2D.h" />
     <ClInclude Include="Source\PCH_Framework.h" />
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +136,8 @@
     <ClCompile Include="Source\Framework2D\Graphic2D\Groups\GroupSolid.cpp" />
     <ClCompile Include="Source\Framework2D\Graphic2D\Groups\GroupSprite.cpp" />
     <ClCompile Include="Source\Framework2D\Graphic2D\Layer2D.cpp" />
+    <ClCompile Include="Source\Framework2D\Graphic2D\Resources\ResourceLoader.cpp" />
+    <ClCompile Include="Source\Framework2D\Graphic2D\Resources\Texture.cpp" />
     <ClCompile Include="Source\Framework2D\Initializer.cpp" />
     <ClCompile Include="Source\PCH_Framework.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

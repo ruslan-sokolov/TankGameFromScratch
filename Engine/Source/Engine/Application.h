@@ -24,7 +24,7 @@ namespace Engine {
 		LayerStack Layers;
 
 	public:
-		Application();
+		Application(const char* Title = "Engine App", unsigned int WindowWidth = 640, unsigned int WindowHeight = 480);
 		virtual ~Application();
 
 		void Run();
