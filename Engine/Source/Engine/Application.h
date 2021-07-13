@@ -9,6 +9,7 @@
 #include <Engine/LayerStack.h>
 
 #include <memory>
+#include <chrono>
 
 namespace Engine {
 
@@ -31,6 +32,16 @@ namespace Engine {
 
 		inline void PushLayer(Layer* layer) { Layers.PushLayer(layer); }
 		inline void PushOverlay(Layer* layer) { Layers.PushOverlay(layer); }
+
+	private:
+		std::chrono::steady_clock::time_point T_Start;
+		std::chrono::steady_clock::time_point T_Prev;
+		std::chrono::steady_clock::time_point T_Next;
+		float DeltaTime;
+
+	public:
+		inline float GetDeltaTime() { return DeltaTime; }
+		float GetElapsedTime() { return std::chrono::duration<float, std::milli>(T_Next - T_Start).count(); }
 
 	};
 

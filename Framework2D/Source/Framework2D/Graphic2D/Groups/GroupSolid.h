@@ -11,11 +11,16 @@ namespace Framework2D {
 	public:
 		GroupSolid(const std::string& GroupName);
 
-		void OnUpdate() override;
+		void OnUpdate(float DeltaTime) override;
 		void OnEvent(Engine::Event& e) override;
+		void OnDraw() override;
 
-		bool AddSolid(SolidEntity*);
-		bool RemoveSolid(SolidEntity*);
+		bool AddSolid(SolidEntity* Solid);
+		bool RemoveSolid(SolidEntity* Solid);
+		SolidEntity* GetSolid(const std::string& SolidName);
+		bool HasSolid(const std::string& SolidName);
 	};
 
 }
+
+

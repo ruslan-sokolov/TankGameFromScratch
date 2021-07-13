@@ -14,6 +14,8 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include <chrono>
+
 #include <Engine/Log.h>
 
 #ifdef ENGINE_WIN_PLATFORM

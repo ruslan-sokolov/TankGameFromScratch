@@ -11,11 +11,14 @@ namespace Framework2D {
 	public:
 		GroupSprite(const std::string& GroupName);
 
-		void OnUpdate() override;
+		void OnUpdate(float DeltaTime) override;
 		void OnEvent(Engine::Event& e) override;
+		void OnDraw() override;
 
-		bool AddSprite(SpriteEntity*);
-		bool RemoveSprite(SpriteEntity*);
+		bool AddSprite(SpriteEntity* Sprite);
+		bool RemoveSprite(SpriteEntity* Sprite);
+		SpriteEntity* GetSprite(const std::string& SpriteName);
+		bool HasSprite(const std::string& SpriteName);
 	};
 
 }

@@ -71,5 +71,11 @@
     <ClCompile Include="Source\Framework2D\Graphic2D\Entities\SolidEntity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Framework2D\Graphic2D\Entities\BaseEntity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework2D\Graphic2D\Groups\Group.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

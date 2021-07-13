@@ -27,16 +27,19 @@ namespace Framework2D {
 
 	}
 
-	void Layer2D::OnUpdate()
+	void Layer2D::OnUpdate(float DeltaTime)
 	{
 		for (auto& pair : Groups)
 		{
-			pair.second->OnUpdate();
+			pair.second->OnUpdate(DeltaTime);
+			pair.second->OnDraw();
 		}
 	}
 
 	void Layer2D::OnEvent(Engine::Event& e)
 	{
+		ENGINE_LOG(LOG_INFO, "Layer2D: Event {0}", e.ToString());
+
 		for (auto& pair : Groups)
 		{
 			pair.second->OnEvent(e);

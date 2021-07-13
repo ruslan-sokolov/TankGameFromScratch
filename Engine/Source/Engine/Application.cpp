@@ -41,13 +41,21 @@ namespace Engine {
 
 	void Application::Run()
 	{
+		T_Start = std::chrono::high_resolution_clock::now();
+		T_Prev = T_Start;
+		T_Next = T_Start;
+
 		while (bIsRunning)
 		{
+			T_Prev = T_Next;
+			T_Next = std::chrono::high_resolution_clock::now();
+			DeltaTime = std::chrono::duration<float, ::std::milli>(T_Next - T_Prev).count();
+
 			glClearColor(1, 0, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			// Call layers update (forward direction)
-			for (auto layer : Layers) layer->OnUpdate();
+			for (auto layer : Layers) layer->OnUpdate(DeltaTime);
 
 			m_Window->OnUpdate();
 		}

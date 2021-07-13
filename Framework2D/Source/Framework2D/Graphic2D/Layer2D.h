@@ -15,12 +15,12 @@ namespace Framework2D {
 
 	public:
 		Layer2D(const std::string& LayerName);
-		virtual ~Layer2D();
+		~Layer2D();
 
-		virtual void OnAttach() override;
-		virtual void OnDetach() override;
-		virtual void OnUpdate() override;
-		virtual void OnEvent(Engine::Event& e);
+		void OnAttach() override;
+		void OnDetach() override;
+		void OnUpdate(float DeltaTime) override;
+		void OnEvent(Engine::Event& e);
 
 		bool AddGroup(Group* group);
 		bool AddGroupFront(Group* group);

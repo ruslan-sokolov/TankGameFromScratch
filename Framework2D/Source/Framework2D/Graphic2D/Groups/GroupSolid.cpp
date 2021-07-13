@@ -10,24 +10,45 @@ namespace Framework2D {
 
 	}
 
-	void GroupSolid::OnUpdate()
+	void GroupSolid::OnUpdate(float DeltaTime)
 	{
-
+		for (auto& Solid : Entities)
+		{
+			Solid->OnUpdate(DeltaTime);
+		}
 	}
 
 	void GroupSolid::OnEvent(Engine::Event& e)
 	{
-
+		for (auto it = Entities.end(); it != Entities.begin(); )
+		{
+			(*--it)->OnEvent(e);
+			if (e.IsHandled()) break;
+		}
 	}
 
-	bool GroupSolid::AddSolid(SolidEntity*)
+	void GroupSolid::OnDraw()
 	{
-		return false;
+		
 	}
 
-	bool GroupSolid::RemoveSolid(SolidEntity*)
+	bool GroupSolid::AddSolid(SolidEntity* Solid)
 	{
-		return false;
+		return Group::AddEntity(Solid);
 	}
 
+	bool GroupSolid::RemoveSolid(SolidEntity* Solid)
+	{
+		return Group::RemoveEntity(Solid);
+	}
+
+	SolidEntity* GroupSolid::GetSolid(const std::string& SolidName)
+	{
+		return static_cast<SolidEntity*>(Group::FindEntity(SolidName));
+	}
+
+	bool GroupSolid::HasSolid(const std::string& SolidName)
+	{
+		return Group::FindEntity(SolidName) != nullptr;
+	}
 }
