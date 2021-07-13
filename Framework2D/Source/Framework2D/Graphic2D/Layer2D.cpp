@@ -4,6 +4,10 @@
 #include "Groups/Group.h"
 #include "Entities/BaseEntity.h"
 
+// debug
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
 namespace Framework2D {
 
 	Layer2D::Layer2D(const std::string& LayerName)
@@ -19,7 +23,7 @@ namespace Framework2D {
 
 	void Layer2D::OnAttach()
 	{
-
+		ENGINE_LOG(trace, "ON ATTACH Open GL Version: {0}", glGetString(GL_VERSION));
 	}
 
 	void Layer2D::OnDetach()
@@ -29,6 +33,17 @@ namespace Framework2D {
 
 	void Layer2D::OnUpdate(float DeltaTime)
 	{
+		/*static float r_color = 0.0f;
+
+		// debug test glfw call
+		glClearColor(r_color, 0.0, 0.0, 1.0);
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		r_color += 1 * DeltaTime;
+		if (r_color >= 1.0f) r_color = 0.0f;*/
+
+		// ENGINE_LOG(info, "DeltaTime: {0}", DeltaTime);
+
 		for (auto& pair : Groups)
 		{
 			pair.second->OnUpdate(DeltaTime);
@@ -38,7 +53,7 @@ namespace Framework2D {
 
 	void Layer2D::OnEvent(Engine::Event& e)
 	{
-		ENGINE_LOG(LOG_INFO, "Layer2D: Event {0}", e.ToString());
+		// ENGINE_LOG(LOG_INFO, "Layer2D: Event {0}", e.ToString());
 
 		for (auto& pair : Groups)
 		{

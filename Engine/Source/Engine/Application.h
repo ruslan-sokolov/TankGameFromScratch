@@ -41,7 +41,7 @@ namespace Engine {
 
 	public:
 		inline float GetDeltaTime() { return DeltaTime; }
-		float GetElapsedTime() { return std::chrono::duration<float, std::milli>(T_Next - T_Start).count(); }
+		float GetElapsedTime() { return std::chrono::duration<float, std::ratio<1>>(T_Next - T_Start).count(); }
 
 	};
 

@@ -57,25 +57,26 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>FRAMEWORK_BUILD_DLL;ENGINE_WIN_PLATFORM;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLEW_STATIC;FRAMEWORK_BUILD_DLL;ENGINE_WIN_PLATFORM;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>PCH_Framework.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>
       </ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>$(SolutionDir)Framework2D\Source;$(SolutionDir)Engine\Source;$(SolutionDir)Engine\Vendor\GLFW\include;$(SolutionDir)Engine\Vendor\spdlog\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Vendor;$(SolutionDir)Framework2D\Source;$(SolutionDir)Engine\Source;$(SolutionDir)Engine\Vendor\GLEW\include;$(SolutionDir)Engine\Vendor\GLFW\include;$(SolutionDir)Engine\Vendor\spdlog\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies />
+      <AdditionalDependencies>GLEW.lib;GLFW.lib;opengl32.lib;User32.lib;Gdi32.lib;Shell32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Binary\$(Configuration)\GLFW;$(SolutionDir)Binary\$(Configuration)\GLEW;</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
       <Command>
       </Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>xcopy /y /d "$(SolutionDir)Binary\$(Configuration)\Framework2D\Framework2D.dll" "$(OutDir)"</Command>
+      <Command>xcopy /y /d "$(SolutionDir)Binary\$(Configuration)\Framework2D\Framework2D.dll" "$(SolutionDir)Binary\$(Configuration)\TankGame"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -84,27 +85,28 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>FRAMEWORK_BUILD_DLL;ENGINE_WIN_PLATFORM;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLEW_STATIC;FRAMEWORK_BUILD_DLL;ENGINE_WIN_PLATFORM;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>PCH_Framework.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>
       </ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>$(SolutionDir)Framework2D\Source;$(SolutionDir)Engine\Source;$(SolutionDir)Engine\Vendor\GLFW\include;$(SolutionDir)Engine\Vendor\spdlog\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Vendor;$(SolutionDir)Framework2D\Source;$(SolutionDir)Engine\Source;$(SolutionDir)Engine\Vendor\GLEW\include;$(SolutionDir)Engine\Vendor\GLFW\include;$(SolutionDir)Engine\Vendor\spdlog\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies />
+      <AdditionalDependencies>GLEW.lib;GLFW.lib;opengl32.lib;User32.lib;Gdi32.lib;Shell32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Binary\$(Configuration)\GLFW;$(SolutionDir)Binary\$(Configuration)\GLEW;</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
       <Command>
       </Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>xcopy /y /d "$(SolutionDir)Binary\$(Configuration)\Framework2D\Framework2D.dll" "$(OutDir)"</Command>
+      <Command>xcopy /y /d "$(SolutionDir)Binary\$(Configuration)\Framework2D\Framework2D.dll" "$(SolutionDir)Binary\$(Configuration)\TankGame"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -127,6 +129,7 @@
     <ClInclude Include="Source\Framework2D\Initializer.h" />
     <ClInclude Include="Source\Framework2D\Structs\VecInt2D.h" />
     <ClInclude Include="Source\PCH_Framework.h" />
+    <ClInclude Include="Vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Framework2D\Graphic2D\Entities\BaseEntity.cpp" />

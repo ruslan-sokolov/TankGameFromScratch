@@ -6,7 +6,6 @@
 #include "Application.h"
 
 #include <Platform/WindowsWindow.h>
-#include <GLFW/glfw3.h>
 
 namespace Engine {
 
@@ -49,10 +48,7 @@ namespace Engine {
 		{
 			T_Prev = T_Next;
 			T_Next = std::chrono::high_resolution_clock::now();
-			DeltaTime = std::chrono::duration<float, ::std::milli>(T_Next - T_Prev).count();
-
-			glClearColor(1, 0, 1, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
+			DeltaTime = std::chrono::duration<float, ::std::ratio<1>>(T_Next - T_Prev).count();
 
 			// Call layers update (forward direction)
 			for (auto layer : Layers) layer->OnUpdate(DeltaTime);

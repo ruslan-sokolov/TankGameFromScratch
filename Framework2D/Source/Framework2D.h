@@ -24,9 +24,11 @@ namespace Framework2D {
 			HUDLayer = new Layer2D("HUDLayer");
 			MainLayer = new Layer2D("MainLayer");
 
-			PushLayer(MainLayer);
-			PushOverlay(DebugLayer);
-			PushOverlay(HUDLayer);
+			//PushLayer(MainLayer);
+			//PushOverlay(DebugLayer);
+			//PushOverlay(HUDLayer);
+
+			PushLayer(DebugLayer);
 
 			// framework initializer
 			auto Initializer = CreateInitializer();

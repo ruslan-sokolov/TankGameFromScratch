@@ -1,0 +1,104 @@
+[33mcommit cf95daf15f323123b307ce6a8a9f8cae15eef118[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Merge: 4333377 d9f9e84
+Author: goatryder <nova9ok@gmail.com>
+Date:   Tue Jul 13 21:06:04 2021 +0300
+
+    Merge branch 'main' of https://github.com/goatryder/TankGameFromScratch
+
+[33mcommit 43333779e305fff2ab250c63d8c4b0a1ab18a5a3[m
+Author: goatryder <nova9ok@gmail.com>
+Date:   Tue Jul 13 21:05:56 2021 +0300
+
+    Struct VecInt2D
+
+[33mcommit d9f9e84c5a0124f1b6e90137963eb29bb35bf026[m
+Author: goatryder <nova9ok@gmail.com>
+Date:   Tue Jul 13 18:14:09 2021 +0300
+
+    Update README.md
+
+[33mcommit 95c46765164c03c2132bb452e3d2f28229be8c71[m
+Author: goatryder <nova9ok@gmail.com>
+Date:   Tue Jul 13 18:13:26 2021 +0300
+
+    Update README.md
+
+[33mcommit dcdc50a967e4767203038fc83d8f404d24673353[m
+Author: goatryder <nova9ok@gmail.com>
+Date:   Tue Jul 13 18:09:01 2021 +0300
+
+    -delta time;    framework2D abstactions progress
+
+[33mcommit 335c28b56855728f849bfdfba8a44597977ed33b[m
+Author: goatryder <nova9ok@gmail.com>
+Date:   Mon Jul 12 21:16:02 2021 +0300
+
+    framework2D abstractions progress
+
+[33mcommit fa031322a76c8348a906a578433f9322561e8fcb[m
+Author: goatryder <nova9ok@gmail.com>
+Date:   Sat Jul 10 13:34:39 2021 +0300
+
+    engine->framework->game architecture
+
+[33mcommit af2643edba8dde41ac4c8d66a7ddf476657f0861[m
+Author: goatryder <nova9ok@gmail.com>
+Date:   Fri Jul 9 16:16:19 2021 +0300
+
+    Engine layers
+
+[33mcommit fa9285a4922baefb8da969c2ff21d8a36c18c91d[m
+Author: goatryder <nova9ok@gmail.com>
+Date:   Thu Jul 8 14:10:40 2021 +0300
+
+    - GLFW window events respond
+    - Now will continue work in proj without theCherno code, just creating my own;
+
+[33mcommit e0bdf33b1bb46a6f3f14414d564d82665f38a718[m
+Author: goatryder <nova9ok@gmail.com>
+Date:   Thu Jul 8 10:38:01 2021 +0300
+
+    - window abstraction
+
+[33mcommit efaf707ca335906040a76dc0a460cfae7e9450d5[m
+Author: goatryder <nova9ok@gmail.com>
+Date:   Wed Jul 7 22:48:07 2021 +0300
+
+    - spdlog as simple source dir
+
+[33mcommit 592e48264ca8f10ef0549bad907c6b58073dfae9[m
+Author: goatryder <nova9ok@gmail.com>
+Date:   Wed Jul 7 22:39:20 2021 +0300
+
+    -PCH \n -GLFW as static lib from source
+
+[33mcommit 084d561226c216e427ea45c0d9932bf8e4e6331d[m
+Author: goatryder <nova9ok@gmail.com>
+Date:   Tue Jul 6 19:48:56 2021 +0300
+
+    events
+
+[33mcommit 801daf87f554efa3d07899443cbdae48a8262549[m
+Merge: aac310b 0bd90c6
+Author: goatryder <nova9ok@gmail.com>
+Date:   Tue Jul 6 12:50:33 2021 +0300
+
+    Merge branch 'main' of https://github.com/goatryder/TankGameFromScratch
+
+[33mcommit aac310bbae1380166b5ce6bb7114875a36111e1b[m
+Author: goatryder <nova9ok@gmail.com>
+Date:   Tue Jul 6 12:50:16 2021 +0300
+
+    logger
+
+[33mcommit 0bd90c66b48df0d60b2741b5ce27a77811400d73[m
+Author: goatryder <nova9ok@gmail.com>
+Date:   Mon Jul 5 20:15:33 2021 +0300
+
+    Update README.md
+
+[33mcommit ff556142a3f836e91acf797098c36cd6e2e363e7[m
+Author: goatryder <nova9ok@gmail.com>
+Date:   Mon Jul 5 20:14:02 2021 +0300
+
+    Initial Engine Proj and EngineTest Proj Setup

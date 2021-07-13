@@ -5,6 +5,7 @@
 #include <PCH.h>
 #include "WindowsWindow.h"
 
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 #include <Engine/Events/ApplicationEvent.h>
@@ -14,10 +15,112 @@
 namespace Engine {
 
 	static bool s_GLFWInitialized = false;
-
+	static bool s_GLEWInitialized = false;
+	
+	// GLFW error callback
 	static void GLFWErrorCb(int Err, const char* Descr)
 	{
 		ENGINE_LOG(LOG_ERR, "GLFW Error ({0}): {1}", Err, Descr);
+	}
+
+	// GLEW error callback
+	// stolen from https://gist.github.com/liam-middlebrook/c52b069e4be2d87a6d2f hehe)
+	static void GLDebugMessageCallback(GLenum source, GLenum type, GLuint id,
+		GLenum severity, GLsizei length,
+		const GLchar* msg, const void* data)
+	{
+		const char* _source;
+		const char* _type;
+		const char* _severity;
+
+		switch (source) {
+		case GL_DEBUG_SOURCE_API:
+			_source = "API";
+			break;
+
+		case GL_DEBUG_SOURCE_WINDOW_SYSTEM:
+			_source = "WINDOW SYSTEM";
+			break;
+
+		case GL_DEBUG_SOURCE_SHADER_COMPILER:
+			_source = "SHADER COMPILER";
+			break;
+
+		case GL_DEBUG_SOURCE_THIRD_PARTY:
+			_source = "THIRD PARTY";
+			break;
+
+		case GL_DEBUG_SOURCE_APPLICATION:
+			_source = "APPLICATION";
+			break;
+
+		case GL_DEBUG_SOURCE_OTHER:
+			_source = "UNKNOWN";
+			break;
+
+		default:
+			_source = "UNKNOWN";
+			break;
+		}
+
+		switch (type) {
+		case GL_DEBUG_TYPE_ERROR:
+			_type = "ERROR";
+			break;
+
+		case GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR:
+			_type = "DEPRECATED BEHAVIOR";
+			break;
+
+		case GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR:
+			_type = "UDEFINED BEHAVIOR";
+			break;
+
+		case GL_DEBUG_TYPE_PORTABILITY:
+			_type = "PORTABILITY";
+			break;
+
+		case GL_DEBUG_TYPE_PERFORMANCE:
+			_type = "PERFORMANCE";
+			break;
+
+		case GL_DEBUG_TYPE_OTHER:
+			_type = "OTHER";
+			break;
+
+		case GL_DEBUG_TYPE_MARKER:
+			_type = "MARKER";
+			break;
+
+		default:
+			_type = "UNKNOWN";
+			break;
+		}
+
+		switch (severity) {
+		case GL_DEBUG_SEVERITY_HIGH:
+			_severity = "HIGH";
+			break;
+
+		case GL_DEBUG_SEVERITY_MEDIUM:
+			_severity = "MEDIUM";
+			break;
+
+		case GL_DEBUG_SEVERITY_LOW:
+			_severity = "LOW";
+			break;
+
+		case GL_DEBUG_SEVERITY_NOTIFICATION:
+			_severity = "NOTIFICATION";
+			break;
+
+		default:
+			_severity = "UNKNOWN";
+			break;
+		}
+
+		ENGINE_LOG(LOG_ERR, "{0}: {1} of {2} severity, raised from {3}: {4}",
+			id, _type, _severity, _source, msg);
 	}
 
 	Window* Window::Create(const WindowProps& Props)
@@ -45,20 +148,46 @@ namespace Engine {
 
 		if (!s_GLFWInitialized)
 		{
-			// TODO: glfwTerminate on system shutdown
-			int Success = glfwInit();
-			ENGINE_ASSERT(Success, "Could not initialize GLFW!");
+			int SuccessGLFWInit = glfwInit();
+			ENGINE_ASSERT(SuccessGLFWInit, "Could not initialize GLFW!");
+
+			// Set Open GL version
+			glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+			GL_Window = glfwCreateWindow(Props.Width, Props.Height, Data.Title.c_str(), nullptr, nullptr);
+			glfwMakeContextCurrent(GL_Window);
+			glfwSetWindowUserPointer(GL_Window, &Data);
+			SetVSync(true);
+
+			// Set GLFW Event callback
+			SetGLFWEvents();
+
+			if (!s_GLEWInitialized)
+			{
+				int SuccessGLEWInit = glewInit() == GLEW_OK;
+				ENGINE_ASSERT(SuccessGLEWInit, "Could not initialize GLEW!");
+
+				ENGINE_LOG(trace, "Open GL Version: {0}", glGetString(GL_VERSION));
+
+				// Open GL Blending Alpha
+				glEnable(GL_BLEND);
+				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+				
+				// GLEW Error callback
+				glEnable(GL_DEBUG_OUTPUT);
+				glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+				glDebugMessageCallback(GLDebugMessageCallback, NULL);
+
+				s_GLEWInitialized = true;
+			}
+
+			// GLFW Error callback
 			glfwSetErrorCallback(GLFWErrorCb);
+			
 			s_GLFWInitialized = true;
 		}
-
-		GL_Window = glfwCreateWindow(Props.Width, Props.Height, Data.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(GL_Window);
-		glfwSetWindowUserPointer(GL_Window, &Data);
-		SetVSync(true);
-
-		// Set GLFW callbacks
-		SetGLFWEvents();
 	}
 
 	void WindowsWindow::SetGLFWEvents()

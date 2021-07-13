@@ -34,9 +34,13 @@ namespace Engine
 #define LOG_INFO  info
 #define LOG_FATAL fatal
 
-#define ENGINE_LOG(type, ...) ::Engine::Log::GetCoreLogger()->type(__VA_ARGS__)
-#define GAME_LOG(type, ...)    ::Engine::Log::GetClientLogger()->type(__VA_ARGS__)
-
+#ifndef ENGINE_DISABLE_LOG
+	#define ENGINE_LOG(type, ...) ::Engine::Log::GetCoreLogger()->type(__VA_ARGS__)
+	#define GAME_LOG(type, ...)    ::Engine::Log::GetClientLogger()->type(__VA_ARGS__)
+#else
+	#define ENGINE_LOG(type, ...)
+	#define GAME_LOG(type, ...)
+#endif
 
 #ifdef ENGINE_ENABLE_ASSERTS
 	#define ENGINE_ASSERT(x, ...) \

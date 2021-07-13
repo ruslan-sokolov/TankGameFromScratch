@@ -57,20 +57,20 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>ENGINE_ENABLE_ASSERTS;ENGINE_WIN_PLATFORM;ENGINE_BUILD_DLL;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLEW_STATIC;ENGINE_ENABLE_ASSERTS;ENGINE_WIN_PLATFORM;ENGINE_BUILD_DLL;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Vendor\GLFW\include;$(SolutionDir)Engine\Vendor\spdlog\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Vendor\GLEW\include;$(ProjectDir)Vendor\GLFW\include;$(SolutionDir)Engine\Vendor\spdlog\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>PCH.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Binary\$(Configuration)\GLFW;</AdditionalLibraryDirectories>
-      <AdditionalDependencies>GLFW.lib;opengl32.lib;User32.lib;Gdi32.lib;Shell32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Binary\$(Configuration)\GLFW;$(SolutionDir)Binary\$(Configuration)\GLEW</AdditionalLibraryDirectories>
+      <AdditionalDependencies>GLEW.lib;GLFW.lib;opengl32.lib;User32.lib;Gdi32.lib;Shell32.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y /d "$(SolutionDir)Binary\$(Configuration)\Engine\Engine.dll" "$(OutDir)"</Command>
+      <Command>xcopy /y /d "$(SolutionDir)Binary\$(Configuration)\Engine\Engine.dll" "$(SolutionDir)Binary\$(Configuration)\TankGame"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -79,9 +79,9 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>ENGINE_WIN_PLATFORM;ENGINE_BUILD_DLL;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLEW_STATIC;ENGINE_WIN_PLATFORM;ENGINE_BUILD_DLL;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Vendor\GLFW\include;$(SolutionDir)Engine\Vendor\spdlog\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Vendor\GLEW\include;$(ProjectDir)Vendor\GLFW\include;$(SolutionDir)Engine\Vendor\spdlog\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>PCH.h</PrecompiledHeaderFile>
     </ClCompile>
@@ -90,11 +90,11 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Binary\$(Configuration)\GLFW;</AdditionalLibraryDirectories>
-      <AdditionalDependencies>GLFW.lib;opengl32.lib;User32.lib;Gdi32.lib;Shell32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Binary\$(Configuration)\GLFW;$(SolutionDir)Binary\$(Configuration)\GLEW</AdditionalLibraryDirectories>
+      <AdditionalDependencies>GLEW.lib;GLFW.lib;opengl32.lib;User32.lib;Gdi32.lib;Shell32.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y /d "$(SolutionDir)Binary\$(Configuration)\Engine\Engine.dll" "$(OutDir)"</Command>
+      <Command>xcopy /y /d "$(SolutionDir)Binary\$(Configuration)\Engine\Engine.dll" "$(SolutionDir)Binary\$(Configuration)\TankGame"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -126,6 +126,14 @@
     <ClInclude Include="Vendor\spdlog\include\spdlog\spdlog.h" />
     <ClInclude Include="Vendor\spdlog\include\spdlog\sinks\stdout_color_sinks.h" />
     <ClInclude Include="Vendor\spdlog\include\spdlog\fmt\ostr.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Vendor\GLEW\GLEW.vcxproj">
+      <Project>{9406e4f2-f962-4f7c-a186-89d46d271e10}</Project>
+    </ProjectReference>
+    <ProjectReference Include="Vendor\GLFW\GLFW.vcxproj">
+      <Project>{6a68a5eb-25f5-4647-9849-285f1bab32b2}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

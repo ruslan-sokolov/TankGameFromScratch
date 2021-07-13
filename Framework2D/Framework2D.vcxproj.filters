@@ -57,6 +57,9 @@
     <ClInclude Include="Source\Framework2D\Graphic2D\Resources\Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Vendor\stb_image\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Framework2D\Initializer.cpp">
