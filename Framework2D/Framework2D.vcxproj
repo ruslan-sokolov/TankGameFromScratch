@@ -63,13 +63,13 @@
       <PrecompiledHeaderFile>PCH_Framework.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>
       </ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>$(ProjectDir)Vendor;$(SolutionDir)Framework2D\Source;$(SolutionDir)Engine\Source;$(SolutionDir)Engine\Vendor\GLEW\include;$(SolutionDir)Engine\Vendor\GLFW\include;$(SolutionDir)Engine\Vendor\spdlog\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Vendor;$(SolutionDir)Framework2D\Source;$(SolutionDir)Engine\Source;$(SolutionDir)Engine\Vendor\GLEW\include;$(SolutionDir)Engine\Vendor\GLFW\include;$(SolutionDir)Engine\Vendor\spdlog\include;$(SolutionDir)Engine\Vendor\GLM</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>GLEW.lib;GLFW.lib;opengl32.lib;User32.lib;Gdi32.lib;Shell32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)Binary\$(Configuration)\GLFW;$(SolutionDir)Binary\$(Configuration)\GLEW;</AdditionalLibraryDirectories>
+      <AdditionalDependencies>GLM.lib;GLEW.lib;GLFW.lib;opengl32.lib;User32.lib;Gdi32.lib;Shell32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Binary\$(Configuration)\GLFW;$(SolutionDir)Binary\$(Configuration)\GLEW;$(SolutionDir)Binary\$(Configuration)\GLM</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
       <Command>
@@ -91,15 +91,15 @@
       <PrecompiledHeaderFile>PCH_Framework.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>
       </ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>$(ProjectDir)Vendor;$(SolutionDir)Framework2D\Source;$(SolutionDir)Engine\Source;$(SolutionDir)Engine\Vendor\GLEW\include;$(SolutionDir)Engine\Vendor\GLFW\include;$(SolutionDir)Engine\Vendor\spdlog\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Vendor;$(SolutionDir)Framework2D\Source;$(SolutionDir)Engine\Source;$(SolutionDir)Engine\Vendor\GLEW\include;$(SolutionDir)Engine\Vendor\GLFW\include;$(SolutionDir)Engine\Vendor\spdlog\include;$(SolutionDir)Engine\Vendor\GLM</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>GLEW.lib;GLFW.lib;opengl32.lib;User32.lib;Gdi32.lib;Shell32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)Binary\$(Configuration)\GLFW;$(SolutionDir)Binary\$(Configuration)\GLEW;</AdditionalLibraryDirectories>
+      <AdditionalDependencies>GLM.lib;GLEW.lib;GLFW.lib;opengl32.lib;User32.lib;Gdi32.lib;Shell32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Binary\$(Configuration)\GLFW;$(SolutionDir)Binary\$(Configuration)\GLEW;$(SolutionDir)Binary\$(Configuration)\GLM</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
       <Command>
@@ -124,8 +124,9 @@
     <ClInclude Include="Source\Framework2D\Graphic2D\Groups\GroupSolid.h" />
     <ClInclude Include="Source\Framework2D\Graphic2D\Groups\GroupSprite.h" />
     <ClInclude Include="Source\Framework2D\Graphic2D\Layer2D.h" />
-    <ClInclude Include="Source\Framework2D\Graphic2D\Resources\ResourceLoader.h" />
-    <ClInclude Include="Source\Framework2D\Graphic2D\Resources\Texture.h" />
+    <ClInclude Include="Source\Framework2D\Graphic2D\Render\ResourceLoader.h" />
+    <ClInclude Include="Source\Framework2D\Graphic2D\Render\Shader.h" />
+    <ClInclude Include="Source\Framework2D\Graphic2D\Render\Texture.h" />
     <ClInclude Include="Source\Framework2D\Initializer.h" />
     <ClInclude Include="Source\Framework2D\Structs\VecInt2D.h" />
     <ClInclude Include="Source\PCH_Framework.h" />
@@ -139,13 +140,15 @@
     <ClCompile Include="Source\Framework2D\Graphic2D\Groups\GroupSolid.cpp" />
     <ClCompile Include="Source\Framework2D\Graphic2D\Groups\GroupSprite.cpp" />
     <ClCompile Include="Source\Framework2D\Graphic2D\Layer2D.cpp" />
-    <ClCompile Include="Source\Framework2D\Graphic2D\Resources\ResourceLoader.cpp" />
-    <ClCompile Include="Source\Framework2D\Graphic2D\Resources\Texture.cpp" />
+    <ClCompile Include="Source\Framework2D\Graphic2D\Render\ResourceLoader.cpp" />
+    <ClCompile Include="Source\Framework2D\Graphic2D\Render\Shader.cpp" />
+    <ClCompile Include="Source\Framework2D\Graphic2D\Render\Texture.cpp" />
     <ClCompile Include="Source\Framework2D\Initializer.cpp" />
     <ClCompile Include="Source\PCH_Framework.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Vendor\stb_image\stb_image.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
