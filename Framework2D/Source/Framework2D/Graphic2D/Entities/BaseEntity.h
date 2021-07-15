@@ -3,7 +3,7 @@
 #include <Framework2D/Framework2DAPI.h>
 #include "Engine.h"
 
-#include <Framework2D/Structs/VecInt2D.h>
+#include <Framework2D/Structs/Vectors.h>
 
 namespace Framework2D {
 
@@ -17,12 +17,12 @@ namespace Framework2D {
 		Group* EntityGroup;
 		const std::string Name;
 
-		BaseEntity(const std::string& Name) : Name(Name), EntityGroup(nullptr), bRenderEnabled(false) {}
+		BaseEntity(const std::string& Name, VecInt2D Size = VecZero, VecInt2D Position = VecZero, bool bRenderEnable = false) 
+			: Name(Name), Size(Size), Position(Position), bRenderEnabled(bRenderEnable), EntityGroup(nullptr) {}
 		virtual ~BaseEntity();
 
 		VecInt2D Size;
 		VecInt2D Position;
-
 		bool bRenderEnabled;
 
 	public:
@@ -32,5 +32,13 @@ namespace Framework2D {
 
 		virtual void OnUpdate(float DeltaTime) = 0;
 		virtual void OnEvent(Engine::Event& e) = 0;
+
+		inline VecInt2D GetSize() const { return Size; }
+		inline VecInt2D GetPosition() const { return Position; }
+		inline void SetSize(VecInt2D& Size) { this->Size = Size; }
+		inline void SetPosition(VecInt2D& Position) { this->Position = Position; }
+		
+		inline void SetEnableRender(bool bEnable) { bRenderEnabled = bEnable; }
+		inline bool IsRenderEnabled() const { return bRenderEnabled;}
 	};
 }

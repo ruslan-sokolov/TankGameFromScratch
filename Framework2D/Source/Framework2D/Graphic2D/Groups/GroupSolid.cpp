@@ -29,7 +29,11 @@ namespace Framework2D {
 
 	void GroupSolid::OnDraw()
 	{
-		
+		for (auto& Entity : Entities)
+		{
+			auto Solid = static_cast<SolidEntity*>(Entity);
+			Solid->GetVertexQuad();
+		}
 	}
 
 	bool GroupSolid::AddSolid(SolidEntity* Solid)

@@ -20,6 +20,8 @@ namespace Framework2D {
 
 		int Width, Height, BPP;
 
+		mutable int ActiveSlot;
+
 	public:
 		
 		~Texture();
@@ -29,6 +31,8 @@ namespace Framework2D {
 
 		inline int GetWidth() const { return Width; }
 		inline int GetHeight() const { return Height; }
+		
+		inline int GetActiveSlot() const { return ActiveSlot; }
 
 		static int GetMaxTextureBind();
 

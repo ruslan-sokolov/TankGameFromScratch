@@ -7,7 +7,7 @@
 namespace Framework2D {
 
 	Texture::Texture(const std::string& Path)
-		: RendererID(0), FilePath(Path), ImageCache(nullptr), Width(0), Height(0), BPP(0)
+		: RendererID(0), FilePath(Path), ImageCache(nullptr), Width(0), Height(0), BPP(0), ActiveSlot(0)
 	{
 		stbi_set_flip_vertically_on_load(1);
 		ImageCache = stbi_load(FilePath.c_str(), &Width, &Height, &BPP, 4);
@@ -36,12 +36,14 @@ namespace Framework2D {
 
 	void Texture::Bind(unsigned int slot) const
 	{
+		ActiveSlot = slot;
 		glActiveTexture(GL_TEXTURE0 + slot);
 		glBindTexture(GL_TEXTURE_2D, RendererID);
 	}
 
 	void Texture::Unbind() const
 	{
+		ActiveSlot = 0;
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 

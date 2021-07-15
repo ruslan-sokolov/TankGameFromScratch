@@ -4,6 +4,33 @@
 
 namespace Framework2D {
 
+	struct VecInt2D;
+
+	struct Vec4
+	{
+		float r, g, b, a;
+		Vec4() : r(0), g(0), b(0), a(0) {}
+	};
+
+	//static const 
+
+	struct Vec3
+	{
+		float x, y, z;
+		Vec3() : x(0), y(0), z(0) {}
+	};
+
+	struct Vec2
+	{
+		float x, y;
+		
+		Vec2() : x(0), y(0) {}
+		Vec2(float x, float y) : x(x), y(y) {}
+		Vec2(int x, int y) : x(x), y(y) {}
+		Vec2(float both) : x(both), y(both) {}
+		Vec2(const VecInt2D&);
+	};
+
 	struct VecInt2D
 	{
 	public:
@@ -13,6 +40,8 @@ namespace Framework2D {
 		VecInt2D() {}
 
 		VecInt2D(const VecInt2D& Other) : X(Other.X), Y(Other.Y) {}
+		 
+		VecInt2D(const Vec2& Other) : X(static_cast<int>(Other.x)), Y(static_cast<int>(Other.y)) {};
 
 		VecInt2D(int InX, int InY) : X(InX), Y(InY) {}
 
@@ -48,6 +77,8 @@ namespace Framework2D {
 			return VecInt2D(Vec1.X > Vec2.X ? Vec1.X : Vec2.X, Vec1.Y > Vec2.Y ? Vec1.Y : Vec2.Y);
 		}
 	};
+
+	inline Vec2::Vec2(const VecInt2D& Other) : x(Other.X), y(Other.Y) {}
 
 	enum class Direction
 	{

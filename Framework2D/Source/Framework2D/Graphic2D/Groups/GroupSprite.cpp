@@ -29,7 +29,11 @@ namespace Framework2D {
 
 	void GroupSprite::OnDraw()
 	{
-
+		for (auto& Entity : Entities)
+		{
+			auto Sprite = static_cast<SpriteEntity*>(Entity);
+			Sprite->GetVertexQuad();
+		}
 	}
 
 	bool GroupSprite::AddSprite(SpriteEntity* spriteEntity)

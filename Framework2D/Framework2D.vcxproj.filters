@@ -48,7 +48,7 @@
     <ClInclude Include="Source\Framework2D\Graphic2D\Entities\SolidEntity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Framework2D\Structs\VecInt2D.h">
+    <ClInclude Include="Source\Framework2D\Structs\Vectors.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Framework2D\Graphic2D\Render\ResourceLoader.h">
