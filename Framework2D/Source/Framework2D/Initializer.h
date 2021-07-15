@@ -6,6 +6,8 @@ namespace Framework2D {
 
 	class FRAMEWORK2D_API Initializer
 	{
+		bool bIsGlewInitialized;
+
 	public:
 		Initializer();
 		virtual ~Initializer();

@@ -31,7 +31,6 @@ namespace Framework2D {
 
 	Texture::~Texture()
 	{
-		ENGINE_LOG(warn, "~Texture : glDeleteTextures {0}", FilePath);
 		glDeleteTextures(1, &RendererID);
 	}
 

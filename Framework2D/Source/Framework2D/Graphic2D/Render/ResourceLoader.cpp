@@ -9,6 +9,7 @@ namespace Framework2D {
 	inline void ResourceLoader::LoadTexture(const std::string& Path)
 	{
 		LoadedTextures.try_emplace(Path, Texture(Path));
+		ENGINE_LOG(info, "[Framework2D::ResourceLoader] Texture {0} loaded", Path);
 	}
 
 	inline void ResourceLoader::UnloadTexture(const std::string& Path)
@@ -28,6 +29,7 @@ namespace Framework2D {
 	inline void ResourceLoader::RegisterShader(ShaderType Type, const std::string Path)
 	{
 		ShaderCache.try_emplace(Type, Shader(Path));
+		ENGINE_LOG(info, "[Framework2D::ResourceLoader] Shader {0} loaded", Path);
 	}
 
 	inline void ResourceLoader::DeleteShader(ShaderType Type)

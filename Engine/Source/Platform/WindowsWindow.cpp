@@ -131,6 +131,8 @@ namespace Engine {
 	WindowsWindow::WindowsWindow(const WindowProps& Props)
 	{
 		Init(Props);
+
+		ENGINE_LOG(LOG_INFO, "Created Windows window '{0}' ({1}, {2})", Props.Title, Props.Width, Props.Height);
 	}
 
 	WindowsWindow::~WindowsWindow()
@@ -143,8 +145,6 @@ namespace Engine {
 		Data.Title = Props.Title;
 		Data.Width = Props.Width;
 		Data.Height = Props.Height;
-
-		ENGINE_LOG(LOG_INFO, "Creating window {0} ({1}, {2})", Props.Title, Props.Width, Props.Height);
 
 		if (!s_GLFWInitialized)
 		{
@@ -170,6 +170,11 @@ namespace Engine {
 				ENGINE_ASSERT(SuccessGLEWInit, "Could not initialize GLEW!");
 
 				ENGINE_LOG(trace, "Open GL Version: {0}", glGetString(GL_VERSION));
+
+				ENGINE_LOG(error, "WindowsWindow::Init(): after glewInit()!");
+				ENGINE_LOG(warn, "\t glGetString addr: {0:x}", (unsigned int)&glGenTextures);
+				ENGINE_LOG(warn, "\t glGenTextures addr: {0:x}", (unsigned int)&glGenTextures);
+				ENGINE_LOG(warn, "\t glCreateProgram addr: {0:x}", (unsigned int)&glCreateProgram);
 
 				// Open GL Blending Alpha
 				glEnable(GL_BLEND);

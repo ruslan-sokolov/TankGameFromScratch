@@ -4,8 +4,6 @@
 #include "Groups/Group.h"
 #include "Entities/BaseEntity.h"
 
-// debug
-#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -25,8 +23,7 @@ namespace Framework2D {
 
 	void Layer2D::OnAttach()
 	{
-		// debug
-		ENGINE_LOG(trace, "ON ATTACH Open GL Version: {0}", glGetString(GL_VERSION));
+
 	}
 
 	void Layer2D::OnDetach()
@@ -43,15 +40,13 @@ namespace Framework2D {
 		glClearColor(r_color, 0.0, 0.0, 1.0);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		r_color += 1 * DeltaTime;
+		r_color += 1.0f * DeltaTime;
 		if (r_color >= 1.0f) r_color = 0.0f;
 
 		glm::vec3 SomeVec = glm::vec3(0.0f, 0.0f, 0.0f);
 		glm::mat4 proj = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
 		glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
-
-		// debug
-		// ENGINE_LOG(info, "DeltaTime: {0}", DeltaTime);
+		//
 
 		for (auto& pair : Groups)
 		{

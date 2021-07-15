@@ -5,7 +5,8 @@
 
 namespace Framework2D {
 
-	Initializer::Initializer() 
+	Initializer::Initializer()
+		: bIsGlewInitialized(false)
 	{
 	
 	}
@@ -17,6 +18,22 @@ namespace Framework2D {
 
 	void Initializer::Init()
 	{
-		ENGINE_LOG(LOG_WARN, "Initializer Init()");
+		ENGINE_LOG(info, "Framework2D::Initializer::Init()");
+
+		// this need to be called in every dll
+		if (!bIsGlewInitialized)
+		{
+			int SuccessGLEWInit = glewInit() == GLEW_OK;
+			ENGINE_ASSERT(SuccessGLEWInit, "Could not initialize GLEW!");
+			bIsGlewInitialized = true;
+		}
+
+		// Load Textures
+		ResourceLoader::LoadTexture("Resources/Texutes/sun_pic.png");
+		ResourceLoader::LoadTexture("Resources/Texutes/UE_Logo.png");
+		
+		// Register Shaders
+		ResourceLoader::RegisterShader(ShaderType::QuadBatchColor, "Resources/Shaders/QuadBatchColor.shader");
+		ResourceLoader::RegisterShader(ShaderType::QuadBatchTexture, "Resources/Shaders/QuadBatchTexture.shader");
 	}
 }

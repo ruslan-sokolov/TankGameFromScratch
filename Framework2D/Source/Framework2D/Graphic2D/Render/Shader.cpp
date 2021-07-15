@@ -131,6 +131,7 @@ namespace Framework2D {
 
 	unsigned int Shader::CreateShader(const std::string& VertexShader, const std::string& FragmentShader)
 	{
+		
 		unsigned int Program = glCreateProgram();
 		unsigned int vs = CompileShader(GL_VERTEX_SHADER, VertexShader);
 		unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, FragmentShader);
