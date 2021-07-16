@@ -17,7 +17,7 @@ namespace Framework2D {
 		Group* EntityGroup;
 		const std::string Name;
 
-		BaseEntity(const std::string& Name, VecInt2D Size = VecZero, VecInt2D Position = VecZero, bool bRenderEnable = false) 
+		BaseEntity(const std::string& Name, VecInt2D Size = VecInt2D::VecZero, VecInt2D Position = VecInt2D::VecZero, bool bRenderEnable = false) 
 			: Name(Name), Size(Size), Position(Position), bRenderEnabled(bRenderEnable), EntityGroup(nullptr) {}
 		virtual ~BaseEntity();
 

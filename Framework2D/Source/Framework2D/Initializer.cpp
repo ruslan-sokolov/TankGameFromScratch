@@ -31,6 +31,7 @@ namespace Framework2D {
 		// Load Textures
 		ResourceLoader::LoadTexture("Resources/Texutes/sun_pic.png");
 		ResourceLoader::LoadTexture("Resources/Texutes/UE_Logo.png");
+		ResourceLoader::LoadTexture("shiet");
 		
 		// Register Shaders
 		ResourceLoader::RegisterShader(ShaderType::QuadBatchColor, "Resources/Shaders/QuadBatchColor.shader");

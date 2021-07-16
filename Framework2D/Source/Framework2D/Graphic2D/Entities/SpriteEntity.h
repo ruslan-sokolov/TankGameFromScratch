@@ -32,9 +32,9 @@ namespace Framework2D {
 	public:
 		// Constructor with texture ptr assignement 
 		SpriteEntity(const std::string& Name, Texture* texture,
-			const VecInt2D& Position, const Vec4& Color, bool bEnableRender = true);
+			const VecInt2D& Position, const Vec4& Color = Vec4::WhiteColor, bool bEnableRender = true);
 		SpriteEntity(const std::string& Name, const std::string& TexturePath,
-			const VecInt2D& Position, const Vec4& Color, bool bEnableRender = true);
+			const VecInt2D& Position, const Vec4& Color = Vec4::WhiteColor, bool bEnableRender = true);
 		
 		~SpriteEntity();
 

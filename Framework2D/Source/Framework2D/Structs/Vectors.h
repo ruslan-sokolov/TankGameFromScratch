@@ -1,26 +1,36 @@
 #pragma once
 
+#include <Framework2D/Framework2DAPI.h>
 #include <cmath>
 
 namespace Framework2D {
 
 	struct VecInt2D;
 
-	struct Vec4
+	struct FRAMEWORK2D_API Vec4
 	{
 		float r, g, b, a;
 		Vec4() : r(0), g(0), b(0), a(0) {}
+		Vec4(float r, float g, float b, float a) : r(r), g(g), b(b), a(a) {}
+
+		static const Vec4 BlackColor;
+		static const Vec4 WhiteColor;
+		static const Vec4 RedColor;
+		static const Vec4 GreenColor;
+		static const Vec4 BlueColor;
+		static const Vec4 YellowColor;
+		static const Vec4 CyanColor;
+		static const Vec4 MagentaColor;
+		static const Vec4 GrayColor;
 	};
 
-	//static const 
-
-	struct Vec3
+	struct FRAMEWORK2D_API Vec3
 	{
 		float x, y, z;
 		Vec3() : x(0), y(0), z(0) {}
 	};
 
-	struct Vec2
+	struct FRAMEWORK2D_API Vec2
 	{
 		float x, y;
 		
@@ -31,7 +41,7 @@ namespace Framework2D {
 		Vec2(const VecInt2D&);
 	};
 
-	struct VecInt2D
+	struct FRAMEWORK2D_API VecInt2D
 	{
 	public:
 		int X = 0;
@@ -76,6 +86,13 @@ namespace Framework2D {
 		inline static VecInt2D GetMax(const VecInt2D& Vec1, const VecInt2D& Vec2) {
 			return VecInt2D(Vec1.X > Vec2.X ? Vec1.X : Vec2.X, Vec1.Y > Vec2.Y ? Vec1.Y : Vec2.Y);
 		}
+
+		static const VecInt2D VecZero;
+		static const VecInt2D VecOne;
+		static const VecInt2D VecLeft;
+		static const VecInt2D VecRight;
+		static const VecInt2D VecUp;
+		static const VecInt2D VecDown;
 	};
 
 	inline Vec2::Vec2(const VecInt2D& Other) : x(Other.X), y(Other.Y) {}
@@ -87,13 +104,6 @@ namespace Framework2D {
 		DOWN,
 		UP
 	};
-
-	static const VecInt2D VecZero(0, 0);
-	static const VecInt2D VecOne(1, 1);
-	static const VecInt2D VecLeft(-1, 0);
-	static const VecInt2D VecRight(1, 0);
-	static const VecInt2D VecUp(0, -1);
-	static const VecInt2D VecDown(0, 1);
 
 	inline Direction GetRandomDirection()
 	{
@@ -162,16 +172,16 @@ namespace Framework2D {
 		switch (Dir)
 		{
 		case Direction::UP:
-			DirectionVector = VecUp;
+			DirectionVector = VecInt2D::VecUp;
 			break;
 		case Direction::DOWN:
-			DirectionVector = VecDown;
+			DirectionVector = VecInt2D::VecDown;
 			break;
 		case Direction::LEFT:
-			DirectionVector = VecLeft;
+			DirectionVector = VecInt2D::VecLeft;
 			break;
 		default:
-			DirectionVector = VecRight;
+			DirectionVector = VecInt2D::VecRight;
 			break;
 		}
 

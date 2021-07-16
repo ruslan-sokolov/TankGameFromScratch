@@ -22,9 +22,13 @@ namespace Framework2D {
 
 		mutable int ActiveSlot;
 
+		bool bIsValid;
+
 	public:
 		
 		~Texture();
+
+		bool IsValid() const { return bIsValid; }
 
 		void Bind(unsigned int slot = 0) const;
 		void Unbind() const;

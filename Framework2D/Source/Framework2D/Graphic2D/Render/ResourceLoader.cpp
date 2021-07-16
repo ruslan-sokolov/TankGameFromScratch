@@ -8,8 +8,17 @@ namespace Framework2D {
 
 	inline void ResourceLoader::LoadTexture(const std::string& Path)
 	{
-		LoadedTextures.try_emplace(Path, Texture(Path));
-		ENGINE_LOG(info, "[Framework2D::ResourceLoader] Texture {0} loaded", Path);
+		Texture TempTexture = Texture(Path);
+		
+		if (TempTexture.IsValid())
+		{
+			LoadedTextures.try_emplace(Path, TempTexture);
+			ENGINE_LOG(info, "[Framework2D::ResourceLoader] Texture {0} loaded", Path);
+		}
+		else
+		{
+			ENGINE_LOG(error, "[Framework2D::ResourceLoader] Can't load {0} Texture", Path);
+		}
 	}
 
 	inline void ResourceLoader::UnloadTexture(const std::string& Path)
@@ -20,6 +29,10 @@ namespace Framework2D {
 
 	inline Texture* ResourceLoader::GetTexture(const std::string& Path)
 	{
+		// Load texture on demand
+		if (LoadedTextures.find(Path) == LoadedTextures.end())
+			LoadTexture(Path);
+
 		if (LoadedTextures.find(Path) == LoadedTextures.end())
 			return nullptr;
 

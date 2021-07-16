@@ -9,6 +9,10 @@ namespace Framework2D {
 	Texture::Texture(const std::string& Path)
 		: RendererID(0), FilePath(Path), ImageCache(nullptr), Width(0), Height(0), BPP(0), ActiveSlot(0)
 	{
+		// check if valid TODO
+		bIsValid = true;
+
+		// load image data
 		stbi_set_flip_vertically_on_load(1);
 		ImageCache = stbi_load(FilePath.c_str(), &Width, &Height, &BPP, 4);
 
@@ -25,6 +29,7 @@ namespace Framework2D {
 		// specify pixel array to texture and unbind texture
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, Width, Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, ImageCache);
 		
+		// free image data
 		if (ImageCache)
 			stbi_image_free(ImageCache);
 	}
