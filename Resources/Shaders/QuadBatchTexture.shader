@@ -4,14 +4,14 @@
 layout(location = 0) in vec2 a_Position;
 layout(location = 1) in vec4 a_Color;
 layout(location = 2) in vec2 a_TexCoord;
-loyout(location = 3) in float a_TextureSlot;
+layout(location = 3) in int a_TextureSlot;
 
 uniform mat4 u_ViewProj;
 uniform mat4 u_Transform;
 
 out vec4 v_Color;
 out vec2 v_TexCoord;
-out float v_TextureSlot;
+out int v_TextureSlot;
 
 void main()
 {
@@ -28,12 +28,11 @@ layout(location = 0) out vec4 o_Color;
 
 in vec4 v_Color;
 in vec2 v_TexCoord;
-in float v_TextureSlot;
+flat in int v_TextureSlot;
 
 uniform sampler2D u_Textures[32];
 
 void main()
 {
-    int index = int(v_TextureSlot);
-    o_Color = texture(u_Textures[index], v_TexCoord) * v_Color;
+    o_Color = texture(u_Textures[v_TextureSlot], v_TexCoord) * v_Color;
 }

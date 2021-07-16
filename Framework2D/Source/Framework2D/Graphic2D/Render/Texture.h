@@ -12,7 +12,7 @@ namespace Framework2D {
 	{
 		friend class ResourceLoader;
 
-		const std::string FilePath;
+		std::string FilePath;
 
 		unsigned int RendererID;
 
@@ -22,13 +22,18 @@ namespace Framework2D {
 
 		mutable int ActiveSlot;
 
-		bool bIsValid;
+		bool bSuccessfullyCreated;
+
+		explicit Texture(const std::string& Path);
+		Texture(const Texture&) = delete;
+		Texture& operator=(Texture&) = delete;
+		Texture& operator=(Texture&&) = delete;
 
 	public:
-		
+		Texture(Texture&& t) noexcept;
 		~Texture();
 
-		bool IsValid() const { return bIsValid; }
+		inline bool IsSuccessfullyCreated() const{ return bSuccessfullyCreated; }
 
 		void Bind(unsigned int slot = 0) const;
 		void Unbind() const;
@@ -40,9 +45,7 @@ namespace Framework2D {
 
 		static int GetMaxTextureBind();
 
-	protected:
 
-		Texture(const std::string& Path);
 	};
 
 }

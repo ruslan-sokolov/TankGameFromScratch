@@ -9,12 +9,14 @@ namespace Framework2D {
 	Texture::Texture(const std::string& Path)
 		: RendererID(0), FilePath(Path), ImageCache(nullptr), Width(0), Height(0), BPP(0), ActiveSlot(0)
 	{
-		// check if valid TODO
-		bIsValid = true;
-
 		// load image data
 		stbi_set_flip_vertically_on_load(1);
 		ImageCache = stbi_load(FilePath.c_str(), &Width, &Height, &BPP, 4);
+
+		// validate
+		bSuccessfullyCreated = ImageCache != nullptr;
+		if (!bSuccessfullyCreated)
+			ENGINE_LOG(error, "Texture '{0}' fail to read image file");
 
 		// generate and bind texture
 		glGenTextures(1, &RendererID);
@@ -34,9 +36,18 @@ namespace Framework2D {
 			stbi_image_free(ImageCache);
 	}
 
+	Texture::Texture(Texture&& t) noexcept
+		: RendererID(t.RendererID), FilePath(std::move(FilePath)), ImageCache(ImageCache),
+		Width(t.Width), Height(t.Height), BPP(t.BPP), ActiveSlot(t.ActiveSlot), bSuccessfullyCreated(t.bSuccessfullyCreated)
+	{
+		t.ImageCache = nullptr;
+		t.RendererID = 0;
+	}
+
 	Texture::~Texture()
 	{
-		glDeleteTextures(1, &RendererID);
+		if (RendererID != 0)
+			glDeleteTextures(1, &RendererID);
 	}
 
 	void Texture::Bind(unsigned int slot) const

@@ -12,7 +12,7 @@ namespace Framework2D {
 		Vec2 Position;
 		Vec4 Color;
 		Vec2 TexCoord;
-		float TextureSlot;
+		int TextureSlot;
 	};
 
 	struct VertexBatchTextureQuad

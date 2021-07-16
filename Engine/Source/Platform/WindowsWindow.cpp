@@ -120,7 +120,7 @@ namespace Engine {
 		}
 
 		ENGINE_LOG(LOG_ERR, "{0}: {1} of {2} severity, raised from {3}: {4}",
-			id, _type, _severity, _source, msg);
+			(int)id, _type, _severity, _source, (const char*)msg);
 	}
 
 	Window* Window::Create(const WindowProps& Props)
@@ -155,6 +155,7 @@ namespace Engine {
 			glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+			glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 
 			GL_Window = glfwCreateWindow(Props.Width, Props.Height, Data.Title.c_str(), nullptr, nullptr);
 			glfwMakeContextCurrent(GL_Window);
@@ -170,11 +171,6 @@ namespace Engine {
 				ENGINE_ASSERT(SuccessGLEWInit, "Could not initialize GLEW!");
 
 				ENGINE_LOG(trace, "Open GL Version: {0}", glGetString(GL_VERSION));
-
-				ENGINE_LOG(error, "WindowsWindow::Init(): after glewInit()!");
-				ENGINE_LOG(warn, "\t glGetString addr: {0:x}", (unsigned int)&glGenTextures);
-				ENGINE_LOG(warn, "\t glGenTextures addr: {0:x}", (unsigned int)&glGenTextures);
-				ENGINE_LOG(warn, "\t glCreateProgram addr: {0:x}", (unsigned int)&glCreateProgram);
 
 				// Open GL Blending Alpha
 				glEnable(GL_BLEND);

@@ -1,20 +1,23 @@
 #pragma once
 
-#include <istream>
-#include <memory>
-#include <utility>
-#include <algorithm>
-#include <functional>
-
-#include <string>
-#include <sstream>
-
 #include <vector>
 #include <array>
 #include <unordered_map>
 #include <unordered_set>
 
-#include <Engine/Log.h>
+#include <stdlib.h>
+
+#include <string>
+#include <sstream>
+#include <fstream>
+#include <istream>
+#include <iostream>
 
 #include <cmath>
+#include <memory>
+#include <utility>
+#include <algorithm>
+#include <functional>
+
+#include <Engine/Log.h>
 #include <Framework2D/Structs/Vectors.h>

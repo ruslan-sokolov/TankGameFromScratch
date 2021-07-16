@@ -1,21 +1,27 @@
 #include <PCH_Framework.h>
 #include "Shader.h"
 
-#include <fstream>
-#include <sstream>
-
 namespace Framework2D {
 
 	Shader::Shader(const std::string& Path)
 		: FilePath(Path), RendererID(0)
 	{
-		ShaderProgramSource Source = ParseShader(FilePath);
-		RendererID = CreateShader(Source.VertexSource, Source.FragmentSource);
+		ShaderProgramSource Source = ParseShader(FilePath, bSuccessfullyCreated);
+		if (bSuccessfullyCreated)
+			RendererID = CreateShader(Source.VertexSource, Source.FragmentSource, bSuccessfullyCreated);
+	}
+
+	Shader::Shader(Shader&& s) noexcept
+		: FilePath(std::move(s.FilePath)), RendererID(s.RendererID), 
+		UniformLocationCache(std::move(s.UniformLocationCache)), bSuccessfullyCreated(s.bSuccessfullyCreated)
+	{
+		s.RendererID = 0;
 	}
 
 	Shader::~Shader()
 	{
-		glDeleteProgram(RendererID);
+		if (RendererID != 0)
+			glDeleteProgram(RendererID);
 	}
 
 	inline void Shader::Bind()
@@ -77,15 +83,23 @@ namespace Framework2D {
 	}
 
 	// static ----------------------------------------------------
-	ShaderProgramSource Shader::ParseShader(const std::string& FilePath)
+	ShaderProgramSource Shader::ParseShader(const std::string& FilePath, bool& bIsSuccess)
 	{
-		std::ifstream Stream(FilePath);
-
 		std::string Line;
 		std::stringstream SS[2];
 		ShaderSourceType Type = ShaderSourceType::NONE;
 
-		while (getline(Stream, Line))
+		std::ifstream FileStream(FilePath);
+
+		// check if can read file;
+		if (FileStream.fail())
+		{
+			bIsSuccess = false;
+			ENGINE_LOG(trace, "Failed to parse shader {0}, Exception open/read/close file", FilePath);
+			return ShaderProgramSource();
+		}
+
+		while (getline(FileStream, Line))
 		{
 			if (Line.find("#shader") != std::string::npos)
 			{
@@ -98,6 +112,7 @@ namespace Framework2D {
 			}
 		}
 
+		bIsSuccess = true;
 		return { SS[0].str(), SS[1].str() };
 	}
 
@@ -108,33 +123,34 @@ namespace Framework2D {
 		glShaderSource(Id, 1, &Src, NULL);
 		glCompileShader(Id);
 
-		// Error handle
+		// error handle
 		int Result;
 		glGetShaderiv(Id, GL_COMPILE_STATUS, &Result);
 		if (Result == GL_FALSE)
 		{
 			int Length;
 			glGetShaderiv(Id, GL_INFO_LOG_LENGTH, &Length);
-
-			std::string Msg;
-			glGetShaderInfoLog(Id, Length, &Length, (GLchar*)Msg.data());
-
+			char* Msg = new char[Length];
+			glGetShaderInfoLog(Id, Length, &Length, Msg);
 			ENGINE_LOG(error, "Failed to compile {0} shader!", Type == GL_VERTEX_SHADER ? "vertex" : "fragment");
-			ENGINE_LOG(info, "{0}", Msg);
+			ENGINE_LOG(error, "{0}", Msg);
+			delete[] Msg;
 
 			glDeleteShader(Id);
 			return 0;
-		}
+		}  //
 
 		return Id;
 	}
 
-	unsigned int Shader::CreateShader(const std::string& VertexShader, const std::string& FragmentShader)
+	unsigned int Shader::CreateShader(const std::string& VertexShader, const std::string& FragmentShader, bool& bIsSuccess)
 	{
 		
 		unsigned int Program = glCreateProgram();
 		unsigned int vs = CompileShader(GL_VERTEX_SHADER, VertexShader);
 		unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, FragmentShader);
+
+		bIsSuccess = vs != 0 && fs != 0;
 
 		glAttachShader(Program, vs);
 		glAttachShader(Program, fs);

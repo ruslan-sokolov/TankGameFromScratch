@@ -27,14 +27,13 @@ namespace Framework2D {
 			ENGINE_ASSERT(SuccessGLEWInit, "Could not initialize GLEW!");
 			bIsGlewInitialized = true;
 		}
-
+		
 		// Load Textures
-		ResourceLoader::LoadTexture("Resources/Texutes/sun_pic.png");
-		ResourceLoader::LoadTexture("Resources/Texutes/UE_Logo.png");
-		ResourceLoader::LoadTexture("shiet");
+		ResourceLoader::LoadTexture("../Resources/Textures/sun_pic.png");
+		ResourceLoader::LoadTexture("../Resources/Textures/UE_Logo.png");
 		
 		// Register Shaders
-		ResourceLoader::RegisterShader(ShaderType::QuadBatchColor, "Resources/Shaders/QuadBatchColor.shader");
-		ResourceLoader::RegisterShader(ShaderType::QuadBatchTexture, "Resources/Shaders/QuadBatchTexture.shader");
+		ResourceLoader::RegisterShader(ShaderType::QuadBatchColor, "../Resources/Shaders/QuadBatchColor.shader");
+		ResourceLoader::RegisterShader(ShaderType::QuadBatchTexture, "../Resources/Shaders/QuadBatchTexture.shader");
 	}
 }

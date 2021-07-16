@@ -10,6 +10,8 @@
 
 namespace Framework2D {
 
+	class ResourceLoader;
+
 	enum class ShaderSourceType
 	{
 		NONE = -1, VERTEX = 0, FRAGMENT = 1
@@ -23,15 +25,26 @@ namespace Framework2D {
 
 	class FRAMEWORK2D_API Shader
 	{
+		friend class ResourceLoader;
+
 		std::string FilePath;
 		unsigned int RendererID;
 
 		// uniform location cache
 		mutable std::unordered_map<std::string, GLint> UniformLocationCache;
+		
+		bool bSuccessfullyCreated;
+
+		explicit Shader(const std::string& Path);
+		Shader(const Shader&) = delete;
+		Shader& operator=(Shader&) = delete;
+		Shader& operator=(Shader&&) = delete;
 
 	public:
-		Shader(const std::string& Path);
+		Shader(Shader&& s) noexcept;
 		~Shader();
+
+		bool IsSuccessfullyCreated() { return bSuccessfullyCreated; }
 
 		inline void Bind();
 		inline void Unbind();
@@ -48,9 +61,9 @@ namespace Framework2D {
 		// Get uniform location from cache if exists or get from gpu mem and cache it
 		inline GLint GetUniformLocation(const std::string& Name) const;
 
-		static ShaderProgramSource ParseShader(const std::string& FilePath);
+		static ShaderProgramSource ParseShader(const std::string& FilePath, bool& bIsSuccess);
 		static unsigned int CompileShader(unsigned int Type, const std::string& Source);
-		static unsigned int CreateShader(const std::string& VertexShader, const std::string& FragmentShader);
+		static unsigned int CreateShader(const std::string& VertexShader, const std::string& FragmentShader, bool& bIsSuccess);
 
 	};
 

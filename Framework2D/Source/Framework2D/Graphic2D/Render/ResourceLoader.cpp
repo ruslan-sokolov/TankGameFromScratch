@@ -9,15 +9,15 @@ namespace Framework2D {
 	inline void ResourceLoader::LoadTexture(const std::string& Path)
 	{
 		Texture TempTexture = Texture(Path);
-		
-		if (TempTexture.IsValid())
+
+		if (TempTexture.IsSuccessfullyCreated())
 		{
-			LoadedTextures.try_emplace(Path, TempTexture);
+			LoadedTextures.try_emplace(Path, std::move(TempTexture));
 			ENGINE_LOG(info, "[Framework2D::ResourceLoader] Texture {0} loaded", Path);
 		}
 		else
 		{
-			ENGINE_LOG(error, "[Framework2D::ResourceLoader] Can't load {0} Texture", Path);
+			ENGINE_LOG(error, "[Framework2D::ResourceLoader] Texture {0} failed to load", Path);
 		}
 	}
 
@@ -41,8 +41,22 @@ namespace Framework2D {
 
 	inline void ResourceLoader::RegisterShader(ShaderType Type, const std::string Path)
 	{
-		ShaderCache.try_emplace(Type, Shader(Path));
-		ENGINE_LOG(info, "[Framework2D::ResourceLoader] Shader {0} loaded", Path);
+		if (ShaderCache.find(Type) != ShaderCache.end())
+		{
+			ENGINE_LOG(info, "[Framework2D::ResourceLoader] Shader {0} fail to load, already exists!", Path);
+			return;
+		}
+
+		Shader TempShader = Shader(Path);
+		if (TempShader.IsSuccessfullyCreated()) 
+		{
+			ShaderCache.emplace(Type, std::move(TempShader));
+			ENGINE_LOG(info, "[Framework2D::ResourceLoader] Shader {0} loaded", Path);
+		}
+		else
+		{
+			ENGINE_LOG(error, "[Framework2D::ResourceLoader] Shader {0} fail to load!", Path);
+		}
 	}
 
 	inline void ResourceLoader::DeleteShader(ShaderType Type)
