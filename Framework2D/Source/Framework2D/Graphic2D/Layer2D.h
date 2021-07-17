@@ -3,7 +3,7 @@
 #include <Framework2D/Framework2DAPI.h>
 #include <Engine.h>
 
-#include <map>
+#include <vector>
 
 namespace Framework2D {
 
@@ -11,7 +11,7 @@ namespace Framework2D {
 
 	class FRAMEWORK2D_API Layer2D : public Engine::Layer
 	{
-		std::map<std::string, Group*> Groups;
+		std::vector<Group*> Groups;
 
 	public:
 		Layer2D(const std::string& LayerName);
@@ -22,17 +22,18 @@ namespace Framework2D {
 		void OnUpdate(float DeltaTime) override;
 		void OnEvent(Engine::Event& e) override;
 
-		inline bool AddGroup(Group* group);
-		inline bool AddGroupFront(Group* group);
-		inline bool AddGroupAfter(Group* GroupAdd, Group* GroupAfter);
-		inline bool AddGroupBefore(Group* GroupAdd, Group* GroupBefore);
-		inline bool SwapGroup(Group* GroupLeft, Group* GroupRight);
+		inline void AddGroup(Group* group);
+		inline void AddGroupFront(Group* group);
+		inline void AddGroupAfter(Group* GroupAdd, Group* GroupAfter);
+		inline void AddGroupBefore(Group* GroupAdd, Group* GroupBefore);
+		inline void SwapGroup(Group* GroupLeft, Group* GroupRight);
 		
-		inline bool RemoveGroup(Group* Group);
-		inline bool IsGroupExists(Group* Group) const;
-		inline bool IsGroupExists(const std::string& GroupName) const;
-		inline Group* GetGroup(std::string GroupName);
+		inline void RemoveGroup(Group* group);
 		
+		inline bool IsGroupExists(Group* group);
+		inline bool IsGroupExists(const std::string& GroupName);
+		
+		inline Group* GetGroup(const std::string& GroupName);
 	};
 
 }

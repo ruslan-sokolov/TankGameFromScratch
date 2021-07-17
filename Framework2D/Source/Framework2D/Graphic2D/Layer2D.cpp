@@ -4,10 +4,6 @@
 #include "Groups/Group.h"
 #include "Entities/BaseEntity.h"
 
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-
 namespace Framework2D {
 
 	Layer2D::Layer2D(const std::string& LayerName)
@@ -33,83 +29,79 @@ namespace Framework2D {
 
 	void Layer2D::OnUpdate(float DeltaTime)
 	{
-		// debug
-		static float r_color = 0.0f;
-
-		// debug test glfw call
-		glClearColor(r_color, 0.0, 0.0, 1.0);
-		glClear(GL_COLOR_BUFFER_BIT);
-
-		r_color += 1.0f * DeltaTime;
-		if (r_color >= 1.0f) r_color = 0.0f;
-
-		glm::vec3 SomeVec = glm::vec3(0.0f, 0.0f, 0.0f);
-		glm::mat4 proj = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
-		glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
-		//
-
-		for (auto& pair : Groups)
+		for (auto& g : Groups)
 		{
-			pair.second->OnUpdate(DeltaTime);
-			pair.second->OnDraw();
+			g->OnUpdate(DeltaTime);
+			g->OnDraw();
 		}
 	}
 
 	void Layer2D::OnEvent(Engine::Event& e)
 	{
-		// ENGINE_LOG(LOG_INFO, "Layer2D: Event {0}", e.ToString());
+		for (auto& g : Groups)
+			g->OnEvent(e);
+	}
 
-		for (auto& pair : Groups)
+	inline void Layer2D::AddGroup(Group* group)
+	{
+		Groups.push_back(group);
+	}
+
+	inline void Layer2D::AddGroupFront(Group* group)
+	{
+		Groups.emplace(Groups.begin(), group);
+	}
+
+	inline void Layer2D::AddGroupAfter(Group* GroupAdd, Group* GroupAfter)
+	{
+		auto It = std::find(Groups.begin(), Groups.end(), GroupAfter);
+		
+		if (It != Groups.end()) Groups.emplace(++It, GroupAdd);
+	}
+
+	inline void Layer2D::AddGroupBefore(Group* GroupAdd, Group* GroupBefore)
+	{
+		auto It = std::find(Groups.begin(), Groups.end(), GroupBefore);
+		if (It != Groups.end()) Groups.emplace(It, GroupAdd);
+	}
+
+	inline void Layer2D::SwapGroup(Group* GroupLeft, Group* GroupRight)
+	{
+		auto ItLeft = std::find(Groups.begin(), Groups.end(), GroupLeft);
+		auto ItRight = std::find(Groups.begin(), Groups.end(), GroupRight);
+
+		if (ItLeft != Groups.end() && ItRight != Groups.end())
 		{
-			pair.second->OnEvent(e);
+			std::iter_swap(ItLeft, ItRight);
 		}
 	}
 
-	inline bool Layer2D::AddGroup(Group* group)
+	inline void Layer2D::RemoveGroup(Group* group)
 	{
-		Groups.try_emplace(group->GetName(), group);
-		return true;
+		auto It = std::find(Groups.begin(), Groups.end(), group);
+		if (It != Groups.end())
+		{
+			Groups.erase(It);
+		}
 	}
 
-	inline bool Layer2D::AddGroupFront(Group* group)
+	inline bool Layer2D::IsGroupExists(Group* group)
 	{
-		//Groups.insert
-		return false;
+		return std::find(Groups.begin(), Groups.end(), group) != Groups.end();
 	}
 
-	inline bool Layer2D::AddGroupAfter(Group* GroupAdd, Group* GroupAfter)
+	inline bool Layer2D::IsGroupExists(const std::string& GroupName)
 	{
-		return false;
+		return GetGroup(GroupName) != nullptr;
 	}
-
-	inline bool Layer2D::AddGroupBefore(Group* GroupAdd, Group* GroupBefore)
+	
+	Group* Layer2D::GetGroup(const std::string& GroupName)
 	{
-		return false;
-	}
+		auto Lambda = [&](Group* g) { return g->GetName() == GroupName; };
+		auto It = std::find_if(Groups.begin(), Groups.end(), Lambda);
 
-	inline bool Layer2D::SwapGroup(Group* GroupLeft, Group* GroupRight)
-	{
-		return false;
-	}
-
-	inline bool Layer2D::RemoveGroup(Group* Group)
-	{
-		return false;
-	}
-
-	inline bool Layer2D::IsGroupExists(Group* Group) const
-	{
-		return false;
-	}
-
-	inline bool Layer2D::IsGroupExists(const std::string& GroupName) const
-	{
-		return false;
-	}
-
-	inline Group* Layer2D::GetGroup(std::string GroupName)
-	{
-		return nullptr;
+		if (It != Groups.end()) return *It;
+		else return nullptr;
 	}
 
 }
