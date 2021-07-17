@@ -65,50 +65,49 @@ namespace Framework2D {
 		}
 	}
 
-	bool Layer2D::AddGroup(Group* group)
+	inline bool Layer2D::AddGroup(Group* group)
 	{
-		Groups[group->GetName()] = group;
-
+		Groups.try_emplace(group->GetName(), group);
 		return true;
 	}
 
-	bool Layer2D::AddGroupFront(Group* group)
+	inline bool Layer2D::AddGroupFront(Group* group)
 	{
-
+		//Groups.insert
 		return false;
 	}
 
-	bool Layer2D::AddGroupAfter(Group* GroupAdd, Group* GroupAfter)
-	{
-		return false;
-	}
-
-	bool Layer2D::AddGroupBefore(Group* GroupAdd, Group* GroupBefore)
+	inline bool Layer2D::AddGroupAfter(Group* GroupAdd, Group* GroupAfter)
 	{
 		return false;
 	}
 
-	bool Layer2D::SwapGroup(Group* GroupLeft, Group* GroupRight)
+	inline bool Layer2D::AddGroupBefore(Group* GroupAdd, Group* GroupBefore)
 	{
 		return false;
 	}
 
-	bool Layer2D::RemoveGroup(Group* Group)
+	inline bool Layer2D::SwapGroup(Group* GroupLeft, Group* GroupRight)
 	{
 		return false;
 	}
 
-	bool Layer2D::IsGroupExists(Group* Group) const
+	inline bool Layer2D::RemoveGroup(Group* Group)
 	{
 		return false;
 	}
 
-	bool Layer2D::IsGroupExists(const std::string& GroupName) const
+	inline bool Layer2D::IsGroupExists(Group* Group) const
 	{
 		return false;
 	}
 
-	Group* Layer2D::GetGroup(std::string GroupName)
+	inline bool Layer2D::IsGroupExists(const std::string& GroupName) const
+	{
+		return false;
+	}
+
+	inline Group* Layer2D::GetGroup(std::string GroupName)
 	{
 		return nullptr;
 	}

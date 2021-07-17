@@ -32,6 +32,9 @@ namespace Framework2D {
 			auto Initializer = CreateInitializer();
 			Initializer->Init();
 			delete Initializer;
+
+			// todo: test sprite entity
+			//MainLayer->AddGroup()
 		}
 
 		~Game2D()
