@@ -25,24 +25,35 @@ namespace Framework2D {
 		glGenVertexArrays(1, &QuadVA);  // generate vertex array
 		glBindVertexArray(QuadVA);
 
-		glGenBuffers(1, &QuadVB); // generate dynamic vertex buffer
+		glGenBuffers(1, &QuadVB); // generate vertex buffer
 		glBindBuffer(GL_ARRAY_BUFFER, QuadVB);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(VertexBatchColorQuad), nullptr, GL_DYNAMIC_DRAW); // alloc (will be changed frequently)
 
-		glEnableVertexAttribArray(0); // vertex layout
+		glEnableVertexAttribArray(0); // vertex buffer layout
 		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(VertexBatchColor), (const void*)offsetof(VertexBatchColor, Position));
 
 		glEnableVertexAttribArray(1);
 		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(VertexBatchColor), (const void*)offsetof(VertexBatchColor, Color));
 
 		glGenBuffers(1, &QuadIB); // generate index buffer
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, QuadIB);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint32_t) * 6, nullptr, GL_DYNAMIC_DRAW); // alloc
 
 		// get shader ref
 		shader = ResourceLoader::GetShader(ShaderType::QuadBatchColor);
 		// set uniform
+		shader->Bind();
 		shader->SetUniformMat4f("u_ViewProjModel", ProjViewModel);
+		shader->Unbind();
+	}
+
+	GroupSolid::~GroupSolid()
+	{
+		// delete ib
+		glDeleteBuffers(1, &QuadIB);
+
+		// delete vb
+		glDeleteBuffers(1, &QuadVB);
+
+		// delete va
+		glDeleteVertexArrays(1, &QuadVA);
 	}
 
 	void GroupSolid::OnUpdate(float DeltaTime)
@@ -92,13 +103,16 @@ namespace Framework2D {
 		if (VertQuads.size() == 0)
 			return;
 
-		// set dynamic vertex buffer
-		glBindBuffer(GL_ARRAY_BUFFER, QuadVB);
-		glBufferSubData(GL_ARRAY_BUFFER, 0, VertQuads.size() * sizeof(VertexBatchColorQuad), (const void*)VertQuads.data());
+		// bind vertex array
+		glBindVertexArray(QuadVA);
 
-		// set dynamic index buffer
+		// initialize vertex buffer
+		glBindBuffer(GL_ARRAY_BUFFER, QuadVA);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(VertexBatchColorQuad) * VertQuads.size(), (const void*)VertQuads.data(), GL_STATIC_DRAW);
+
+		// initialzie vertex index buffer
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, QuadIB);
-		glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, Indicies.size() * sizeof(uint32_t), (const void*)Indicies.data());
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint32_t) * Indicies.size(), (const void*)Indicies.data(), GL_STATIC_DRAW);
 
 		// bind shader
 		if (shader)
@@ -112,7 +126,7 @@ namespace Framework2D {
 		}
 
 		// draw
-		glDrawElements(GL_TRIANGLES, 2 * 6, GL_UNSIGNED_INT, NULL);
+		glDrawElements(GL_TRIANGLES, 6 * VertQuads.size(), GL_UNSIGNED_INT, NULL);
 	}
 
 	bool GroupSolid::AddSolid(SolidEntity* Solid)

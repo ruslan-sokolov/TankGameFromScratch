@@ -52,17 +52,13 @@ namespace Framework2D {
 		GroupSolid* GroupTest = new GroupSolid("TestGroup");
 		MainLayer->AddGroup(GroupTest);
 
-		// todo: fix this
-		//SolidEntity* SolidTest_0 = new SolidEntity("TestSolid", Vec4::BlueColor, VecInt2D(0, 0), VecInt2D(50), true);
-		//SolidEntity* SolidTest_1 = new SolidEntity("TestSolid", Vec4::CyanColor, VecInt2D(200, 100), VecInt2D(70), true);		
-		
-		SolidEntity* SolidTest_0 = new SolidEntity("TestSolid", Vec4(1.f, 1.f, 1.f, 1.f), VecInt2D(0, 0), VecInt2D(50), true);
-		SolidEntity* SolidTest_1 = new SolidEntity("TestSolid", Vec4(1.f, 1.f, 1.f, 1.f), VecInt2D(200, 100), VecInt2D(70), true);
-		
-		// TODO: fix OpenGL errors!!!!!!!
+		SolidEntity* SolidTest_0 = new SolidEntity("TestSolid", Vec4::YellowColor, VecInt2D::VecZero, VecInt2D(50), true);
+		SolidEntity* SolidTest_1 = new SolidEntity("TestSolid", Vec4::CyanColor, VecInt2D::VecZero, VecInt2D(20), true);
+		SolidEntity* SolidTest_2 = new SolidEntity("TestSolid", Vec4::MagentaColor, VecInt2D(200, 100), VecInt2D(70), true);
 
 		GroupTest->AddSolid(SolidTest_0);
 		GroupTest->AddSolid(SolidTest_1);
+		GroupTest->AddSolid(SolidTest_2);
 
 		// todo maybe create basic object?
 		// todo maybe use shared ptr for obj?

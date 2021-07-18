@@ -25,6 +25,7 @@ namespace Framework2D {
 
 	public:
 		GroupSolid(const std::string& GroupName);
+		~GroupSolid();
 
 		void OnUpdate(float DeltaTime) override;
 		void OnEvent(Engine::Event& e) override;
