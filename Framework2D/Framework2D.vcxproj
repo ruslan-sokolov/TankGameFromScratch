@@ -117,6 +117,7 @@
   <ItemGroup>
     <ClInclude Include="Source\Framework2D.h" />
     <ClInclude Include="Source\Framework2D\Framework2DAPI.h" />
+    <ClInclude Include="Source\Framework2D\Gameplay\Game2D.h" />
     <ClInclude Include="Source\Framework2D\Graphic2D\Entities\BaseEntity.h" />
     <ClInclude Include="Source\Framework2D\Graphic2D\Entities\SolidEntity.h" />
     <ClInclude Include="Source\Framework2D\Graphic2D\Entities\SpriteEntity.h" />
@@ -133,6 +134,7 @@
     <ClInclude Include="Vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Framework2D\Gameplay\Game2D.cpp" />
     <ClCompile Include="Source\Framework2D\Graphic2D\Entities\BaseEntity.cpp" />
     <ClCompile Include="Source\Framework2D\Graphic2D\Entities\SolidEntity.cpp" />
     <ClCompile Include="Source\Framework2D\Graphic2D\Entities\SpriteEntity.cpp" />

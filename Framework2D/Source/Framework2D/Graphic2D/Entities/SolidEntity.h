@@ -27,8 +27,10 @@ namespace Framework2D {
 
 	public:
 		SolidEntity(const std::string& Name, const Vec4& Color, const VecInt2D& Position, const VecInt2D& Size, bool bEnableRender=true);
-
 		~SolidEntity();
+
+		void OnUpdate(float DeltaTime) override;
+		void OnEvent(Engine::Event& e) override;
 
 		inline void SetColor(Vec4& Color) { this->Color = Color; }
 		inline Vec4 GetColor() const { return Color; }

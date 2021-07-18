@@ -13,9 +13,9 @@ int main(int argc, char** argv)
 	GAME_LOG(info, "Initialized Game Log");
 	ENGINE_LOG(warn, "Initialized Engine Log");
 
-	auto app = Engine::CreateApplication();
-	app->Run();
-	delete app;
+	Engine::ApplicationInstance = Engine::CreateApplication();
+	Engine::ApplicationInstance->Run();
+	delete Engine::ApplicationInstance;
 }
 
 #endif

@@ -9,6 +9,14 @@ namespace Framework2D {
 
 	}
 
+	void SolidEntity::OnUpdate(float DeltaTime)
+	{
+	}
+
+	void SolidEntity::OnEvent(Engine::Event& e)
+	{
+	}
+
 	SolidEntity::~SolidEntity()
 	{
 

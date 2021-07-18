@@ -25,6 +25,14 @@ namespace Framework2D {
 
 	}
 
+	void SpriteEntity::OnUpdate(float DeltaTime)
+	{
+	}
+
+	void SpriteEntity::OnEvent(Engine::Event& e)
+	{
+	}
+
 	VertexBatchTextureQuad SpriteEntity::GetVertexQuad()
 	{
 		int TextureSlot = texture->GetActiveSlot();

@@ -38,6 +38,9 @@ namespace Framework2D {
 		
 		~SpriteEntity();
 
+		void OnUpdate(float DeltaTime) override;
+		void OnEvent(Engine::Event& e) override;
+
 		inline void SetColor(const Vec4& Color) { this->Color = Color; }
 		inline Vec4 GetColor() const { return Color; }
 		inline void SetTexture(Texture* texture) { this->texture = texture; }

@@ -45,6 +45,9 @@ namespace Engine {
 
 	};
 
+	static Application* ApplicationInstance;
+	inline Application* GetApplication() { return ApplicationInstance; }
+
 	Application* CreateApplication();
 
 }

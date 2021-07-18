@@ -15,5 +15,5 @@ namespace Framework2D {
 		virtual void Init();
 	};
 
-	Initializer* CreateInitializer();
+	FRAMEWORK2D_API Initializer* CreateInitializer();
 }

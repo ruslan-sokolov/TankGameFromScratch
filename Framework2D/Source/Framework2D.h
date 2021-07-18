@@ -1,58 +1,20 @@
 #pragma once
 
-#include <Engine.h>
 #include <EntryPoint.h>
 
 #include <Framework2D/Initializer.h>
+#include <Framework2D/Gameplay/Game2D.h>
 
-#include "Framework2D/Graphic2D/Layer2D.h"
-
-namespace Framework2D {
-
-	class Game2D : public Engine::Application
-	{
-		Layer2D* DebugLayer;
-		Layer2D* HUDLayer;
-		Layer2D* MainLayer;
-
-	public:
-		Game2D(const char* Title, unsigned int Width, unsigned int Height)
-			: Application(Title, Width, Height)
-		{
-			// create layers
-			DebugLayer = new Layer2D("DebugLayer");
-			HUDLayer = new Layer2D("HUDLayer");
-			MainLayer = new Layer2D("MainLayer");
-
-			PushLayer(MainLayer);
-			PushOverlay(DebugLayer);
-			PushOverlay(HUDLayer);
-
-			// framework 2d initializer
-			auto Initializer = CreateInitializer();
-			Initializer->Init();
-			delete Initializer;
-
-			// todo: test sprite entity
-			//MainLayer->AddGroup()
-		}
-
-		~Game2D()
-		{
-
-		}
-
-		inline Layer2D* GetDebugLayer() const { return DebugLayer; }
-		inline Layer2D* GetHUDLayer() const { return HUDLayer; }
-		inline Layer2D* GetMainLayer() const { return MainLayer; }
-	};
-
-	static Game2D* Game;
-	static inline Game2D* GetGame() { return Game; }
-
-}
 
 Engine::Application* Engine::CreateApplication()
 {
-	return new Framework2D::Game2D("Tanki Game", 640, 480);
+	// create App derived from Engine-module class
+	auto App = Framework2D::CreateGame("Tanki Game", 640, 480);
+
+	// initialize with initialized defined in Game-module
+	auto Initializer = Framework2D::CreateInitializer();
+	Initializer->Init();
+	delete Initializer;
+
+	return App;
 }
