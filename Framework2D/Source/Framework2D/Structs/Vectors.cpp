@@ -10,7 +10,7 @@ namespace Framework2D {
 	const Vec4 Vec4::BlueColor = Vec4(0.f, 0.f, 1.f, 1.f);
 	const Vec4 Vec4::YellowColor = Vec4(1.f, 1.f, 0.f, 1.f);
 	const Vec4 Vec4::CyanColor = Vec4(0.f, 1.f, 1.f, 1.f);
-	const Vec4 Vec4::MagentaColor = Vec4(1.f, 0.f, 0.f, 1.f);
+	const Vec4 Vec4::MagentaColor = Vec4(1.f, 0.f, 1.f, 1.f);
 	const Vec4 Vec4::GrayColor = Vec4(0.5f, 0.5f, 0.5f, 1.f);
 
 	const VecInt2D VecInt2D::VecZero = VecInt2D(0, 0);

@@ -5,7 +5,7 @@
 #pragma once
 
 #include "Core.h"
-#include <Engine/Events/ApplicationEvent.h>
+
 #include <Engine/LayerStack.h>
 
 #include <memory>
@@ -19,6 +19,12 @@ namespace Engine {
 		bool bIsRunning = true;
 		
 		bool OnWindowClose(class WindowCloseEvent& e);
+
+		bool bIsEnterKeyPressed = false;
+		bool bIsAltKeyPressed = false;
+
+		bool OnFullscreenKeyPressed(class KeyPressedEvent& e);
+		bool OnFullscreenKeyReleassed(class KeyReleasedEvent& e);
 
 	protected:
 		LayerStack Layers;

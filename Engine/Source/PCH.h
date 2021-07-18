@@ -18,6 +18,9 @@
 
 #include <Engine/Log.h>
 
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
 #ifdef ENGINE_WIN_PLATFORM
 	#include <Windows.h>
 #endif

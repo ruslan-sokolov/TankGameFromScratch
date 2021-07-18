@@ -25,6 +25,10 @@ namespace Engine {
 		inline void SetEventCb(const EventCbFn& Cb) override { Data.Cb = Cb; }
 		void SetVSync(bool Enabled) override;
 		bool IsVSync() const override;
+		void SetDynViewportScale(bool Enabled) override;
+		bool IsDynViewportScale() const override;
+		void SetFullscreen(bool Enabled) override;
+		bool IsFullscreen() const override;
 
 	private:
 		void Init(const WindowProps& Props);
@@ -36,8 +40,18 @@ namespace Engine {
 		struct WindowData
 		{
 			std::string Title;
-			unsigned int Width, Height;
+			unsigned int Width;
+			unsigned int Height;
+			
+			unsigned int WidthAtStart;
+			unsigned int HeightAtStart;
+			
+			/* Limit fps to monitor refresh rate */
 			bool VSync;
+			/* IF true then all rendered content will be scalled acording to window size */
+			bool ViewportScale;
+			/* true - Fullscreen mode, false - Window Mode */
+			bool FullscreenMode;
 
 			EventCbFn Cb;
 		};

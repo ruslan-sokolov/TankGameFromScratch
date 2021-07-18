@@ -16,6 +16,8 @@ int main(int argc, char** argv)
 	Engine::ApplicationInstance = Engine::CreateApplication();
 	Engine::ApplicationInstance->Run();
 	delete Engine::ApplicationInstance;
+
+	std::cin.get();
 }
 
 #endif

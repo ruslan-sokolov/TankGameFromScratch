@@ -7,6 +7,9 @@
 
 #include <Platform/WindowsWindow.h>
 
+#include <Engine/Events/ApplicationEvent.h>
+#include <Engine/Events/KeyEvent.h>
+
 namespace Engine {
 
 	Application::Application(const char* Title, unsigned int Width, unsigned int Height)
@@ -21,6 +24,8 @@ namespace Engine {
 	{
 		EventDistpatcher Distpatcher(e);
 		Distpatcher.Dispatch<WindowCloseEvent>(BIND_EVENT(Application::OnWindowClose));
+		Distpatcher.Dispatch<KeyPressedEvent>(BIND_EVENT(Application::OnFullscreenKeyPressed));
+		Distpatcher.Dispatch<KeyReleasedEvent>(BIND_EVENT(Application::OnFullscreenKeyReleassed));
 
 		// Call layers event callback (backward direction)
 		for (auto it = Layers.end(); it != Layers.begin(); )
@@ -36,6 +41,45 @@ namespace Engine {
 		ENGINE_LOG(LOG_WARN, "Success distpatch to WindowClose.");
 		bIsRunning = false;
 		return true;
+	}
+
+	bool Application::OnFullscreenKeyPressed(KeyPressedEvent& e)
+	{
+		switch (e.GetKeyCode())
+		{
+		case GLFW_KEY_ENTER:
+			bIsEnterKeyPressed = true;
+			break;
+
+		case GLFW_KEY_LEFT_ALT:
+		case GLFW_KEY_RIGHT_ALT:
+			bIsAltKeyPressed = true;
+			break;
+		}
+
+		if (bIsEnterKeyPressed && bIsAltKeyPressed)
+		{
+			m_Window->SetFullscreen(!m_Window->IsFullscreen());
+			return true;
+		}
+		return false;
+	}
+
+	bool Application::OnFullscreenKeyReleassed(KeyReleasedEvent& e)
+	{
+		switch (e.GetKeyCode())
+		{
+		case GLFW_KEY_ENTER:
+			bIsEnterKeyPressed = false;
+			break;
+
+		case GLFW_KEY_LEFT_ALT:
+		case GLFW_KEY_RIGHT_ALT:
+			bIsAltKeyPressed = false;
+			break;
+		}
+
+		return false;
 	}
 
 	void Application::Run()

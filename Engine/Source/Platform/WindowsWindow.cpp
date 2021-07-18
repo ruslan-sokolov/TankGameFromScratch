@@ -5,9 +5,6 @@
 #include <PCH.h>
 #include "WindowsWindow.h"
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
 #include <Engine/Events/ApplicationEvent.h>
 #include <Engine/Events/MouseEvent.h>
 #include <Engine/Events/KeyEvent.h>
@@ -145,11 +142,17 @@ namespace Engine {
 		Data.Title = Props.Title;
 		Data.Width = Props.Width;
 		Data.Height = Props.Height;
+		Data.WidthAtStart = Props.Width;
+		Data.HeightAtStart = Props.Height;
 
 		if (!s_GLFWInitialized)
 		{
 			int SuccessGLFWInit = glfwInit();
 			ENGINE_ASSERT(SuccessGLFWInit, "Could not initialize GLFW!");
+			ENGINE_LOG(trace, "GLFW Version: {0}", glfwGetVersionString());
+
+			// GLFW Error callback
+			glfwSetErrorCallback(GLFWErrorCb);
 
 			// Set Open GL version
 			glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -161,9 +164,7 @@ namespace Engine {
 			glfwMakeContextCurrent(GL_Window);
 			glfwSetWindowUserPointer(GL_Window, &Data);
 			SetVSync(true);
-
-			// Set GLFW Event callback
-			SetGLFWEvents();
+			SetDynViewportScale(true);
 
 			if (!s_GLEWInitialized)
 			{
@@ -183,10 +184,10 @@ namespace Engine {
 
 				s_GLEWInitialized = true;
 			}
-
-			// GLFW Error callback
-			glfwSetErrorCallback(GLFWErrorCb);
 			
+			// Set GLFW Event callback
+			SetGLFWEvents();
+
 			s_GLFWInitialized = true;
 		}
 	}
@@ -199,6 +200,9 @@ namespace Engine {
 
 				data.Width = width;
 				data.Height = height;
+				
+				if (data.ViewportScale)
+					glViewport(0, 0, width, height);
 
 				WindowResizeEvent e(width, height);
 				data.Cb(e);
@@ -294,6 +298,8 @@ namespace Engine {
 		glfwSwapBuffers(GL_Window);
 	}
 
+	// Window attributes begin
+
 	void WindowsWindow::SetVSync(bool Enabled)
 	{
 		glfwSwapInterval(Enabled);
@@ -305,4 +311,47 @@ namespace Engine {
 		return Data.VSync;
 	}
 
+	void WindowsWindow::SetDynViewportScale(bool Enabled)
+	{
+		Data.ViewportScale = Enabled;
+
+		if (!Enabled)
+		{
+			glViewport(0, 0, Data.WidthAtStart, Data.HeightAtStart);
+		}
+	}
+
+	bool WindowsWindow::IsDynViewportScale() const
+	{
+		return Data.ViewportScale;
+	}
+
+	void WindowsWindow::SetFullscreen(bool Enabled)
+	{
+		GLFWmonitor* GL_Monitor = glfwGetPrimaryMonitor();
+		const GLFWvidmode& GL_VidMode = *glfwGetVideoMode(GL_Monitor);
+
+		if (Enabled)
+		{
+			glfwSetWindowMonitor(GL_Window, GL_Monitor, 0, 0, Data.Width, 
+				Data.Height, GL_VidMode.refreshRate);
+		}
+		else
+		{
+			int WindowCenterPosX = (GL_VidMode.width - Data.WidthAtStart) / 2;
+			int WindowCenterPosY = (GL_VidMode.height - Data.HeightAtStart) / 2;
+
+			glfwSetWindowMonitor(GL_Window, NULL, WindowCenterPosX, WindowCenterPosY,
+				Data.WidthAtStart, Data.HeightAtStart, 0);
+		}
+		
+		Data.FullscreenMode = Enabled;
+	}
+
+	bool WindowsWindow::IsFullscreen() const
+	{
+		return Data.FullscreenMode;
+	}
+
+	// Window attributes end
 }
