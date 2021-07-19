@@ -24,8 +24,10 @@ namespace Framework2D {
 	public:
 		static inline void LoadTexture(const std::string& Path);
 		static inline void UnloadTexture(const std::string& Path);
-
 		static inline Texture* GetTexture(const std::string& Path);
+
+		// todo: handle more than 32
+		static inline void PrebindTextures();
 		
 		static inline void RegisterShader(ShaderType Type, const std::string Path);
 		static inline void DeleteShader(ShaderType Type);

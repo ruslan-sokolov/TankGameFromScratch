@@ -54,6 +54,7 @@ namespace Framework2D {
 		VecInt2D(const Vec2& Other) : X(static_cast<int>(Other.x)), Y(static_cast<int>(Other.y)) {};
 
 		VecInt2D(int InX, int InY) : X(InX), Y(InY) {}
+		VecInt2D(int InBoth) : X(InBoth), Y(InBoth) {}
 
 		inline bool operator == (const VecInt2D& Other) const { return X == Other.X && Y == Other.Y; }
 		inline bool operator != (const VecInt2D& Other) const { return X != Other.X || Y != Other.Y; }

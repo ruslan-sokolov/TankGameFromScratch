@@ -37,7 +37,7 @@ namespace Framework2D {
 	}
 
 	Texture::Texture(Texture&& t) noexcept
-		: RendererID(t.RendererID), FilePath(std::move(FilePath)), ImageCache(ImageCache),
+		: RendererID(t.RendererID), FilePath(std::move(t.FilePath)), ImageCache(t.ImageCache),
 		Width(t.Width), Height(t.Height), BPP(t.BPP), ActiveSlot(t.ActiveSlot), bSuccessfullyCreated(t.bSuccessfullyCreated)
 	{
 		t.ImageCache = nullptr;
@@ -55,6 +55,9 @@ namespace Framework2D {
 		ActiveSlot = slot;
 		glActiveTexture(GL_TEXTURE0 + slot);
 		glBindTexture(GL_TEXTURE_2D, RendererID);
+
+		// debug
+		ENGINE_LOG(info, "bind texture: {0} slot: {1}", FilePath, slot);
 	}
 
 	void Texture::Unbind() const

@@ -12,7 +12,7 @@ namespace Framework2D {
 		Vec2 Position;
 		Vec4 Color;
 		Vec2 TexCoord;
-		int TextureSlot;
+		uint32_t TextureSlot;
 	};
 
 	struct VertexBatchTextureQuad
@@ -32,9 +32,9 @@ namespace Framework2D {
 	public:
 		// Constructor with texture ptr assignement 
 		SpriteEntity(const std::string& Name, Texture* texture,
-			const VecInt2D& Position, const Vec4& Color = Vec4::WhiteColor, bool bEnableRender = true);
+			const VecInt2D& Position, const VecInt2D& Size = VecInt2D::VecZero, const Vec4& Color = Vec4::WhiteColor, bool bEnableRender = true);
 		SpriteEntity(const std::string& Name, const std::string& TexturePath,
-			const VecInt2D& Position, const Vec4& Color = Vec4::WhiteColor, bool bEnableRender = true);
+			const VecInt2D& Position, const VecInt2D& Size = VecInt2D::VecZero, const Vec4& Color = Vec4::WhiteColor, bool bEnableRender = true);
 		
 		~SpriteEntity();
 

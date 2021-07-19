@@ -29,10 +29,12 @@ namespace Framework2D {
 		glBindBuffer(GL_ARRAY_BUFFER, QuadVB);
 
 		glEnableVertexAttribArray(0); // vertex buffer layout
-		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(VertexBatchColor), (const void*)offsetof(VertexBatchColor, Position));
+		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(VertexBatchColor), 
+			(const void*)offsetof(VertexBatchColor, Position));
 
 		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(VertexBatchColor), (const void*)offsetof(VertexBatchColor, Color));
+		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(VertexBatchColor), 
+			(const void*)offsetof(VertexBatchColor, Color));
 
 		glGenBuffers(1, &QuadIB); // generate index buffer
 
@@ -99,7 +101,7 @@ namespace Framework2D {
 			VertCount += 4;
 		}
 
-		// Check we have elements to draw
+		// Check if we have any elements to draw
 		if (VertQuads.size() == 0)
 			return;
 
@@ -107,12 +109,14 @@ namespace Framework2D {
 		glBindVertexArray(QuadVA);
 
 		// initialize vertex buffer
-		glBindBuffer(GL_ARRAY_BUFFER, QuadVA);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(VertexBatchColorQuad) * VertQuads.size(), (const void*)VertQuads.data(), GL_STATIC_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, QuadVB);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(VertexBatchColorQuad) * VertQuads.size(), 
+			(const void*)VertQuads.data(), GL_STREAM_DRAW);
 
-		// initialzie vertex index buffer
+		// initialize vertex index buffer
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, QuadIB);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint32_t) * Indicies.size(), (const void*)Indicies.data(), GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint32_t) * Indicies.size(), 
+			(const void*)Indicies.data(), GL_STREAM_DRAW);
 
 		// bind shader
 		if (shader)

@@ -44,8 +44,6 @@ namespace Framework2D {
 		inline int GetActiveSlot() const { return ActiveSlot; }
 
 		static int GetMaxTextureBind();
-
-
 	};
 
 }

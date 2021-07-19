@@ -13,11 +13,11 @@ namespace Framework2D {
 		if (TempTexture.IsSuccessfullyCreated())
 		{
 			LoadedTextures.try_emplace(Path, std::move(TempTexture));
-			ENGINE_LOG(info, "[Framework2D::ResourceLoader] Texture {0} loaded", Path);
+			ENGINE_LOG(info, "[Framework2D::ResourceLoader] LoadTexture() Texture {0} loaded", Path);
 		}
 		else
 		{
-			ENGINE_LOG(error, "[Framework2D::ResourceLoader] Texture {0} failed to load", Path);
+			ENGINE_LOG(error, "[Framework2D::ResourceLoader] LoadTexture() Texture {0} failed to load", Path);
 		}
 	}
 
@@ -34,16 +34,35 @@ namespace Framework2D {
 			LoadTexture(Path);
 
 		if (LoadedTextures.find(Path) == LoadedTextures.end())
+		{
+			ENGINE_LOG(error, "[Framework2D::ResourceLoader] GetTexture() Texture {0} not found", Path);
 			return nullptr;
+		}
 
 		return &LoadedTextures.at(Path);
+	}
+
+	inline void ResourceLoader::PrebindTextures()
+	{
+		int MaxSlotNum = LoadedTextures.size() < Texture::GetMaxTextureBind() ?
+			LoadedTextures.size() : Texture::GetMaxTextureBind();
+		
+		int Slot = 0;
+		for (auto& pair : LoadedTextures)
+		{
+			if (Slot == MaxSlotNum)
+				break;
+
+			pair.second.Bind(Slot);
+			++Slot;
+		}
 	}
 
 	inline void ResourceLoader::RegisterShader(ShaderType Type, const std::string Path)
 	{
 		if (ShaderCache.find(Type) != ShaderCache.end())
 		{
-			ENGINE_LOG(info, "[Framework2D::ResourceLoader] Shader {0} fail to load, already exists!", Path);
+			ENGINE_LOG(info, "[Framework2D::ResourceLoader] RegisterShader() Shader {0} fail to load, already exists!", Path);
 			return;
 		}
 
@@ -51,11 +70,11 @@ namespace Framework2D {
 		if (TempShader.IsSuccessfullyCreated()) 
 		{
 			ShaderCache.emplace(Type, std::move(TempShader));
-			ENGINE_LOG(info, "[Framework2D::ResourceLoader] Shader {0} loaded", Path);
+			ENGINE_LOG(info, "[Framework2D::ResourceLoader] RegisterShader() Shader {0} loaded", Path);
 		}
 		else
 		{
-			ENGINE_LOG(error, "[Framework2D::ResourceLoader] Shader {0} fail to load!", Path);
+			ENGINE_LOG(error, "[Framework2D::ResourceLoader] RegisterShader() Shader {0} fail to load!", Path);
 		}
 	}
 
