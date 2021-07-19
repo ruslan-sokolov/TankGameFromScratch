@@ -4,6 +4,7 @@
 #include <Framework2D/Gameplay/Game2D.h>
 #include <Framework2D/Graphic2D/Layer2D.h>
 #include <Framework2D/Graphic2D/Render/ResourceLoader.h>
+#include <Framework2D/Graphic2D/Render/Renderer.h>
 
 #include <Framework2D/Graphic2D/Entities/SolidEntity.h>
 #include <Framework2D/Graphic2D/Groups/GroupSolid.h>
@@ -34,17 +35,35 @@ namespace Game {
 		ResourceLoader::LoadTexture(T_FLASHY_0);
 		ResourceLoader::LoadTexture(T_TANK_EB_DOWN_0);
 
-		// Prebind 32 textures
+		// Prebind 32 textures todo: change
 		ResourceLoader::PrebindTextures();
 
 		// Register Shaders
 		ResourceLoader::RegisterShader(ShaderType::QuadBatchColor, S_BATCH_COLOR);
 		ResourceLoader::RegisterShader(ShaderType::QuadBatchTexture, S_BATCH_TEXTURE);
 
+		{
+			// Preset Shader uniforms. todo: get rid of
+			auto shader = ResourceLoader::GetShader(ShaderType::QuadBatchColor);
+			shader->Bind();
+			shader->SetUniformMat4f("u_ViewProjModel", RendererStatics::ProjViewModel);
+			shader->Unbind();
+		
+			shader = ResourceLoader::GetShader(ShaderType::QuadBatchTexture);
+			shader->Bind();
+			shader->SetUniformMat4f("u_ViewProjModel", RendererStatics::ProjViewModel);
+		
+			std::vector<int> TexSlotArr;
+			int TexSlotNum = Texture::GetMaxTextureBind();
+			TexSlotArr.reserve(TexSlotNum);
+			Texture::GetTextureSlotsArr(TexSlotArr.data(), TexSlotNum);
+			shader->SetUniform1iv("u_Textures", TexSlotNum, TexSlotArr.data());
+			shader->Unbind();
+		}
+
 		// debug
 		Game2D* game = GetGame();
 		Layer2D* MainLayer = game->GetMainLayer();
-
 
 		GroupSolid* GroupTest = new GroupSolid("TestGroupSolid");
 		MainLayer->AddGroup(GroupTest);
@@ -60,8 +79,8 @@ namespace Game {
 		GroupSprite* GroupTest_2 = new GroupSprite("TestGroupSprite");
 		MainLayer->AddGroup(GroupTest_2);
 
-		SpriteEntity* SpriteTest_0 = new SpriteEntity("TestSprite", T_FLASHY_0, VecInt2D(0, 0), VecInt2D(150, 50));
-		SpriteEntity* SpriteTest_1 = new SpriteEntity("TestSprite2", T_TANK_EB_DOWN_0, VecInt2D(540, 380), VecInt2D(100, 100));
+		SpriteEntity* SpriteTest_0 = new SpriteEntity("TestSprite", T_FLASHY_0, VecInt2D(0, 0));
+		SpriteEntity* SpriteTest_1 = new SpriteEntity("TestSprite2", T_TANK_EB_DOWN_0, VecInt2D(540, 0));
 
 		GroupTest_2->AddSprite(SpriteTest_0);
 		GroupTest_2->AddSprite(SpriteTest_1);
@@ -71,8 +90,6 @@ namespace Game {
 
 		// debug end
 	}
-
-
 }
 
 Framework2D::Initializer* Framework2D::CreateInitializer()

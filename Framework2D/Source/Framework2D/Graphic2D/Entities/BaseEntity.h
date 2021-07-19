@@ -1,9 +1,9 @@
 #pragma once
 
 #include <Framework2D/Framework2DAPI.h>
-#include "Engine.h"
-
 #include <Framework2D/Structs/Vectors.h>
+
+#include "Engine/Events/Event.h"
 
 namespace Framework2D {
 

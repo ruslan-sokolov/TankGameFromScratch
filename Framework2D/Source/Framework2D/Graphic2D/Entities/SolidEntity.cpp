@@ -1,5 +1,7 @@
-#include "PCH_Framework.h"
+#include <PCH_Framework.h>
 #include "SolidEntity.h"
+
+#include <Framework2D/Graphic2D/Render/Renderer.h>
 
 namespace Framework2D {
 

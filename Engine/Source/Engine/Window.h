@@ -37,14 +37,17 @@ namespace Engine {
 		virtual unsigned int GetWidth() const = 0;
 		virtual unsigned int GetHeight() const = 0;
 
-		// Window attributes
 		virtual void SetEventCb(const EventCbFn& Cb) = 0;
+		
+		// Window attributes
 		virtual void SetVSync(bool Enabled) = 0;
 		virtual bool IsVSync() const = 0;
+		
 		virtual void SetDynViewportScale(bool Enabled) = 0;
 		virtual bool IsDynViewportScale() const = 0;
+		
 		virtual void SetFullscreen(bool Enabled) = 0;
-		virtual bool IsFullscreen() const = 0;
+		virtual bool IsFullscreen() const = 0; //
 
 		static Window* Create(const WindowProps& Props = WindowProps());
 	};

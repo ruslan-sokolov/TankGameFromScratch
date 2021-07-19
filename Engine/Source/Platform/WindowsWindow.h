@@ -21,14 +21,18 @@ namespace Engine {
 		inline unsigned int GetWidth() const override { return Data.Width; }
 		inline unsigned int GetHeight() const override { return Data.Height; }
 
-		// Window attrubutes
 		inline void SetEventCb(const EventCbFn& Cb) override { Data.Cb = Cb; }
+
+		// Window attrubutes
 		void SetVSync(bool Enabled) override;
 		bool IsVSync() const override;
+		
 		void SetDynViewportScale(bool Enabled) override;
 		bool IsDynViewportScale() const override;
+		
 		void SetFullscreen(bool Enabled) override;
 		bool IsFullscreen() const override;
+		//
 
 	private:
 		void Init(const WindowProps& Props);

@@ -7,32 +7,21 @@ namespace Framework2D {
 	class GroupSprite;
 	class Texture;
 
-	struct VertexBatchTexture
-	{
-		Vec2 Position;
-		Vec4 Color;
-		Vec2 TexCoord;
-		float TextureSlot;
-	};
-
-	struct VertexBatchTextureQuad
-	{
-		VertexBatchTexture Vertices[4];
-	};
-
 	class FRAMEWORK2D_API SpriteEntity : public BaseEntity
 	{
 		friend class GroupSprite;
 
 		Vec4 Color;
 		Texture* texture;
-
-		inline VertexBatchTextureQuad GetVertexQuad();
+		
+		struct VertexBatchTextureQuad GetVertexQuad();  // get data for renderer to use in group onDraw()
 
 	public:
-		// Constructor with texture ptr assignement 
+		// Constructor with texture instance ptr
 		SpriteEntity(const std::string& Name, Texture* texture,
 			const VecInt2D& Position, const VecInt2D& Size = VecInt2D::VecZero, const Vec4& Color = Vec4::WhiteColor, bool bEnableRender = true);
+		
+		// Construct with texture resource location path
 		SpriteEntity(const std::string& Name, const std::string& TexturePath,
 			const VecInt2D& Position, const VecInt2D& Size = VecInt2D::VecZero, const Vec4& Color = Vec4::WhiteColor, bool bEnableRender = true);
 		

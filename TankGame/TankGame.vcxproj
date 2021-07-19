@@ -121,6 +121,7 @@
       <PreprocessorDefinitions>ENGINE_WIN_PLATFORM;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)TankGame\Source;$(SolutionDir)Framework2D\Source;$(SolutionDir)Engine\Source;$(SolutionDir)Engine\Vendor\GLFW\include;$(SolutionDir)Engine\Vendor\spdlog\include;$(SolutionDir)Engine\Vendor\GLEW\include;$(SolutionDir)Engine\Vendor\GLM\</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -141,6 +142,7 @@
       <PreprocessorDefinitions>ENGINE_WIN_PLATFORM;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)TankGame\Source;$(SolutionDir)Framework2D\Source;$(SolutionDir)Engine\Source;$(SolutionDir)Engine\Vendor\GLFW\include;$(SolutionDir)Engine\Vendor\spdlog\include;$(SolutionDir)Engine\Vendor\GLEW\include;$(SolutionDir)Engine\Vendor\GLM\</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

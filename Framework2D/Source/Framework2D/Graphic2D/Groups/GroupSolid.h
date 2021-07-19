@@ -2,7 +2,7 @@
 
 #include "Group.h"
 
-#include "glm/glm.hpp"
+#include <Framework2D/Graphic2D/Render/Renderer.h>
 
 namespace Framework2D {
 
@@ -10,18 +10,7 @@ namespace Framework2D {
 
 	class FRAMEWORK2D_API GroupSolid : public Group
 	{
-		unsigned int QuadVA;
-		unsigned int QuadVB;
-		unsigned int QuadIB;
-
-		static const glm::mat4 IdentityMatrix;
-
-		static glm::mat4 Proj;
-		static glm::mat4 View;
-
-		static glm::vec3 Translation;
-
-		class Shader* shader;
+		Renderer<VertexBatchColorQuad> renderer;
 
 	public:
 		GroupSolid(const std::string& GroupName);
@@ -31,10 +20,10 @@ namespace Framework2D {
 		void OnEvent(Engine::Event& e) override;
 		void OnDraw() override;
 
-		bool AddSolid(SolidEntity* Solid);
-		bool RemoveSolid(SolidEntity* Solid);
-		SolidEntity* GetSolid(const std::string& SolidName);
-		bool HasSolid(const std::string& SolidName);
+		inline bool AddSolid(SolidEntity* Solid);
+		inline bool RemoveSolid(SolidEntity* Solid);
+		inline SolidEntity* GetSolid(const std::string& SolidName);
+		inline bool HasSolid(const std::string& SolidName);
 	};
 
 }

@@ -14,13 +14,13 @@ namespace Engine {
 
 	Application::Application(const char* Title, unsigned int Width, unsigned int Height)
 	{
-		m_Window = std::unique_ptr<class Window>(WindowsWindow::Create( { Title, Width, Height } ));
-		m_Window->SetEventCb(BIND_EVENT(Application::OnEvent));
+		CustomWindow = std::unique_ptr<class Window>(WindowsWindow::Create( { Title, Width, Height } ));
+		CustomWindow->SetEventCb(BIND_EVENT(Application::DistpatchEvents));
 	}
 
 	Application::~Application() {}
 	
-	void Application::OnEvent(Event& e)
+	void Application::DistpatchEvents(Event& e)
 	{
 		EventDistpatcher Distpatcher(e);
 		Distpatcher.Dispatch<WindowCloseEvent>(BIND_EVENT(Application::OnWindowClose));
@@ -59,7 +59,7 @@ namespace Engine {
 
 		if (bIsEnterKeyPressed && bIsAltKeyPressed)
 		{
-			m_Window->SetFullscreen(!m_Window->IsFullscreen());
+			CustomWindow->SetFullscreen(!CustomWindow->IsFullscreen());
 			return true;
 		}
 		return false;
@@ -97,7 +97,17 @@ namespace Engine {
 			// Call layers update (forward direction)
 			for (auto layer : Layers) layer->OnUpdate(DeltaTime);
 
-			m_Window->OnUpdate();
+			CustomWindow->OnUpdate();
 		}
+	}
+
+	inline float Application::GetWidth() const
+	{
+		return CustomWindow->GetWidth();
+	}
+
+	inline float Application::GetHeight() const
+	{
+		return CustomWindow->GetHeight();
 	}
 }

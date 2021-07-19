@@ -2,7 +2,8 @@
 #include "Initializer.h"
 
 #include <GL/glew.h>
-
+#include <Framework2D/Graphic2D/Render/Renderer.h>
+#include <Framework2D/Gameplay/Game2D.h>
 
 namespace Framework2D {
 
@@ -28,5 +29,8 @@ namespace Framework2D {
 			ENGINE_ASSERT(SuccessGLEWInit, "Could not initialize GLEW!");
 			bIsGlewInitialized = true;
 		}
+
+		Game2D* Game = GetGame();
+		RendererStatics::Init(Game->GetWidth(), Game->GetHeight());
 	}
 }

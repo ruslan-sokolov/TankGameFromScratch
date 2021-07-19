@@ -15,8 +15,9 @@ namespace Engine {
 
 	class ENGINE_API Application
 	{
-		std::unique_ptr<class Window> m_Window;
 		bool bIsRunning = true;
+
+		std::unique_ptr<class Window> CustomWindow;
 		
 		bool OnWindowClose(class WindowCloseEvent& e);
 
@@ -33,12 +34,19 @@ namespace Engine {
 		Application(const char* Title = "Engine App", unsigned int WindowWidth = 640, unsigned int WindowHeight = 480);
 		virtual ~Application();
 
+		/** Main loop */
 		void Run();
-		void OnEvent(Event& e);
+
+		/** Dispatch to event such as window close, fullscreen hotkey press */
+		void DistpatchEvents(Event& e);
 
 		inline void PushLayer(Layer* layer) { Layers.PushLayer(layer); }
 		inline void PushOverlay(Layer* layer) { Layers.PushOverlay(layer); }
 
+		inline float GetWidth() const;
+		inline float GetHeight() const;
+
+	// tick seconds
 	private:
 		std::chrono::steady_clock::time_point T_Start;
 		std::chrono::steady_clock::time_point T_Prev;
@@ -48,6 +56,7 @@ namespace Engine {
 	public:
 		inline float GetDeltaTime() { return DeltaTime; }
 		float GetElapsedTime() { return std::chrono::duration<float, std::ratio<1>>(T_Next - T_Start).count(); }
+	//
 
 	};
 
