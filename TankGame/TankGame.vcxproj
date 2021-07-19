@@ -120,7 +120,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>ENGINE_WIN_PLATFORM;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)TankGame\Source;$(SolutionDir)Framework2D\Source;$(SolutionDir)Engine\Source;$(SolutionDir)Engine\Vendor\GLFW\include;$(SolutionDir)Engine\Vendor\spdlog\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TankGame\Source;$(SolutionDir)Framework2D\Source;$(SolutionDir)Engine\Source;$(SolutionDir)Engine\Vendor\GLFW\include;$(SolutionDir)Engine\Vendor\spdlog\include;$(SolutionDir)Engine\Vendor\GLEW\include;$(SolutionDir)Engine\Vendor\GLM\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,7 +140,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>ENGINE_WIN_PLATFORM;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)TankGame\Source;$(SolutionDir)Framework2D\Source;$(SolutionDir)Engine\Source;$(SolutionDir)Engine\Vendor\GLFW\include;$(SolutionDir)Engine\Vendor\spdlog\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)TankGame\Source;$(SolutionDir)Framework2D\Source;$(SolutionDir)Engine\Source;$(SolutionDir)Engine\Vendor\GLFW\include;$(SolutionDir)Engine\Vendor\spdlog\include;$(SolutionDir)Engine\Vendor\GLEW\include;$(SolutionDir)Engine\Vendor\GLM\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -164,6 +164,9 @@
     <ProjectReference Include="..\Framework2D\Framework2D.vcxproj">
       <Project>{eb1a5819-43e6-4f05-97dd-42851881ff63}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Game\Game.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
