@@ -44,10 +44,10 @@ namespace Framework2D {
 
 	inline void ResourceLoader::PrebindTextures()
 	{
-		int MaxSlotNum = LoadedTextures.size() < Texture::GetMaxTextureBind() ?
+		uint32_t MaxSlotNum = LoadedTextures.size() < Texture::GetMaxTextureBind() ?
 			LoadedTextures.size() : Texture::GetMaxTextureBind();
 		
-		int Slot = 0;
+		uint32_t Slot = 0;
 		for (auto& pair : LoadedTextures)
 		{
 			if (Slot == MaxSlotNum)

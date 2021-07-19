@@ -20,7 +20,7 @@ namespace Framework2D {
 
 		int Width, Height, BPP;
 
-		mutable int ActiveSlot;
+		mutable uint32_t ActiveSlot;
 
 		bool bSuccessfullyCreated;
 
@@ -35,15 +35,16 @@ namespace Framework2D {
 
 		inline bool IsSuccessfullyCreated() const{ return bSuccessfullyCreated; }
 
-		void Bind(unsigned int slot = 0) const;
+		void Bind(uint32_t slot = 0) const;
 		void Unbind() const;
 
 		inline int GetWidth() const { return Width; }
 		inline int GetHeight() const { return Height; }
 		
-		inline int GetActiveSlot() const { return ActiveSlot; }
+		inline uint32_t GetActiveSlot() const { return ActiveSlot; }
 
-		static int GetMaxTextureBind();
+		static inline int GetMaxTextureBind();
+		static inline void GetTextureSlotsArr(int* InArr, unsigned int Size);
 	};
 
 }

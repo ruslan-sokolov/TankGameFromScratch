@@ -41,7 +41,7 @@ namespace Framework2D {
 			(const void*)offsetof(VertexBatchTexture, TexCoord));
 
 		glEnableVertexAttribArray(3);
-		glVertexAttribPointer(3, 1, GL_INT, GL_FALSE, sizeof(VertexBatchTexture),
+		glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, sizeof(VertexBatchTexture),
 			(const void*)offsetof(VertexBatchTexture, TextureSlot));
 		
 		glGenBuffers(1, &QuadIB);  // generate index buffer
@@ -51,6 +51,12 @@ namespace Framework2D {
 		// set uniform
 		shader->Bind();
 		shader->SetUniformMat4f("u_ViewProjModel", ProjViewModel);
+
+		std::vector<int> TextureSlotsArr;
+		int TextureSlots = Texture::GetMaxTextureBind();
+		TextureSlotsArr.reserve(TextureSlots);
+		Texture::GetTextureSlotsArr(TextureSlotsArr.data(), TextureSlots);
+		shader->SetUniform1iv("u_Textures", TextureSlots, TextureSlotsArr.data());  // specify textures location
 		shader->Unbind();
 	}
 

@@ -51,12 +51,11 @@ namespace Framework2D {
 		ResourceLoader::RegisterShader(ShaderType::QuadBatchTexture, "../Resources/Shaders/QuadBatchTexture.shader");
 
 		// debug
-		// todo: test sprite entity
 		
 		Game2D* game = GetGame();
 		Layer2D* MainLayer = game->GetMainLayer();
 
-		/*
+		
 		GroupSolid* GroupTest = new GroupSolid("TestGroupSolid");
 		MainLayer->AddGroup(GroupTest);
 
@@ -66,19 +65,17 @@ namespace Framework2D {
 
 		GroupTest->AddSolid(SolidTest_0);
 		GroupTest->AddSolid(SolidTest_1);
-		GroupTest->AddSolid(SolidTest_2);*/
+		GroupTest->AddSolid(SolidTest_2);
 
 		GroupSprite* GroupTest_2 = new GroupSprite("TestGroupSprite");
 		MainLayer->AddGroup(GroupTest_2);
 
 		SpriteEntity* SpriteTest_0 = new SpriteEntity("TestSprite", "../Resources/Textures/UE_Logo.png", 
-			VecInt2D(300, 0), VecInt2D(100, 100));
-		SpriteEntity* SpriteTest_1 = new SpriteEntity("TestSprite2", "../Resources/Textures/sun_pic.png", VecInt2D(100, 100));
+			VecInt2D(0, 0), VecInt2D(150, 50));
+		SpriteEntity* SpriteTest_1 = new SpriteEntity("TestSprite2", "../Resources/Textures/sun_pic.png", VecInt2D(540, 380), VecInt2D(100, 100));
 
 		GroupTest_2->AddSprite(SpriteTest_0);
 		GroupTest_2->AddSprite(SpriteTest_1);
-
-		// todo try literal for VecInt2D
 
 		// todo maybe create basic object?
 		// todo maybe use shared ptr for obj?

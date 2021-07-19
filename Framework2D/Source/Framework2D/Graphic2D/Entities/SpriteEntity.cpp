@@ -36,9 +36,9 @@ namespace Framework2D {
 	{
 	}
 
-	VertexBatchTextureQuad SpriteEntity::GetVertexQuad()
+	inline VertexBatchTextureQuad SpriteEntity::GetVertexQuad()
 	{
-		int TextureSlot = texture->GetActiveSlot();
+		float TextureSlot = static_cast<float>(texture->GetActiveSlot());
 		VertexBatchTexture v0 = { Position, Color, {0, 0}, TextureSlot };
 		VertexBatchTexture v1 = { {Position.X + Size.X, Position.Y}, Color, {1, 0}, TextureSlot };
 		VertexBatchTexture v2 = { {Position.X + Size.X, Position.Y + Size.Y}, Color, {1, 1}, TextureSlot };

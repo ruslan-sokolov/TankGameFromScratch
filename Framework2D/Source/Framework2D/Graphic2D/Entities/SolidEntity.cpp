@@ -22,7 +22,7 @@ namespace Framework2D {
 
 	}
 
-	VertexBatchColorQuad SolidEntity::GetVertexQuad()
+	inline VertexBatchColorQuad SolidEntity::GetVertexQuad()
 	{
 		VertexBatchColor v0 = { Position, Color };
 		VertexBatchColor v1 = { {Position.X + Size.X, Position.Y}, Color };

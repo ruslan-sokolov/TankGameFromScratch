@@ -12,7 +12,7 @@ namespace Framework2D {
 		Vec2 Position;
 		Vec4 Color;
 		Vec2 TexCoord;
-		uint32_t TextureSlot;
+		float TextureSlot;
 	};
 
 	struct VertexBatchTextureQuad
@@ -27,7 +27,7 @@ namespace Framework2D {
 		Vec4 Color;
 		Texture* texture;
 
-		VertexBatchTextureQuad GetVertexQuad();
+		inline VertexBatchTextureQuad GetVertexQuad();
 
 	public:
 		// Constructor with texture ptr assignement 

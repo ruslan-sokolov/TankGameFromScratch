@@ -50,7 +50,7 @@ namespace Framework2D {
 			glDeleteTextures(1, &RendererID);
 	}
 
-	void Texture::Bind(unsigned int slot) const
+	void Texture::Bind(uint32_t slot) const
 	{
 		ActiveSlot = slot;
 		glActiveTexture(GL_TEXTURE0 + slot);
@@ -66,11 +66,19 @@ namespace Framework2D {
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
-	int Texture::GetMaxTextureBind()
+	inline int Texture::GetMaxTextureBind()
 	{
 		int MaxBindTextureUnitsNum;
 		glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &MaxBindTextureUnitsNum);
 		return MaxBindTextureUnitsNum;
+	}
+
+	inline void Texture::GetTextureSlotsArr(int* InArr, unsigned int Size)
+	{
+		for (int i = 0; i < Size; ++i)
+		{
+			InArr[i] = i;
+		}
 	}
 
 }
