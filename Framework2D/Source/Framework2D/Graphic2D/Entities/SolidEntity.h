@@ -11,7 +11,6 @@ namespace Framework2D {
 		friend class GroupSolid;
 
 		Vec4 Color;
-		inline struct VertexBatchColorQuad GetVertexQuad();  // get data for renderer to use in group onDraw()
 
 	public:
 		SolidEntity(const std::string& Name, const Vec4& Color, const VecInt2D& Position, const VecInt2D& Size, bool bEnableRender=true);

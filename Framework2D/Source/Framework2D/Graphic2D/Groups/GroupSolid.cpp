@@ -32,13 +32,12 @@ namespace Framework2D {
 		SolidEntity* Solid;
 		for (auto& Entity : Entities)
 		{
-			// check if should render
-			if (!Entity->IsRenderEnabled())
+			if (!Entity->IsRenderEnabled())  // check if should render
 				continue;
 
-			// fill vertex buffer data
+			// fill renderer draw data
 			Solid = static_cast<SolidEntity*>(Entity);
-			renderer.PushVertexQuad(std::move(Solid->GetVertexQuad()));
+			renderer.CreateAndPushVertexQuad(Solid->GetPosition(), Solid->GetSize(), Solid->GetColor());
 		}
 		
 		renderer.Draw();

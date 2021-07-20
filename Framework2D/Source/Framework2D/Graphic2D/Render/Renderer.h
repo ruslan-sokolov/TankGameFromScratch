@@ -53,14 +53,14 @@ namespace Framework2D
 	template <typename T>  // primary template
 	class FRAMEWORK2D_API Renderer
 	{
-		unsigned int QuadVA;
-		unsigned int QuadVB;
-		unsigned int QuadIB;
+		unsigned int QuadVA = 0;
+		unsigned int QuadVB = 0;
+		unsigned int QuadIB = 0;
 
 		Shader* shader;
 
-		mutable std::vector<uint32_t> Indicies;
-		mutable std::vector<T> VertQuads;
+		std::vector<uint32_t> Indicies;
+		std::vector<T> VertQuads;
 
 		inline void ResetIndicies(unsigned int QuadNum);
 		inline void PushIndex();
@@ -70,21 +70,94 @@ namespace Framework2D
 		inline ~Renderer();
 
 		inline void ResetVertexQuads(unsigned int QuadNum);
-		inline void PushVertexQuad(T& VertQuad);
+		inline void PushVertexQuad(const T& VertQuad);
 		inline void PushVertexQuad(T&& VertQuad);
-		//inline void CreateAndPushVertexQuad() const = delete;
+		
+		template <typename... Args>  // variadic args template for definition in each specializtion
+		inline void CreateAndPushVertexQuad(Args&& ... args) = delete;
 
 		inline void Draw() const; 
 	};
 
-	// VertexBatchColorQuad Specialization
-	template<> inline Renderer<VertexBatchColorQuad>::Renderer();
-	//template<> void Renderer<VertexBatchColorQuad>::CreateAndPushVertexQuad(int s) const;
+	// VertexBatchColorQuad Specialization declaration
+	template<> inline Renderer<VertexBatchColorQuad>::Renderer()
+	{
+		glGenVertexArrays(1, &QuadVA);  // generate vertex array
+		glBindVertexArray(QuadVA);
 
-	// VertexBatchTextureQuad Specialization
-	template<> inline Renderer<VertexBatchTextureQuad>::Renderer();
-	//template<> void Renderer<VertexBatchTextureQuad>::CreateAndPushVertexQuad() const;
+		glGenBuffers(1, &QuadVB); // generate vertex buffer
+		glBindBuffer(GL_ARRAY_BUFFER, QuadVB);
 
+		glEnableVertexAttribArray(0); // vertex buffer layout
+		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(VertexBatchColor),
+			(const void*)offsetof(VertexBatchColor, Position));
+
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(VertexBatchColor),
+			(const void*)offsetof(VertexBatchColor, Color));
+
+		glGenBuffers(1, &QuadIB); // generate index buffer
+
+		shader = ResourceLoader::GetShader(ShaderType::QuadBatchColor);
+
+		glDrawElements(GL_TRIANGLES, 6 * VertQuads.size(), GL_UNSIGNED_INT, NULL);  // draw call
+	}
+
+	template<> template<> 
+	inline void Renderer<VertexBatchColorQuad>::CreateAndPushVertexQuad(VecInt2D&& Position, VecInt2D&& Size, Vec4&& Color)
+	{
+		VertexBatchColor V_0{Position,                                   Color};
+		VertexBatchColor V_1{ {Position.X + Size.X, Position.Y},          Color };
+		VertexBatchColor V_2{ {Position.X + Size.X, Position.Y + Size.Y}, Color };
+		VertexBatchColor V_3{ {Position.X,          Position.Y + Size.Y}, Color };
+
+		VertexBatchColorQuad Quad = { V_0, V_1, V_2, V_3 };
+		PushVertexQuad(std::move(Quad));
+	}  //
+
+	// VertexBatchTextureQuad Specialization declaration
+	template<> inline Renderer<VertexBatchTextureQuad>::Renderer()
+	{
+		glGenVertexArrays(1, &QuadVA); // generate vertex array
+		glBindVertexArray(QuadVA);
+
+		glGenBuffers(1, &QuadVB); // generate vertex buffer
+		glBindBuffer(GL_ARRAY_BUFFER, QuadVB);
+
+		glEnableVertexAttribArray(0); // vertex buffer layout
+		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(VertexBatchTexture),
+			(const void*)offsetof(VertexBatchTexture, Position));
+
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(VertexBatchTexture),
+			(const void*)offsetof(VertexBatchTexture, Color));
+
+		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(VertexBatchTexture),
+			(const void*)offsetof(VertexBatchTexture, TexCoord));
+
+		glEnableVertexAttribArray(3);
+		glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, sizeof(VertexBatchTexture),
+			(const void*)offsetof(VertexBatchTexture, TextureSlot));
+
+		glGenBuffers(1, &QuadIB);  // generate index buffer
+
+		shader = ResourceLoader::GetShader(ShaderType::QuadBatchTexture);
+	}
+	
+	template<> template<> 
+	inline void Renderer<VertexBatchTextureQuad>::CreateAndPushVertexQuad(VecInt2D&& Position, VecInt2D&& Size, Vec4&& Color, float&& TexSlot)
+	{
+		VertexBatchTexture V_0{Position,                                   Color, {0, 1}, TexSlot};
+		VertexBatchTexture V_1{ {Position.X + Size.X, Position.Y},          Color, {1, 1}, TexSlot };
+		VertexBatchTexture V_2{ {Position.X + Size.X, Position.Y + Size.Y}, Color, {1, 0}, TexSlot };
+		VertexBatchTexture V_3{ {Position.X,          Position.Y + Size.Y}, Color, {0, 0}, TexSlot };
+
+		VertexBatchTextureQuad Quad{ V_0, V_1, V_2, V_3 };
+		PushVertexQuad(std::move(Quad));
+	} //
+
+	// Primary Template Methods definitions:
 	template <typename T> inline Renderer<T>::~Renderer()
 	{
 		glDeleteBuffers(1, &QuadIB);  // delete ib
@@ -95,7 +168,7 @@ namespace Framework2D
 	template <typename T> inline void Renderer<T>::ResetIndicies(unsigned int QuadNum)
 	{
 		Indicies.clear();
-		Indicies.reserve(QuadNum * 6);
+		Indicies.reserve((size_t)(6 * QuadNum));
 	}
 
 	template <typename T> inline void Renderer<T>::PushIndex()
@@ -112,7 +185,7 @@ namespace Framework2D
 		ResetIndicies(QuadNum);
 	}
 
-	template <typename T> inline void Renderer<T>::PushVertexQuad(T& VertQuad)
+	template <typename T> inline void Renderer<T>::PushVertexQuad(const T& VertQuad)
 	{
 		VertQuads.push_back(VertQuad);
 		PushIndex();
@@ -141,57 +214,6 @@ namespace Framework2D
 		shader->Bind();
 
 		glDrawElements(GL_TRIANGLES, 6 * VertQuads.size(), GL_UNSIGNED_INT, NULL);  // draw call
-	}
+	}  //
 
-	// VertexBatchColorQuad Specialization
-	template<> inline Renderer<VertexBatchColorQuad>::Renderer() : QuadVA(0), QuadVB(0), QuadIB(0)
-	{
-		glGenVertexArrays(1, &QuadVA);  // generate vertex array
-		glBindVertexArray(QuadVA);
-
-		glGenBuffers(1, &QuadVB); // generate vertex buffer
-		glBindBuffer(GL_ARRAY_BUFFER, QuadVB);
-
-		glEnableVertexAttribArray(0); // vertex buffer layout
-		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(VertexBatchColor),
-			(const void*)offsetof(VertexBatchColor, Position));
-
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(VertexBatchColor),
-			(const void*)offsetof(VertexBatchColor, Color));
-
-		glGenBuffers(1, &QuadIB); // generate index buffer
-
-		shader = ResourceLoader::GetShader(ShaderType::QuadBatchColor);
-	}
-
-	// VertexBatchTextureQuad Specialization
-	template<> inline Renderer<VertexBatchTextureQuad>::Renderer() : QuadVA(0), QuadVB(0), QuadIB(0)
-	{
-		glGenVertexArrays(1, &QuadVA); // generate vertex array
-		glBindVertexArray(QuadVA);
-
-		glGenBuffers(1, &QuadVB); // generate vertex buffer
-		glBindBuffer(GL_ARRAY_BUFFER, QuadVB);
-
-		glEnableVertexAttribArray(0); // vertex buffer layout
-		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(VertexBatchTexture),
-			(const void*)offsetof(VertexBatchTexture, Position));
-
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(VertexBatchTexture),
-			(const void*)offsetof(VertexBatchTexture, Color));
-
-		glEnableVertexAttribArray(2);
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(VertexBatchTexture),
-			(const void*)offsetof(VertexBatchTexture, TexCoord));
-
-		glEnableVertexAttribArray(3);
-		glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, sizeof(VertexBatchTexture),
-			(const void*)offsetof(VertexBatchTexture, TextureSlot));
-
-		glGenBuffers(1, &QuadIB);  // generate index buffer
-
-		shader = ResourceLoader::GetShader(ShaderType::QuadBatchTexture);
-	}
 }

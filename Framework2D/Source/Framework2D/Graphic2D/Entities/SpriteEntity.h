@@ -13,8 +13,6 @@ namespace Framework2D {
 
 		Vec4 Color;
 		Texture* texture;
-		
-		struct VertexBatchTextureQuad GetVertexQuad();  // get data for renderer to use in group onDraw()
 
 	public:
 		// Constructor with texture instance ptr

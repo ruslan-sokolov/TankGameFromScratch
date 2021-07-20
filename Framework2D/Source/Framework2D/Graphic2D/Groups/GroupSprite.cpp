@@ -33,13 +33,12 @@ namespace Framework2D {
 		SpriteEntity* Sprite;
 		for (auto& Entity : Entities)
 		{
-			// check if should render
-			if (!Entity->IsRenderEnabled())
+			if (!Entity->IsRenderEnabled())  // check if should render
 				continue;
 
-			// renderer add vertex data
+			// fill renderer draw data
 			Sprite = static_cast<SpriteEntity*>(Entity);
-			renderer.PushVertexQuad(std::move(Sprite->GetVertexQuad()));
+			renderer.CreateAndPushVertexQuad(Sprite->GetPosition(), Sprite->GetSize(), Sprite->GetColor(), (float)Sprite->texture->GetActiveSlot());
 		}
 
 		renderer.Draw();
