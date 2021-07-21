@@ -106,7 +106,7 @@ namespace Framework2D
 	template<> template<> 
 	inline void Renderer<VertexBatchColorQuad>::CreateAndPushVertexQuad(VecInt2D&& Position, VecInt2D&& Size, Vec4&& Color)
 	{
-		VertexBatchColor V_0{Position,                                   Color};
+		VertexBatchColor V_0 {Position,                                   Color};
 		VertexBatchColor V_1{ {Position.X + Size.X, Position.Y},          Color };
 		VertexBatchColor V_2{ {Position.X + Size.X, Position.Y + Size.Y}, Color };
 		VertexBatchColor V_3{ {Position.X,          Position.Y + Size.Y}, Color };
@@ -148,7 +148,7 @@ namespace Framework2D
 	template<> template<> 
 	inline void Renderer<VertexBatchTextureQuad>::CreateAndPushVertexQuad(VecInt2D&& Position, VecInt2D&& Size, Vec4&& Color, float&& TexSlot)
 	{
-		VertexBatchTexture V_0{Position,                                   Color, {0, 1}, TexSlot};
+		VertexBatchTexture V_0 {Position,                                   Color, {0, 1}, TexSlot};
 		VertexBatchTexture V_1{ {Position.X + Size.X, Position.Y},          Color, {1, 1}, TexSlot };
 		VertexBatchTexture V_2{ {Position.X + Size.X, Position.Y + Size.Y}, Color, {1, 0}, TexSlot };
 		VertexBatchTexture V_3{ {Position.X,          Position.Y + Size.Y}, Color, {0, 0}, TexSlot };

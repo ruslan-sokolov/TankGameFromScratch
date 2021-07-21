@@ -1,7 +1,5 @@
 #pragma once
 
-#include <Framework2D.h>
-
 namespace ResPath
 {
 	// Shaders path (starts with prefix "S_")
@@ -78,17 +76,4 @@ namespace ResPath
 
 namespace GameConst
 {
-}
-
-namespace Game {
-
-	class GameInitializer : public Framework2D::Initializer
-	{
-	public:
-		GameInitializer();
-		~GameInitializer();
-
-		void Init() override;
-	};
-
 }

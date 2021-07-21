@@ -68,17 +68,8 @@ namespace Framework2D {
 
 	inline int Texture::GetMaxTextureBind()
 	{
-		int MaxBindTextureUnitsNum;
-		glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &MaxBindTextureUnitsNum);
+		static int MaxBindTextureUnitsNum = []() { int out; glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &out); return out; } ();
 		return MaxBindTextureUnitsNum;
-	}
-
-	inline void Texture::GetTextureSlotsArr(int* InArr, unsigned int Size)
-	{
-		for (int i = 0; i < Size; ++i)
-		{
-			InArr[i] = i;
-		}
 	}
 
 }

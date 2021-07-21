@@ -21,6 +21,12 @@ namespace Framework2D {
 		}
 	}
 
+	inline void ResourceLoader::LoadTexture(std::initializer_list<const char*> PathList)
+	{
+		for (auto& Path : PathList)
+			LoadTexture(Path);
+	}
+
 	inline void ResourceLoader::UnloadTexture(const std::string& Path)
 	{
 		if (LoadedTextures.find(Path) != LoadedTextures.end())
@@ -42,19 +48,17 @@ namespace Framework2D {
 		return &LoadedTextures.at(Path);
 	}
 
-	inline void ResourceLoader::PrebindTextures()
+	inline void ResourceLoader::BindTextures(std::vector<Texture*>&& Textures)
 	{
-		uint32_t MaxSlotNum = LoadedTextures.size() < Texture::GetMaxTextureBind() ?
-			LoadedTextures.size() : Texture::GetMaxTextureBind();
-		
-		uint32_t Slot = 0;
-		for (auto& pair : LoadedTextures)
-		{
-			if (Slot == MaxSlotNum)
-				break;
+		int TexBindNum = Texture::GetMaxTextureBind();
+		if (Textures.size() > TexBindNum)
+			ENGINE_LOG(warn, "[Framework2D::ResourceLoader] BindTextures() Try to bind more texture then max texture slots num!!!");
+		else
+			TexBindNum = Textures.size();
 
-			pair.second.Bind(Slot);
-			++Slot;
+		for (auto& Tex : Textures)
+		{
+			Tex->Bind();
 		}
 	}
 

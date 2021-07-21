@@ -9,9 +9,9 @@ namespace Framework2D {
 
 	struct FRAMEWORK2D_API Vec4
 	{
-		float r, g, b, a;
-		Vec4() : r(0), g(0), b(0), a(0) {}
-		Vec4(float r, float g, float b, float a) : r(r), g(g), b(b), a(a) {}
+		float R, G, B, A;
+		Vec4() : R(0), G(0), B(0), A(0) {}
+		Vec4(float R, float G, float B, float A) : R(A), G(G), B(B), A(A) {}
 
 		static const Vec4 BlackColor;
 		static const Vec4 WhiteColor;
@@ -26,18 +26,20 @@ namespace Framework2D {
 
 	struct FRAMEWORK2D_API Vec3
 	{
-		float x, y, z;
-		Vec3() : x(0), y(0), z(0) {}
+		float X = 0;
+		float Y = 0; 
+		float Z = 0;
 	};
 
 	struct FRAMEWORK2D_API Vec2
 	{
-		float x, y;
+		float X = 0;
+		float Y = 0;
 		
-		Vec2() : x(0), y(0) {}
-		Vec2(float x, float y) : x(x), y(y) {}
-		Vec2(int x, int y) : x(x), y(y) {}
-		Vec2(float both) : x(both), y(both) {}
+		Vec2() : X(0), Y(0) {}
+		Vec2(float X, float Y) : X(X), Y(Y) {}
+		Vec2(int X, int Y) : X(X), Y(Y) {}
+		Vec2(float Both) : X(Both), Y(Both) {}
 		Vec2(const VecInt2D&);
 	};
 
@@ -51,7 +53,7 @@ namespace Framework2D {
 
 		VecInt2D(const VecInt2D& Other) : X(Other.X), Y(Other.Y) {}
 		 
-		VecInt2D(const Vec2& Other) : X(static_cast<int>(Other.x)), Y(static_cast<int>(Other.y)) {};
+		VecInt2D(const Vec2& Other) : X(static_cast<int>(Other.X)), Y(static_cast<int>(Other.Y)) {};
 
 		VecInt2D(int InX, int InY) : X(InX), Y(InY) {}
 		VecInt2D(int InBoth) : X(InBoth), Y(InBoth) {}
@@ -96,7 +98,7 @@ namespace Framework2D {
 		static const VecInt2D VecDown;
 	};
 
-	inline Vec2::Vec2(const VecInt2D& Other) : x(Other.X), y(Other.Y) {}
+	inline Vec2::Vec2(const VecInt2D& Other) : X(Other.X), Y(Other.Y) {}
 
 	enum class Direction
 	{

@@ -44,7 +44,6 @@ namespace Framework2D {
 		inline uint32_t GetActiveSlot() const { return ActiveSlot; }
 
 		static inline int GetMaxTextureBind();
-		static inline void GetTextureSlotsArr(int* InArr, unsigned int Size);
 	};
 
 }

@@ -4,6 +4,7 @@
 
 #include <string>
 #include <unordered_map>
+#include <vector>
 
 #include <Framework2D/Graphic2D/Render/Texture.h>
 #include <Framework2D/Graphic2D/Render/Shader.h>
@@ -23,11 +24,11 @@ namespace Framework2D {
 
 	public:
 		static inline void LoadTexture(const std::string& Path);
+		static inline void LoadTexture(std::initializer_list<const char*> PathList);
 		static inline void UnloadTexture(const std::string& Path);
 		static inline Texture* GetTexture(const std::string& Path);
 
-		// todo: handle more than 32
-		static inline void PrebindTextures();
+		static inline void BindTextures(std::vector<Texture*>&& Textures);
 		
 		static inline void RegisterShader(ShaderType Type, const std::string Path);
 		static inline void DeleteShader(ShaderType Type);

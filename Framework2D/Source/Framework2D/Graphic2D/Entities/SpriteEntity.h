@@ -31,6 +31,7 @@ namespace Framework2D {
 		inline void SetColor(const Vec4& Color) { this->Color = Color; }
 		inline Vec4 GetColor() const { return Color; }
 		inline void SetTexture(Texture* texture) { this->texture = texture; }
+		inline Texture* GetTexture() const { return texture; }
 	};
 
 }
