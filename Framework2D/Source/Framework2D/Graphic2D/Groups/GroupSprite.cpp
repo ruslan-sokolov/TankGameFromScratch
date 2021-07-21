@@ -28,7 +28,6 @@ namespace Framework2D {
 
 	void GroupSprite::OnDraw()
 	{
-		
 		// Create texture buckets
 		std::unordered_map<Texture*, std::vector<SpriteEntity*>> TextureBuckets;
 
@@ -48,6 +47,7 @@ namespace Framework2D {
 		auto It_End = TextureBuckets.begin();
 		const int TexSlotsMax = Texture::GetMaxTextureBind();
 		int TextureNumToDraw = TextureBuckets.size();
+		int TextureSlot;
 		while (TextureNumToDraw > 0)  
 		{
 			It_Begin = It_End;
@@ -56,10 +56,11 @@ namespace Framework2D {
 
 			renderer.ResetVertexQuads(Entities.size());  // todo: fix unnecessary space allocation
 			
+			TextureSlot = 0;
 			for (auto It = It_Begin; It != It_End; ++It)
 			{
 				Texture& texture = *(*It).first;
-				texture.Bind();
+				texture.Bind(TextureSlot++);
 
 				for (auto& Sprite : (*It).second)
 				{

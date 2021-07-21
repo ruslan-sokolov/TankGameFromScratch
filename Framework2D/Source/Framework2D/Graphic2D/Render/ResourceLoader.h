@@ -23,6 +23,8 @@ namespace Framework2D {
 		static std::unordered_map<ShaderType, Shader> ShaderCache;
 
 	public:
+		static std::string Texture404Path;
+
 		static inline void LoadTexture(const std::string& Path);
 		static inline void LoadTexture(std::initializer_list<const char*> PathList);
 		static inline void UnloadTexture(const std::string& Path);

@@ -20,6 +20,10 @@ namespace Framework2D {
 
 		int Width, Height, BPP;
 
+		/*
+		 *  0 - reserved for Texture404
+		 *  0 < n < max_slots - actual slot range
+		 */
 		mutable uint32_t ActiveSlot;
 
 		bool bSuccessfullyCreated;
@@ -29,12 +33,15 @@ namespace Framework2D {
 		Texture& operator=(Texture&) = delete;
 		Texture& operator=(Texture&&) = delete;
 
+		static inline Texture* Texture404 = nullptr;
+
 	public:
 		Texture(Texture&& t) noexcept;
 		~Texture();
 
 		inline bool IsSuccessfullyCreated() const{ return bSuccessfullyCreated; }
 
+		/** Actual bind slot will be plus one, zero slot reserved for Texture404 */
 		void Bind(uint32_t slot = 0) const;
 		void Unbind() const;
 
@@ -43,7 +50,7 @@ namespace Framework2D {
 		
 		inline uint32_t GetActiveSlot() const { return ActiveSlot; }
 
-		static inline int GetMaxTextureBind();
+		static int GetMaxTextureBind();
 	};
 
 }

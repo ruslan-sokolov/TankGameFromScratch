@@ -16,7 +16,7 @@ namespace Framework2D {
 		// validate
 		bSuccessfullyCreated = ImageCache != nullptr;
 		if (!bSuccessfullyCreated)
-			ENGINE_LOG(error, "Texture '{0}' fail to read image file");
+			ENGINE_LOG(error, "Texture '{0}' fail to read image file", Path);
 
 		// generate and bind texture
 		glGenTextures(1, &RendererID);
@@ -52,24 +52,29 @@ namespace Framework2D {
 
 	void Texture::Bind(uint32_t slot) const
 	{
+		++slot;
+
+		if (slot > GetMaxTextureBind())
+		{
+			throw std::out_of_range("Texture bind out range");
+			ENGINE_LOG(error, "Texture '{0}' fail to read image file", FilePath);
+			ActiveSlot = 0;
+		}
+
 		ActiveSlot = slot;
 		glActiveTexture(GL_TEXTURE0 + slot);
 		glBindTexture(GL_TEXTURE_2D, RendererID);
-
-		// debug
-		ENGINE_LOG(info, "bind texture: {0} slot: {1}", FilePath, slot);
 	}
 
 	void Texture::Unbind() const
 	{
 		ActiveSlot = 0;
-		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
-	inline int Texture::GetMaxTextureBind()
+	int Texture::GetMaxTextureBind()
 	{
 		static int MaxBindTextureUnitsNum = []() { int out; glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &out); return out; } ();
-		return MaxBindTextureUnitsNum;
+		return MaxBindTextureUnitsNum - 1; // Texture404 has slot 0
 	}
 
 }

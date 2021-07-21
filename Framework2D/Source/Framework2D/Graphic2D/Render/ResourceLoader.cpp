@@ -6,8 +6,13 @@ namespace Framework2D {
 	std::unordered_map<std::string, Texture> ResourceLoader::LoadedTextures;
 	std::unordered_map<ShaderType, Shader> ResourceLoader::ShaderCache;
 
+	std::string ResourceLoader::Texture404Path = "..\\Resources\\Textures\\Texture404.png";
+
 	inline void ResourceLoader::LoadTexture(const std::string& Path)
 	{
+		// Load Texture404 as default texture
+		static bool bTexture404Initialized = []() { auto t = new Texture(Texture404Path); t->Bind(0); Texture::Texture404 = t; return true; } ();
+
 		Texture TempTexture = Texture(Path);
 
 		if (TempTexture.IsSuccessfullyCreated())
@@ -42,7 +47,11 @@ namespace Framework2D {
 		if (LoadedTextures.find(Path) == LoadedTextures.end())
 		{
 			ENGINE_LOG(error, "[Framework2D::ResourceLoader] GetTexture() Texture {0} not found", Path);
-			return nullptr;
+			
+			if (Texture::Texture404)
+				return Texture::Texture404;
+			else
+				return nullptr;
 		}
 
 		return &LoadedTextures.at(Path);
