@@ -10,13 +10,13 @@ uniform mat4 u_ViewProjModel;
 
 out vec4 v_Color;
 out vec2 v_TexCoord;
-out float v_TextureSlot;
+flat out int v_TextureSlot;
 
 void main()
 {
     v_Color = a_Color;
     v_TexCoord = a_TexCoord;
-    v_TextureSlot = a_TextureSlot;
+    v_TextureSlot = int(a_TextureSlot);
     gl_Position = u_ViewProjModel * vec4(a_Position, 0.0, 1.0);
 }
 
@@ -27,12 +27,11 @@ layout(location = 0) out vec4 o_Color;
 
 in vec4 v_Color;
 in vec2 v_TexCoord;
-in float v_TextureSlot;
+flat in int v_TextureSlot;
 
 uniform sampler2D u_Textures[32];
 
 void main()
 {
-    int Index = int(v_TextureSlot);
-    o_Color = texture(u_Textures[Index], v_TexCoord) * v_Color;
+    o_Color = texture(u_Textures[v_TextureSlot], v_TexCoord) * v_Color;
 }

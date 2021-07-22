@@ -11,7 +11,7 @@ namespace Framework2D {
 	inline void ResourceLoader::LoadTexture(const std::string& Path)
 	{
 		// Load Texture404 as default texture
-		static bool bTexture404Initialized = []() { auto t = new Texture(Texture404Path); t->Bind(0); Texture::Texture404 = t; return true; } ();
+		static bool bTexture404Initialized = []() { auto t = new Texture(Texture404Path); t->Bind(-1); Texture::Texture404 = t; return true; } ();
 
 		Texture TempTexture = Texture(Path);
 

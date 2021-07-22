@@ -24,10 +24,7 @@ namespace Framework2D {
 		inline std::string GetName() const { return GroupName; }
 
 	protected:
-		Group(const std::string& GroupName) : GroupName(GroupName)
-		{
-			Entities.reserve(GroupVecEntitiesReserve);
-		}
+		inline Group(const std::string& GroupName) : GroupName(GroupName) {}
 
 		const std::string GroupName;
 

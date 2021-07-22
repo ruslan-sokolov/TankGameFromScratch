@@ -12,7 +12,7 @@ namespace Framework2D {
 	{
 		friend class ResourceLoader;
 
-		std::string FilePath;
+		const std::string FilePath;
 
 		unsigned int RendererID;
 
@@ -42,11 +42,12 @@ namespace Framework2D {
 		inline bool IsSuccessfullyCreated() const{ return bSuccessfullyCreated; }
 
 		/** Actual bind slot will be plus one, zero slot reserved for Texture404 */
-		void Bind(uint32_t slot = 0) const;
+		void Bind(int32_t slot = 0) const;
 		void Unbind() const;
 
 		inline int GetWidth() const { return Width; }
 		inline int GetHeight() const { return Height; }
+		inline const std::string& GetPath() const { return FilePath; }
 		
 		inline uint32_t GetActiveSlot() const { return ActiveSlot; }
 

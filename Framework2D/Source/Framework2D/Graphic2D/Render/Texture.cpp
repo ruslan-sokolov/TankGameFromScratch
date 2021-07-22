@@ -23,14 +23,18 @@ namespace Framework2D {
 		glBindTexture(GL_TEXTURE_2D, RendererID);
 
 		// default texture parameters
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
 		// specify pixel array to texture and unbind texture
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, Width, Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, ImageCache);
-		
+		glGenerateMipmap(GL_TEXTURE_2D);
+
+
+		glBindTexture(GL_TEXTURE_2D, 0);
+
 		// free image data
 		if (ImageCache)
 			stbi_image_free(ImageCache);
@@ -50,16 +54,12 @@ namespace Framework2D {
 			glDeleteTextures(1, &RendererID);
 	}
 
-	void Texture::Bind(uint32_t slot) const
+	void Texture::Bind(int32_t slot) const
 	{
 		++slot;
 
-		if (slot > GetMaxTextureBind())
-		{
-			throw std::out_of_range("Texture bind out range");
-			ENGINE_LOG(error, "Texture '{0}' fail to read image file", FilePath);
+		if (slot > GetMaxTextureBind() || !bSuccessfullyCreated)
 			ActiveSlot = 0;
-		}
 
 		ActiveSlot = slot;
 		glActiveTexture(GL_TEXTURE0 + slot);

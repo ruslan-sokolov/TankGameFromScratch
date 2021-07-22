@@ -18,8 +18,10 @@ namespace Framework2D {
 	{
 		if (Entity->HasGroup()) return false;
 
-		if (Entities.size() >= GroupVecEntitiesReserve)
-			Entities.resize(Entities.size() + GroupVecEntitiesReserve);
+		if (Entities.size() % GroupVecEntitiesReserve == 0)
+		{
+			Entities.reserve(Entities.size() + GroupVecEntitiesReserve);
+		}
 
 		Entity->EntityGroup = this;
 		Entities.push_back(Entity);
