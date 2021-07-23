@@ -42,7 +42,7 @@ namespace Framework2D {
 		inline bool IsSuccessfullyCreated() const{ return bSuccessfullyCreated; }
 
 		/** Actual bind slot will be plus one, zero slot reserved for Texture404 */
-		void Bind(int32_t slot = 0) const;
+		void Bind(uint32_t slot = 0) const;
 		void Unbind() const;
 
 		inline int GetWidth() const { return Width; }

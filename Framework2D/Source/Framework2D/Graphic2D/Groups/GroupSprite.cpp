@@ -43,33 +43,52 @@ namespace Framework2D {
 			EntityBucket.push_back(Sprite);
 		}  //
 		
-		auto It_Begin = TextureBuckets.begin();
-		auto It_End = TextureBuckets.begin();
-		const int TexSlotsMax = Texture::GetMaxTextureBind();
-		int TextureNumToDraw = TextureBuckets.size();
-		int TextureSlot;
-		while (TextureNumToDraw > 0)  
+		for (auto& Pair : TextureBuckets)
 		{
-			It_Begin = It_End;
-			std::advance(It_End, TextureNumToDraw < TexSlotsMax ? TextureNumToDraw : TexSlotsMax);
-			TextureNumToDraw -= TexSlotsMax;
 
-			renderer.ResetVertexQuads(Entities.size());  // todo: fix unnecessary space allocation
-			
-			TextureSlot = 0;
-			for (auto It = It_Begin; It != It_End; ++It)
+			renderer.ResetVertexQuads(Pair.second.size());
+
+			Texture& texture = *(Pair.first);
+			texture.Bind();
+
+			for (auto& Sprite : Pair.second)
 			{
-				Texture& texture = *(*It).first;
-				texture.Bind(TextureSlot++);
-
-				for (auto& Sprite : (*It).second)
-				{
-					renderer.CreateAndPushVertexQuad(Sprite->GetPosition(), Sprite->GetSize(), Sprite->GetColor(), (float)texture.GetActiveSlot());
-				}
+				renderer.CreateAndPushVertexQuad(Sprite->GetPosition(), Sprite->GetSize(), Sprite->GetColor(), (float)texture.GetActiveSlot());
 			}
 
-			renderer.Draw();  // make few draw calls depends on max binded texture slots
+			renderer.Draw();
 		}
+
+		/** fix this and use  */
+		//auto It_Begin = TextureBuckets.begin();
+		//auto It_End = TextureBuckets.begin();
+		//const int TexSlotsMax = Texture::GetMaxTextureBind();
+		//int TextureNumToDraw = TextureBuckets.size();
+		//int TextureSlot;
+		//while (TextureNumToDraw > 0)  
+		//{
+		//	It_Begin = It_End;
+		//	std::advance(It_End, TextureNumToDraw < TexSlotsMax ? TextureNumToDraw : TexSlotsMax);
+		//	TextureNumToDraw -= TexSlotsMax;
+		//
+		//	renderer.ResetVertexQuads(Entities.size());  // todo: fix unnecessary space allocation
+		//	
+		//	TextureSlot = 0;
+		//	for (auto It = It_Begin; It != It_End; ++It)
+		//	{
+		//		Texture& texture = *(*It).first;
+		//
+		//		texture.Bind(TextureSlot++);
+		//		//ENGINE_LOG(error, "\tBind texture {0} on slot {1}", texture.GetPath(), texture.GetActiveSlot());
+		//
+		//		for (auto& Sprite : (*It).second)
+		//		{
+		//			renderer.CreateAndPushVertexQuad(Sprite->GetPosition(), Sprite->GetSize(), Sprite->GetColor(), (float)//texture.GetActiveSlot());
+		//		}
+		//	}
+		//
+		//	renderer.Draw();  // make few draw calls depends on max binded texture slots
+		//}
 	}
 
 	inline bool GroupSprite::AddSprite(SpriteEntity* spriteEntity)

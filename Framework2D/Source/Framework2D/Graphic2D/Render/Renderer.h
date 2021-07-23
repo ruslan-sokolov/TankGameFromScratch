@@ -213,7 +213,7 @@ namespace Framework2D
 
 		shader->Bind();
 
-		glDrawElements(GL_TRIANGLES, 6 * VertQuads.size(), GL_UNSIGNED_INT, NULL);  // draw call
+		glDrawElements(GL_TRIANGLES, Indicies.size(), GL_UNSIGNED_INT, NULL);  // draw call
 	}  //
 
 }

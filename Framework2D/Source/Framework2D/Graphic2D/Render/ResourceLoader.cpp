@@ -17,8 +17,8 @@ namespace Framework2D {
 
 		if (TempTexture.IsSuccessfullyCreated())
 		{
-			LoadedTextures.try_emplace(Path, std::move(TempTexture));
 			ENGINE_LOG(info, "[Framework2D::ResourceLoader] LoadTexture() Texture {0} loaded", Path);
+			LoadedTextures.try_emplace(Path, std::move(TempTexture));
 		}
 		else
 		{
@@ -65,9 +65,10 @@ namespace Framework2D {
 		else
 			TexBindNum = Textures.size();
 
+		uint32_t TexSlot = 0;
 		for (auto& Tex : Textures)
 		{
-			Tex->Bind();
+			Tex->Bind(TexSlot++);
 		}
 	}
 
