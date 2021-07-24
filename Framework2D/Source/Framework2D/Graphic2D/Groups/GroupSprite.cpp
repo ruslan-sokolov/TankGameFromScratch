@@ -13,16 +13,7 @@ namespace Framework2D {
 	{
 		for (auto& Sprite : Entities)
 		{
-			Sprite->OnUpdate(DeltaTime);
-		}
-	}
-
-	void GroupSprite::OnEvent(Engine::Event& e)
-	{
-		for (auto it = Entities.end(); it != Entities.begin(); )
-		{
-			(*--it)->OnEvent(e);
-			if (e.IsHandled()) break;
+			Sprite->OnTick(DeltaTime);
 		}
 	}
 

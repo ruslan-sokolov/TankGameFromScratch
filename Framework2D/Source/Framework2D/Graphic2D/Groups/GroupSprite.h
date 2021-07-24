@@ -17,7 +17,6 @@ namespace Framework2D {
 		~GroupSprite();
 
 		void OnUpdate(float DeltaTime) override;
-		void OnEvent(Engine::Event& e) override;
 		void OnDraw() override;
 
 		inline bool AddSprite(SpriteEntity* Sprite);

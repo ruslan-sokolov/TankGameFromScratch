@@ -76,4 +76,28 @@ namespace ResPath
 
 namespace GameConst
 {
+	constexpr auto WINDOW_W = 640;
+	constexpr auto WINDOW_H = 480;
+
+	constexpr auto GAME_AREA_OFFSET_W = 64;
+	constexpr auto GAME_AREA_OFFSET_H = 32;
+
+	constexpr auto GAME_AREA_W = 208 * 2;
+	constexpr auto GAME_AREA_H = 208 * 2;
+
+	constexpr auto GAME_AREA_W0 = GAME_AREA_OFFSET_W;
+	constexpr auto GAME_AREA_W1 = GAME_AREA_OFFSET_W + GAME_AREA_W;
+
+	constexpr auto GAME_AREA_H0 = GAME_AREA_OFFSET_H;
+	constexpr auto GAME_AREA_H1 = GAME_AREA_OFFSET_H + GAME_AREA_H;
+
+	constexpr auto GAME_AREA_MID_W = GAME_AREA_W / 2 + GAME_AREA_OFFSET_W;
+	constexpr auto GAME_AREA_MID_H = GAME_AREA_H / 2 + GAME_AREA_OFFSET_H;
+
+	constexpr auto GAME_CHUNK_W = 16 * 2;
+	constexpr auto GAME_CHUNK_H = 16 * 2;
+
+	constexpr auto TANK_W = 13 * 2;
+	constexpr auto TANK_H = 13 * 2;
+
 }

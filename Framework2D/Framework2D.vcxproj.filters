@@ -27,7 +27,7 @@
     <ClInclude Include="Source\Framework2D\Initializer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Framework2D\Graphic2D\Layer2D.h">
+    <ClInclude Include="Source\Framework2D\Layers\Layer2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Framework2D\Graphic2D\Groups\Group.h">
@@ -69,6 +69,18 @@
     <ClInclude Include="Source\Framework2D\Graphic2D\Render\Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Framework2D\Systems\SystemCollision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework2D\Systems\SystemInput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework2D\Systems\SystemTimer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework2D\Layers\LayerSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Framework2D\Initializer.cpp">
@@ -77,7 +89,7 @@
     <ClCompile Include="Source\PCH_Framework.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Framework2D\Graphic2D\Layer2D.cpp">
+    <ClCompile Include="Source\Framework2D\Layers\Layer2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Framework2D\Graphic2D\Groups\GroupSprite.cpp">
@@ -117,6 +129,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Framework2D\Graphic2D\Render\Renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework2D\Systems\SystemCollision.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework2D\Systems\SystemInput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework2D\Systems\SystemTimer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework2D\Layers\LayerSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

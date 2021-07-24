@@ -1,30 +1,18 @@
 #include <PCH_Framework.h>
 #include "Layer2D.h"
 
-#include "Groups/Group.h"
-#include "Entities/BaseEntity.h"
+#include <Framework2D/Graphic2D/Groups/Group.h>
+#include <Framework2D/Graphic2D/Entities/BaseEntity.h>
 
 namespace Framework2D {
 
 	Layer2D::Layer2D(const std::string& LayerName)
 		: Layer(LayerName)
 	{
-
 	}
 
 	Layer2D::~Layer2D()
 	{
-		Layer::~Layer();
-	}
-
-	void Layer2D::OnAttach()
-	{
-
-	}
-
-	void Layer2D::OnDetach()
-	{
-
 	}
 
 	void Layer2D::OnUpdate(float DeltaTime)
@@ -34,12 +22,6 @@ namespace Framework2D {
 			g->OnUpdate(DeltaTime);
 			g->OnDraw();
 		}
-	}
-
-	void Layer2D::OnEvent(Engine::Event& e)
-	{
-		for (auto& g : Groups)
-			g->OnEvent(e);
 	}
 
 	inline void Layer2D::AddGroup(Group* group)

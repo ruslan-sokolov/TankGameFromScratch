@@ -14,7 +14,7 @@ namespace Framework2D {
 		}
 	}
 
-	bool Group::AddEntity(BaseEntity* Entity)
+	inline bool Group::AddEntity(BaseEntity* Entity)
 	{
 		if (Entity->HasGroup()) return false;
 
@@ -29,7 +29,7 @@ namespace Framework2D {
 		return true;
 	}
 
-	bool Group::RemoveEntity(BaseEntity* Entity)
+	inline bool Group::RemoveEntity(BaseEntity* Entity)
 	{
 		auto Removed = std::remove(Entities.begin(), Entities.end(), Entity);
 		if (Removed != Entities.end())
@@ -44,7 +44,7 @@ namespace Framework2D {
 		return false;
 	}
 
-	BaseEntity* Group::FindEntity(const std::string& EntityName)
+	inline BaseEntity* Group::FindEntity(const std::string& EntityName)
 	{
 		auto It = std::find_if(Entities.begin(), Entities.end(), [&](BaseEntity* e) {return e->Name == EntityName; });
 		if (It != Entities.end()) return *It;
@@ -52,7 +52,7 @@ namespace Framework2D {
 		return nullptr;
 	}
 
-	bool Group::HasEntity(const std::string& EntityName)
+	inline bool Group::HasEntity(const std::string& EntityName)
 	{
 		return FindEntity(EntityName) != nullptr;
 	}

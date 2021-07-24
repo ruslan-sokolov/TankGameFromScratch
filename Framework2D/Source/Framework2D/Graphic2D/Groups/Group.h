@@ -18,7 +18,6 @@ namespace Framework2D {
 		virtual ~Group();
 
 		virtual void OnUpdate(float DeltaTime) =0;
-		virtual void OnEvent(Engine::Event& e) =0;
 		virtual void OnDraw()                  =0;
 
 		inline std::string GetName() const { return GroupName; }

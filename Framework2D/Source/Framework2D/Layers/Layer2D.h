@@ -9,6 +9,10 @@ namespace Framework2D {
 
 	class Group;
 
+	/*
+	 * this Engine Layer can't handle events
+	 * It Only used for OnUpdate() where it should call OnDraw() and OnUpdate() for 2d group instances
+	 */
 	class FRAMEWORK2D_API Layer2D : public Engine::Layer
 	{
 		std::vector<Group*> Groups;
@@ -17,10 +21,7 @@ namespace Framework2D {
 		Layer2D(const std::string& LayerName);
 		~Layer2D();
 
-		void OnAttach() override;
-		void OnDetach() override;
 		void OnUpdate(float DeltaTime) override;
-		void OnEvent(Engine::Event& e) override;
 
 		inline void AddGroup(Group* group);
 		inline void AddGroupFront(Group* group);

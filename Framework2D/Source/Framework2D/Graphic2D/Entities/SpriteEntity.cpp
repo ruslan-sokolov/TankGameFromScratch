@@ -28,11 +28,11 @@ namespace Framework2D {
 
 	}
 
-	void SpriteEntity::OnUpdate(float DeltaTime)
+	void SpriteEntity::OnTick(float DeltaTime)
 	{
 	}
 
-	void SpriteEntity::OnEvent(Engine::Event& e)
+	void SpriteEntity::OnCollide(BaseEntity* Other, CollisionFilter Filter)
 	{
 	}
 

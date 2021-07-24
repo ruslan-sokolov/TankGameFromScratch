@@ -2,7 +2,7 @@
 
 #include <Framework2D.h>
 
-#include <Framework2D/Graphic2D/Layer2D.h>
+#include <Framework2D/Layers/Layer2D.h>
 #include <Framework2D/Graphic2D/Render/ResourceLoader.h>
 #include <Framework2D/Graphic2D/Render/Renderer.h>
 
@@ -183,8 +183,6 @@ namespace Game {
 			GroupTest_2->AddSprite(new SpriteEntity("TestSprite", T_UI_NUM_4, VecInt2D(300, 220)));
 			GroupTest_2->AddSprite(new SpriteEntity("TestSprite", T_TANK_EB_RIGHT_1, VecInt2D(540, 0)));
 			GroupTest_2->AddSprite(new SpriteEntity("TestSprite", T_TANK_EB_RIGHT_1, VecInt2D(540, 0)));
-
-			// todo fix nullptrs in Group.Entities
 		}
 	};
 
@@ -197,7 +195,11 @@ Framework2D::Initializer* Framework2D::CreateInitializer()
 
 Engine::Application* Engine::CreateApplication()
 {
-	auto App = Framework2D::CreateGame("Tanki From Shet", 640, 480);
+	using namespace GameConst;
+
+	auto App = Framework2D::CreateGame("Tanki From Shet", WINDOW_W, WINDOW_H, 
+		Framework2D::VecInt2D(GAME_AREA_W0, GAME_AREA_H0),
+		Framework2D::VecInt2D(GAME_AREA_W1, GAME_AREA_H1));
 
 	auto Initializer = Framework2D::CreateInitializer();
 	Initializer->Init();

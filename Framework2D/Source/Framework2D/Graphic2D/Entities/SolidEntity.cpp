@@ -6,14 +6,13 @@ namespace Framework2D {
 	SolidEntity::SolidEntity(const std::string& Name, const Vec4& Color, const VecInt2D& Position, const VecInt2D& Size, bool bEnableRender)
 		: BaseEntity(Name, Size, Position, bEnableRender), Color(Color)
 	{
-
 	}
 
-	void SolidEntity::OnUpdate(float DeltaTime)
+	void SolidEntity::OnTick(float DeltaTime)
 	{
 	}
 
-	void SolidEntity::OnEvent(Engine::Event& e)
+	void SolidEntity::OnCollide(BaseEntity* Other, CollisionFilter Filter)
 	{
 	}
 

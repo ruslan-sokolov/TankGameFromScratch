@@ -12,16 +12,7 @@ namespace Framework2D {
 	{
 		for (auto& Solid : Entities)
 		{
-			Solid->OnUpdate(DeltaTime);
-		}
-	}
-
-	void GroupSolid::OnEvent(Engine::Event& e)
-	{
-		for (auto it = Entities.end(); it != Entities.begin(); )
-		{
-			(*--it)->OnEvent(e);
-			if (e.IsHandled()) break;
+			Solid->OnTick(DeltaTime);
 		}
 	}
 
