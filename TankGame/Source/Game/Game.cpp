@@ -108,6 +108,18 @@ namespace Game {
 			shader->Unbind();
 		}
 
+		bool MoveForward()
+		{
+			GAME_LOG(info, "MoveForward Pressed");
+			return false;
+		}
+
+		bool MoveBackward()
+		{
+			GAME_LOG(info, "MoveBackwawrd Pressed");
+			return false;
+		}
+
 		void Init() override
 		{
 			using namespace Framework2D;

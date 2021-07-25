@@ -3,8 +3,6 @@
 #include <Framework2D/Framework2DAPI.h>
 #include <Framework2D/Structs/Vectors.h>
 
-#include "Engine/Events/Event.h"
-
 #include <Framework2D/Gameplay/Game2D.h>
 
 namespace Framework2D {

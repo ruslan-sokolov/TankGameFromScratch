@@ -2,8 +2,6 @@
 
 #include <Framework2D/Framework2DAPI.h>
 
-#include "Engine.h"
-
 namespace Framework2D {
 
 	class BaseEntity;

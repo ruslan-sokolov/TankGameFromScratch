@@ -3,10 +3,10 @@
 
 namespace Framework2D {
 
-	void SystemInput::OnInputEvent(Engine::Event& e)
-	{
-		ENGINE_LOG(info, "[System Input] Event: {}", e);
-	}
+	// Static
+	std::unordered_map<int, std::vector<SystemInput::InputCbFn>> SystemInput::KeyPressedCbs;
+	std::unordered_map<int, std::vector<SystemInput::InputCbFn>> SystemInput::KeyReleasedCbs;
+
 }
 
 
