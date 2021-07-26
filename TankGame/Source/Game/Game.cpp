@@ -137,7 +137,7 @@ namespace Game {
 			GroupSolid* GroupTest = new GroupSolid("TestGroupSolid");
 			MainLayer->AddGroup(GroupTest);
 			
-			SolidEntity* SolidTest_0 = new SolidEntity("TestSolid", Vec4::YellowColor, VecInt2D::VecZero, VecInt2D(50), true);
+			SolidEntity* SolidTest_0 = new SolidEntity("TestSolid", Vec4::GrayColor, VecInt2D::VecZero, VecInt2D(640, 480), true);
 			SolidEntity* SolidTest_1 = new SolidEntity("TestSolid2", Vec4::CyanColor, VecInt2D::VecZero, VecInt2D(20), true);
 			SolidEntity* SolidTest_2 = new SolidEntity("TestSolid3", Vec4::MagentaColor, VecInt2D(200, 100), VecInt2D(70), true);
 			

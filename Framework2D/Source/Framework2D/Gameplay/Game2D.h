@@ -4,7 +4,6 @@
 #include "Framework2D/Framework2DAPI.h"
 
 #include "Framework2D/Structs/Vectors.h"
-#include <Framework2D/Systems/SystemTimer.h>
 
 namespace Framework2D {
 
@@ -36,14 +35,6 @@ namespace Framework2D {
 		inline const VecInt2D& GetGameBoundRight() const { return GameBoundRight; }
 
 		static Game2D* Instance;
-
-		// debug
-		void MoveForward();
-		void DelayedFunc();
-		void DelayedFuncLoop();
-		TimerHandle TimerHandle_1;
-		TimerHandle TimerHandle_2;
-		//
 	};
 
 	inline Game2D* GetGame() { return Game2D::Instance; }

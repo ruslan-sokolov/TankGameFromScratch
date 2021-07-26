@@ -88,7 +88,7 @@ namespace Framework2D
 
 	public:
 		/** Use to remove timer if handle is valid */
-		static inline void RemoveTimer(TimerHandle& Handle);
+		static inline void RemoveTimer(TimerHandle& InOutHandle);
 		/** use to set new timer, if handle is valid - remove existing timer first */
 		static inline void SetTimer(TimerHandle& InOutHandle, TimerCbFn&& Callback, float Rate, bool bLoop = false);
 	};

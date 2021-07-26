@@ -15,16 +15,14 @@ namespace Framework2D {
 		Timers.push_back(std::move(Data));
 	}
 
-	inline void SystemTimer::RemoveTimer(TimerHandle& Handle)
+	inline void SystemTimer::RemoveTimer(TimerHandle& InOutHandle)
 	{
-		if (Handle.IsValid())  // check if valid
+		if (InOutHandle.IsValid() && InOutHandle.TimerIndex < Timers.size())  // check if valid
 		{
-			// todo: make safe
-			auto It = Timers.begin() + Handle.TimerIndex;
-			Timers.erase(It);  // remove timer
-
-			Handle.Invalidate(); // invalidate timer
+			auto It = Timers.begin() + InOutHandle.TimerIndex;
+			It->Handle.Invalidate();  // Pending to remove Timer in next UpdateTimers cycle
 		}
+		InOutHandle.Invalidate(); // invalidate timer
 	}
 
 	inline void SystemTimer::SetTimer(TimerHandle& InOutHandle, TimerCbFn&& Callback, float Rate, bool bLoop)
