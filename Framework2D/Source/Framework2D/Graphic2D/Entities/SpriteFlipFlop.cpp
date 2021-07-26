@@ -29,6 +29,7 @@ namespace Framework2D
 		TimerHandle_FlipFlop.Invalidate();
 	}
 
+	// timer callback
 	inline void SpriteFlipFlop::FlipFlop_OnTimer()
 	{
 		SetFlipFlop(!bCurrentIsFlip);
@@ -56,6 +57,8 @@ namespace Framework2D
 			texture = TextureFlip;
 		else
 			texture = TextureFlop;
+
+		Size = { texture->GetWidth(), texture->GetHeight() };   // update size, todo: make var bCanChangeSize
 	}
 
 }

@@ -11,6 +11,7 @@
 
 #include <Framework2D/Graphic2D/Entities/SpriteEntity.h>
 #include <Framework2D/Graphic2D/Entities/SpriteFlipFlop.h>
+#include <Framework2D/Graphic2D/Entities/SpriteSequence.h>
 #include <Framework2D/Graphic2D/Groups/GroupSprite.h>
 
 namespace Game {
@@ -198,10 +199,13 @@ namespace Game {
 			GroupTest_2->AddSprite(new SpriteEntity("TestSprite", T_TANK_EB_RIGHT_1, VecInt2D(540, 0)));
 			GroupTest_2->AddSprite(new SpriteEntity("TestSprite", T_TANK_EB_RIGHT_1, VecInt2D(540, 0)));
 
-			auto TankFlipFlop = new SpriteFlipFlop("RealTank", T_TANK_EB_RIGHT_0, T_TANK_EB_RIGHT_1,
-				VecInt2D(GAME_AREA_MID_W, GAME_AREA_MID_H), 0.4);
-
+			VecInt2D Mid = VecInt2D(GAME_AREA_MID_W, GAME_AREA_MID_H);
+			auto TankFlipFlop = new SpriteFlipFlop("RealTank", T_TANK_EB_RIGHT_0, T_TANK_EB_RIGHT_1, Mid, 0.4);
 			GroupTest_2->AddSprite(TankFlipFlop);
+
+			VecInt2D AlmostMid = Mid + VecInt2D(100, 0);
+			auto BoomSequence = new SpriteSequence("BigBoom", { T_BOOM_BIG_0, T_BOOM_BIG_1, T_BOOM_SMALL_0, T_BOOM_SMALL_1, T_BOOM_SMALL_2 }, AlmostMid, 0.2);
+			GroupTest_2->AddSprite(BoomSequence);
 		}
 	};
 

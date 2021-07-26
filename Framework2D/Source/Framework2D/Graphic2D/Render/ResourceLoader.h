@@ -26,9 +26,10 @@ namespace Framework2D {
 		static std::string Texture404Path;
 
 		static inline void LoadTexture(const std::string& Path);
-		static inline void LoadTexture(std::initializer_list<const char*> PathList);
+		static inline void LoadTexture(const std::initializer_list<const char*>& PathList);
 		static inline void UnloadTexture(const std::string& Path);
 		static inline Texture* GetTexture(const std::string& Path);
+		static inline std::vector<Texture*> GetTextures(const std::initializer_list<const char*>& PathList);
 
 		static inline void BindTextures(std::vector<Texture*>&& Textures);
 		

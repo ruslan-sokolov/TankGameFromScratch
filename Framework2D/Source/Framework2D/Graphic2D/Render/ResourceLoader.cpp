@@ -26,7 +26,7 @@ namespace Framework2D {
 		}
 	}
 
-	inline void ResourceLoader::LoadTexture(std::initializer_list<const char*> PathList)
+	inline void ResourceLoader::LoadTexture(const std::initializer_list<const char*>& PathList)
 	{
 		for (auto& Path : PathList)
 			LoadTexture(Path);
@@ -55,6 +55,19 @@ namespace Framework2D {
 		}
 
 		return &LoadedTextures.at(Path);
+	}
+
+	inline std::vector<Texture*> ResourceLoader::GetTextures(const std::initializer_list<const char*>& PathList)
+	{
+		std::vector<Texture*> OutTextures;
+
+		for (auto& Path : PathList)
+		{
+			Texture* t = GetTexture(Path);
+			if (t) OutTextures.push_back(t);
+		}
+
+		return OutTextures;
 	}
 
 	inline void ResourceLoader::BindTextures(std::vector<Texture*>&& Textures)

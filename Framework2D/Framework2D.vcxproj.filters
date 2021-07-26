@@ -87,6 +87,9 @@
     <ClInclude Include="Source\Framework2D\Structs\TimerHandle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Framework2D\Graphic2D\Entities\SpriteSequence.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Framework2D\Initializer.cpp">
@@ -150,6 +153,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Framework2D\Graphic2D\Entities\SpriteFlipFlop.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework2D\Graphic2D\Entities\SpriteSequence.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

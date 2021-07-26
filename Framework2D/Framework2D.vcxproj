@@ -124,6 +124,7 @@
     <ClInclude Include="Source\Framework2D\Graphic2D\Entities\SolidEntity.h" />
     <ClInclude Include="Source\Framework2D\Graphic2D\Entities\SpriteEntity.h" />
     <ClInclude Include="Source\Framework2D\Graphic2D\Entities\SpriteFlipFlop.h" />
+    <ClInclude Include="Source\Framework2D\Graphic2D\Entities\SpriteSequence.h" />
     <ClInclude Include="Source\Framework2D\Graphic2D\Groups\Group.h" />
     <ClInclude Include="Source\Framework2D\Graphic2D\Groups\GroupSolid.h" />
     <ClInclude Include="Source\Framework2D\Graphic2D\Groups\GroupSprite.h" />
@@ -148,6 +149,7 @@
     <ClCompile Include="Source\Framework2D\Graphic2D\Entities\SolidEntity.cpp" />
     <ClCompile Include="Source\Framework2D\Graphic2D\Entities\SpriteEntity.cpp" />
     <ClCompile Include="Source\Framework2D\Graphic2D\Entities\SpriteFlipFlop.cpp" />
+    <ClCompile Include="Source\Framework2D\Graphic2D\Entities\SpriteSequence.cpp" />
     <ClCompile Include="Source\Framework2D\Graphic2D\Groups\Group.cpp" />
     <ClCompile Include="Source\Framework2D\Graphic2D\Groups\GroupSolid.cpp" />
     <ClCompile Include="Source\Framework2D\Graphic2D\Groups\GroupSprite.cpp" />
