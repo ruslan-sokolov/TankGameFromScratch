@@ -2,6 +2,8 @@
 
 #include <Framework2D/Framework2DAPI.h>
 
+#include <Framework2D/Structs/TimerHandle.h>
+
 #include <functional>
 #include <vector>
 
@@ -12,23 +14,6 @@ namespace Framework2D
 	struct TimerData;
 
 	using TimerCbFn = std::function<void()>;
-
-	struct TimerHandle
-	{
-		friend struct TimerData;
-		friend class SystemTimer;
-		friend class LayerSystem;
-
-	private:
-		/** Represent index in SystemTimer::Timers */
-		int TimerIndex;
-
-	public:
-		TimerHandle() : TimerIndex(-1) {}
-
-		bool IsValid() const { return TimerIndex != -1; }
-		void Invalidate() { TimerIndex = -1; }
-	};
 
 	struct TimerData
 	{

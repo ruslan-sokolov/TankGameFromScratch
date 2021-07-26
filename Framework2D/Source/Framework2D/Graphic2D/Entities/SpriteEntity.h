@@ -11,6 +11,7 @@ namespace Framework2D {
 	{
 		friend class GroupSprite;
 
+	protected:
 		Vec4 Color;
 		Texture* texture;
 

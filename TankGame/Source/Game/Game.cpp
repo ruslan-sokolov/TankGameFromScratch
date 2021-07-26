@@ -10,6 +10,7 @@
 #include <Framework2D/Graphic2D/Groups/GroupSolid.h>
 
 #include <Framework2D/Graphic2D/Entities/SpriteEntity.h>
+#include <Framework2D/Graphic2D/Entities/SpriteFlipFlop.h>
 #include <Framework2D/Graphic2D/Groups/GroupSprite.h>
 
 namespace Game {
@@ -124,6 +125,7 @@ namespace Game {
 		{
 			using namespace Framework2D;
 			using namespace ResPath;
+			using namespace GameConst;
 
 			Initializer::Init();
 			GAME_LOG(LOG_WARN, "Game::GameInitializer Init()");
@@ -195,6 +197,11 @@ namespace Game {
 			GroupTest_2->AddSprite(new SpriteEntity("TestSprite", T_UI_NUM_4, VecInt2D(300, 220)));
 			GroupTest_2->AddSprite(new SpriteEntity("TestSprite", T_TANK_EB_RIGHT_1, VecInt2D(540, 0)));
 			GroupTest_2->AddSprite(new SpriteEntity("TestSprite", T_TANK_EB_RIGHT_1, VecInt2D(540, 0)));
+
+			auto TankFlipFlop = new SpriteFlipFlop("RealTank", T_TANK_EB_RIGHT_0, T_TANK_EB_RIGHT_1,
+				VecInt2D(GAME_AREA_MID_W, GAME_AREA_MID_H), 0.4);
+
+			GroupTest_2->AddSprite(TankFlipFlop);
 		}
 	};
 
