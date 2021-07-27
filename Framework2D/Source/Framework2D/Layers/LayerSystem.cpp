@@ -29,4 +29,3 @@ namespace Framework2D {
 	}
 
 }
-

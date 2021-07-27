@@ -20,4 +20,3 @@ namespace Framework2D {
 	const VecInt2D VecInt2D::VecUp = VecInt2D(0, -1);
 	const VecInt2D VecInt2D::VecDown = VecInt2D(0, 1);
 }
-

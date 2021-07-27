@@ -8,5 +8,3 @@ namespace Framework2D {
 	std::unordered_map<int, std::vector<SystemInput::InputCbFn>> SystemInput::KeyReleasedCbs;
 
 }
-
-

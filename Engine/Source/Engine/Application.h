@@ -66,4 +66,3 @@ namespace Engine {
 	Application* CreateApplication();
 
 }
-

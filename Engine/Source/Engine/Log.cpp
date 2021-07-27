@@ -20,4 +20,3 @@ namespace Engine
 		CoreLogger->set_level(spdlog::level::trace);
 	}
 }
-

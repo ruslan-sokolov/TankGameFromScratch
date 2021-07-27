@@ -80,5 +80,3 @@ namespace Framework2D
 
 #define TIMER_CALLBACK(x) std::bind(&x, this) 
 }
-
-

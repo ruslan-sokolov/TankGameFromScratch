@@ -41,5 +41,3 @@ namespace Framework2D
 
 	};
 }
-
-
