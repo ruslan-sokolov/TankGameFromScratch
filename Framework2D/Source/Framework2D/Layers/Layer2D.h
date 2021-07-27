@@ -11,7 +11,8 @@ namespace Framework2D {
 
 	/*
 	 * this Engine Layer can't handle events
-	 * It Only used for OnUpdate() where it should call OnDraw() and OnUpdate() for 2d group instances
+	 * It Only used for OnUpdate() where it should call OnDraw() and OnUpdate() for groups 
+	 * with 2d entities instances
 	 */
 	class FRAMEWORK2D_API Layer2D : public Engine::Layer
 	{

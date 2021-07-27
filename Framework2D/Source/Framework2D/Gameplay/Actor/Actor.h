@@ -25,6 +25,8 @@ namespace Framework2D {
 	public:
 		virtual ~Actor();
 
+		virtual void OnTick(float DeltaTime) = 0;
+
 		inline Level* GetLevel() const { return LevelOwner; }
 
 	protected:

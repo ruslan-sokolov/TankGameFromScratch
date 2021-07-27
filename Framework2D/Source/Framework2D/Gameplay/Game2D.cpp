@@ -3,6 +3,7 @@
 
 #include <Framework2D/Layers/Layer2D.h>
 #include <Framework2D/Layers/LayerSystem.h>
+#include <Framework2D/Layers/LayerGameLevel.h>
 
 namespace Framework2D {
 	
@@ -16,10 +17,12 @@ namespace Framework2D {
 		SystemLayer = new LayerSystem("SystemLayer");
 		HUDLayer = new Layer2D("HUDLayer");
 		MainLayer = new Layer2D("MainLayer");
+		GameLevelLayer = new LayerGameLevel("GameLevelLayer");
 
 		PushLayer(MainLayer);
 		PushOverlay(HUDLayer);
 		PushOverlay(SystemLayer);
+		PushLayer(GameLevelLayer);
 	}
 
 	Game2D::~Game2D()

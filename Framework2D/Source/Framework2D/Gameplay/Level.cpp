@@ -2,6 +2,7 @@
 #include "Level.h"
 
 #include <Framework2D/Gameplay/Actor/Actor.h>
+#include <Framework2D/Layers/LayerGameLevel.h>
 
 namespace Framework2D {
 	
@@ -23,6 +24,8 @@ namespace Framework2D {
 	Level::Level(GameMode* GM_Owner)
 		: GM_Owner(GM_Owner)
 	{
+		// todo: move somewhere else
+		if (Game2D* Game = GetGame()) Game->GetGameLevelLayer()->SetLevel(this);
 	}
 	
 	Level::~Level()

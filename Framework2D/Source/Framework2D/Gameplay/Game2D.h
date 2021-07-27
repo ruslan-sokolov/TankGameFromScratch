@@ -9,12 +9,14 @@ namespace Framework2D {
 
 	class LayerSystem;
 	class Layer2D;
+	class LayerGameLevel;
 
 	class FRAMEWORK2D_API Game2D : public Engine::Application
 	{
 		LayerSystem* SystemLayer;
 		Layer2D* HUDLayer;
 		Layer2D* MainLayer;
+		LayerGameLevel* GameLevelLayer;
 
 		const VecInt2D GameBoundLeft;
 		const VecInt2D GameBoundRight;
@@ -30,6 +32,7 @@ namespace Framework2D {
 		inline LayerSystem* GetSystemLayer() const { return SystemLayer; }
 		inline Layer2D* GetHUDLayer() const { return HUDLayer; }
 		inline Layer2D* GetMainLayer() const { return MainLayer; }
+		inline LayerGameLevel* GetGameLevelLayer() const { return GameLevelLayer; }
 
 		inline const VecInt2D& GetGameBoundLeft() const { return GameBoundLeft; }
 		inline const VecInt2D& GetGameBoundRight() const { return GameBoundRight; }

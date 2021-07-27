@@ -6,12 +6,15 @@
 #include <unordered_set>
 
 namespace Framework2D {	
+	
 	class Actor;
 	class GameMode;
+	class LayerGameLevel;
 
 	class FRAMEWORK2D_API Level
 	{
 		friend class GameMode;
+		friend class LayerGameLevel;
 
 		std::unordered_set <Actor*> Actors;
 
