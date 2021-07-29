@@ -19,15 +19,24 @@ namespace Framework2D {
 	{
 		friend class Actor;
 
+		bool bCompTickEnable = false;
+		virtual void OnCompTick(float DeltaTime) {};
+
+	public:
+		virtual ~ActorComponent() {}
+
+		void SeCompTickEnable(bool bCanTick) { this->bCompTickEnable = bCompTickEnable; }
+		bool IsCompTickEnabled() const { return bCompTickEnable; }
+		
+		ActorComponentType GetType() const { return Type; }
+		Actor* GetActor() const { return Owner; }
+	
 	protected:
 		ActorComponentType Type;
 		Actor* Owner;
 
+		// can be called only in derrived
 		ActorComponent(Actor* Owner, ActorComponentType Type) : Owner(Owner), Type(Type) {}
-		virtual ~ActorComponent() {}
-
-		ActorComponentType GetType() const { return Type; }
-		Actor* GetActor() const { return Owner; }
 	};
 
 }

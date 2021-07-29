@@ -76,6 +76,8 @@ namespace Framework2D
 		static inline void RemoveTimer(TimerHandle& InOutHandle);
 		/** use to set new timer, if handle is valid - remove existing timer first */
 		static inline void SetTimer(TimerHandle& InOutHandle, TimerCbFn&& Callback, float Rate, bool bLoop = false);
+		/** Uste to remove all timers, on level change for e.g. */
+		static inline void RemoveAllTimers();
 	};
 
 #define TIMER_CALLBACK(x) std::bind(&x, this) 

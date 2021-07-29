@@ -13,6 +13,7 @@ namespace Framework2D {
 
 	Layer2D::~Layer2D()
 	{
+		for (auto g : Groups) delete g;
 	}
 
 	void Layer2D::OnUpdate(float DeltaTime)

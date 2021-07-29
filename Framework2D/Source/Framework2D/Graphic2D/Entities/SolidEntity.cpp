@@ -8,7 +8,7 @@ namespace Framework2D {
 	{
 	}
 
-	void SolidEntity::OnTick(float DeltaTime)
+	void SolidEntity::OnUpdate(float DeltaTime)
 	{
 	}
 

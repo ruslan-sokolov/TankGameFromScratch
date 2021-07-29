@@ -94,7 +94,6 @@ namespace Framework2D {
 		BaseEntity(const std::string& Name, const VecInt2D& Size = VecInt2D::VecZero, 
 			const VecInt2D& Position = VecInt2D::VecZero, bool bRenderEnable = false) 
 			: Name(Name), Size(Size), Position(Position), bRenderEnabled(bRenderEnable), EntityGroup(nullptr) {}
-		virtual ~BaseEntity();
 
 		bool bRenderEnabled;
 		bool bCollisionEnabled = false;
@@ -114,11 +113,13 @@ namespace Framework2D {
 		static BaseEntity* InvisibleWall;  // used to informate about collision with game 2d walls bound
 
 	public:
+		virtual ~BaseEntity();
+
 		inline Group* GetGroup() const { return EntityGroup; }
 		inline bool HasGroup() const { return EntityGroup != nullptr; }
 		inline std::string GetName() const { return Name; }
 
-		virtual void OnTick(float DeltaTime) = 0;
+		virtual void OnUpdate(float DeltaTime) = 0;
 		virtual void OnCollide(BaseEntity* Other, CollisionFilter Filter) = 0;
 		
 		inline VecInt2D GetSize() const { return Size; }

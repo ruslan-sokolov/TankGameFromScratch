@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
@@ -144,7 +144,7 @@
     <ClInclude Include="Source\Framework2D\Graphic2D\Render\Shader.h" />
     <ClInclude Include="Source\Framework2D\Graphic2D\Render\Texture.h" />
     <ClInclude Include="Source\Framework2D\Initializer.h" />
-    <ClInclude Include="Source\Framework2D\Layers\LayerGameLevel.h" />
+    <ClInclude Include="Source\Framework2D\Layers\LayerGameplay.h" />
     <ClInclude Include="Source\Framework2D\Layers\LayerSystem.h" />
     <ClInclude Include="Source\Framework2D\Structs\TimerHandle.h" />
     <ClInclude Include="Source\Framework2D\Structs\Vectors.h" />
@@ -156,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Framework2D\Gameplay\Actor\Actor.cpp" />
+    <ClCompile Include="Source\Framework2D\Gameplay\Actor\Components\EntityComponent.cpp" />
     <ClCompile Include="Source\Framework2D\Gameplay\Controllers\AIController.cpp" />
     <ClCompile Include="Source\Framework2D\Gameplay\Controllers\PlayerController.cpp" />
     <ClCompile Include="Source\Framework2D\Gameplay\Game2D.cpp" />
@@ -177,7 +178,7 @@
     <ClCompile Include="Source\Framework2D\Graphic2D\Render\Shader.cpp" />
     <ClCompile Include="Source\Framework2D\Graphic2D\Render\Texture.cpp" />
     <ClCompile Include="Source\Framework2D\Initializer.cpp" />
-    <ClCompile Include="Source\Framework2D\Layers\LayerGameLevel.cpp" />
+    <ClCompile Include="Source\Framework2D\Layers\LayerGameplay.cpp" />
     <ClCompile Include="Source\Framework2D\Layers\LayerSystem.cpp" />
     <ClCompile Include="Source\Framework2D\Structs\Vectors.cpp" />
     <ClCompile Include="Source\Framework2D\Systems\SystemInput.cpp" />

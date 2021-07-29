@@ -20,6 +20,12 @@ namespace Framework2D {
 		static std::unordered_map<int, std::vector<InputCbFn>> KeyReleasedCbs;
 
 	public:
+		static inline void RemoveAllBinds()
+		{
+			KeyPressedCbs.clear();
+			KeyReleasedCbs.clear();
+		}
+
 		static inline void OnInputEvent(Engine::Event& e)
 		{
 			using namespace Engine;

@@ -9,18 +9,21 @@ namespace Framework2D {
 	
 	class Actor;
 	class GameMode;
-	class LayerGameLevel;
+	class LayerGameplay;
 
 	class FRAMEWORK2D_API Level
 	{
 		friend class GameMode;
-		friend class LayerGameLevel;
+		friend class LayerGameplay;
+
+		// should be called in GM, calls tick for actors and level
+		inline void Update(float DeltaTime);
 
 		std::unordered_set <Actor*> Actors;
-
-		GameMode* GM_Owner;
+		GameMode* GM_Owner = nullptr;
 
 	public: 
+		Level();
 		virtual ~Level();
 
 		template<typename T>
@@ -30,12 +33,10 @@ namespace Framework2D {
 		
 		inline GameMode* GetGameMode() const { return GM_Owner; }
 
+		virtual void OnTick(float DeltaTime) {};
+
 		// todo: get actors of class
 		// todo: get actor by name
-
-	protected:
-
-		Level(GameMode* GM_Owner);
 
 	};
 

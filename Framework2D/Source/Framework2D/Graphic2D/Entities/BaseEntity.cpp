@@ -13,7 +13,7 @@ namespace Framework2D {
 	{
 	public:
 		InvisibleWallEntity() : BaseEntity("InvisibleWall") {}
-		void OnTick(float DeltaTime) {}
+		void OnUpdate(float DeltaTime) {}
 		void OnCollide(BaseEntity* Other, CollisionFilter Filter) {}
 	};
 

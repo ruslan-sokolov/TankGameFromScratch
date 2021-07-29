@@ -26,7 +26,7 @@ namespace Framework2D {
 		
 		~SpriteEntity();
 
-		void OnTick(float DeltaTime) override;
+		void OnUpdate(float DeltaTime) override;
 		void OnCollide(BaseEntity* Other, CollisionFilter Filter) override;
 
 		inline void SetColor(const Vec4& Color) { this->Color = Color; }

@@ -14,6 +14,9 @@ namespace Framework2D {
 
 	LayerSystem::~LayerSystem()
 	{
+		SystemTimer::RemoveAllTimers();
+		SystemInput::RemoveAllBinds();
+		SystemCollision::ClearCheckCollisionSet();
 	}
 
 	void LayerSystem::OnUpdate(float DeltaTime)

@@ -8,7 +8,10 @@ namespace Framework2D {
 
 	class FRAMEWORK2D_API HUDElement
 	{
+		friend class HUD;
 		HUD* HUD_Owner = nullptr;
+
+		virtual void OnHUDElemTick(float DeltaTime) {}
 	};
 
 }

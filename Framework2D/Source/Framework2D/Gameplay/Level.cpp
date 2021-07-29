@@ -2,7 +2,6 @@
 #include "Level.h"
 
 #include <Framework2D/Gameplay/Actor/Actor.h>
-#include <Framework2D/Layers/LayerGameLevel.h>
 
 namespace Framework2D {
 	
@@ -21,11 +20,14 @@ namespace Framework2D {
 			Actors.erase(ActorToRemove);
 	}
 
-	Level::Level(GameMode* GM_Owner)
-		: GM_Owner(GM_Owner)
+	inline void Level::Update(float DeltaTime)
 	{
-		// todo: move somewhere else
-		if (Game2D* Game = GetGame()) Game->GetGameLevelLayer()->SetLevel(this);
+		for (auto& A : Actors) A->Update(DeltaTime);
+		Level::OnTick(DeltaTime);
+	}
+
+	Level::Level()
+	{
 	}
 	
 	Level::~Level()

@@ -35,6 +35,11 @@ namespace Framework2D {
 		InOutHandle = NewTimer.Handle;  // out updated valid handler;
 	}
 
+	inline void SystemTimer::RemoveAllTimers()
+	{
+		Timers.clear();
+	}
+
 	inline void SystemTimer::UpdateTimers(float DeltaTime)
 	{
 		auto It_InvalidBegin = Timers.begin(); // after loop invalid Timers should be in [It_InvalidBegin, Timers.End) range

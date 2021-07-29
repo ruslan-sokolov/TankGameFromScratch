@@ -8,7 +8,12 @@ namespace Framework2D {
 
 	class FRAMEWORK2D_API PlayerController 
 	{
+		friend class GameMode;
+
 		GameMode* GM_Owner = nullptr;
+
+	public:
+		virtual void OnTick(float DeltaTime) {}
 	};
 
 }

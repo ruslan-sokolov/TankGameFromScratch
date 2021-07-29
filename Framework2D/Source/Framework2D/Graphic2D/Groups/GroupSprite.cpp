@@ -13,7 +13,7 @@ namespace Framework2D {
 	{
 		for (auto& Sprite : Entities)
 		{
-			Sprite->OnTick(DeltaTime);
+			Sprite->OnUpdate(DeltaTime);
 		}
 	}
 

@@ -12,7 +12,7 @@ namespace Framework2D {
 	{
 		for (auto& Solid : Entities)
 		{
-			Solid->OnTick(DeltaTime);
+			Solid->OnUpdate(DeltaTime);
 		}
 	}
 

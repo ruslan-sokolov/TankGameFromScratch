@@ -24,7 +24,7 @@ namespace Framework2D {
 
 	}
 
-	void SpriteEntity::OnTick(float DeltaTime)
+	void SpriteEntity::OnUpdate(float DeltaTime)
 	{
 	}
 

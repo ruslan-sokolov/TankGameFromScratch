@@ -3,7 +3,8 @@
 
 #include <Framework2D/Layers/Layer2D.h>
 #include <Framework2D/Layers/LayerSystem.h>
-#include <Framework2D/Layers/LayerGameLevel.h>
+#include <Framework2D/Layers/LayerGameplay.h>
+
 
 namespace Framework2D {
 	
@@ -17,15 +18,30 @@ namespace Framework2D {
 		SystemLayer = new LayerSystem("SystemLayer");
 		HUDLayer = new Layer2D("HUDLayer");
 		MainLayer = new Layer2D("MainLayer");
-		GameLevelLayer = new LayerGameLevel("GameLevelLayer");
+		GameplayLayer = new LayerGameplay("GameplayLayer");
 
 		PushLayer(MainLayer);
+		PushLayer(GameplayLayer);
 		PushOverlay(HUDLayer);
 		PushOverlay(SystemLayer);
-		PushLayer(GameLevelLayer);
 	}
 
 	Game2D::~Game2D()
 	{
+		delete SystemLayer;
+		delete HUDLayer;
+		delete MainLayer;
+		delete GameplayLayer;
+		delete CurrentGameMode;
+	}
+	
+	inline void Game2D::ChangeGameMode(GameMode* NewGameMode, bool bAutoStart)
+	{
+		auto PrevGM = CurrentGameMode;
+		CurrentGameMode = NewGameMode;
+		GameplayLayer->GM = NewGameMode;
+		delete PrevGM;
+
+		if (bAutoStart) NewGameMode->Start();
 	}
 }
