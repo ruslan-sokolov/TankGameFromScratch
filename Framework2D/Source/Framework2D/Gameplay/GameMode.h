@@ -21,7 +21,7 @@ namespace Framework2D
 		std::unique_ptr<AIController> m_AIController;
 
 		friend class LayerGameplay;
-		// called in LayerGameplay will tick for Level, HUD, PlayerContoller, AIController
+		// called in LayerGameplay will tick for Level, HUD, PlayerContoller, AIController and GM itself
 		inline void Update(float DeltaTime);
 
 	public:
@@ -37,8 +37,9 @@ namespace Framework2D
 		HUD* GetHUD() const { return m_HUD.get(); }
 		AIController* GetAIController() const { return m_AIController.get(); }
 
-		inline void Start();
-		inline void Restart();
-		inline void End();
+		virtual void OnTick(float DeltaTime) {}
+		virtual void Start();
+		virtual void Restart();
+		virtual void End();
 	};
 }

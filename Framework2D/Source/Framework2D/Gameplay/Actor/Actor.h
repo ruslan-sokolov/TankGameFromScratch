@@ -19,6 +19,9 @@ namespace Framework2D {
 		// Should be called in :evel, calls tick for actor and actor components;
 		inline void Update(float DeltaTime);
 
+		// Hide baseEntity update
+		void OnUpdate(float DeltaTime) final {};
+
 		std::vector<ActorComponent*> Components;
 
 		Level* LevelOwner = nullptr;
@@ -30,6 +33,7 @@ namespace Framework2D {
 		 * Custom frame per frame actor logic
 		 */
 		virtual void OnTick(float DeltaTime) {}
+		virtual void OnCollide(BaseEntity* Other, CollisionFilter Filter) {}
 
 		inline Level* GetLevel() const { return LevelOwner; }
 
@@ -68,12 +72,12 @@ namespace Framework2D {
 		 */
 		inline void SetSize(const VecInt2D& NewSize, bool bTranslateToComponents = false);
 
+		// Remove component 
+		inline void RemoveComponent(ActorComponent* Component);
+
 	protected:
 		//  Will be called from component constructor
 		inline void AddComponent(ActorComponent* Component);
-		
-		// Remove component 
-		inline void RemoveComponent(ActorComponent* Component);
 		
 		/*
 		 * Iterate Components with lambda function call for each
@@ -85,7 +89,7 @@ namespace Framework2D {
 		}
 
 	protected:
-		Actor(const std::string& Name, const VecInt2D& Position);  // can be created only as derrived;
+		Actor(const std::string& Name, const VecInt2D& Position);  // can be created only as derrived and from Level::SpawnActorFromClass();
 
 	};
 }

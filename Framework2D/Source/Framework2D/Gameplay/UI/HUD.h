@@ -19,6 +19,9 @@ namespace Framework2D {
 		std::vector<HUDElement*> Elements;
 
 	public:
+		HUD();
+		virtual ~HUD();
+
 		virtual void OnTick(float DeltaTime) {}
 	};
 

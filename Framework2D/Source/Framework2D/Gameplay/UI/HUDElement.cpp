@@ -4,6 +4,12 @@
 
 namespace Framework2D {
 
+    HUDElement::HUDElement()
+    {
+    }
 
+    HUDElement::~HUDElement()
+    {
+    }
 
 }

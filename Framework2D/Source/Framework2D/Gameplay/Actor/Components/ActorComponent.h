@@ -36,7 +36,7 @@ namespace Framework2D {
 		Actor* Owner;
 
 		// can be called only in derrived
-		ActorComponent(Actor* Owner, ActorComponentType Type) : Owner(Owner), Type(Type) {}
+		inline ActorComponent(Actor* Owner, ActorComponentType Type);
 	};
 
 }

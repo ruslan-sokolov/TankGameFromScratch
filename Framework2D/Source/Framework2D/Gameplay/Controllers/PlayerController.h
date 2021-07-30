@@ -13,6 +13,9 @@ namespace Framework2D {
 		GameMode* GM_Owner = nullptr;
 
 	public:
+		PlayerController();
+		virtual ~PlayerController();
+
 		virtual void OnTick(float DeltaTime) {}
 	};
 

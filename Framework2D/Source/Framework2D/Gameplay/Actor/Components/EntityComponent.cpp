@@ -10,7 +10,7 @@ namespace Framework2D {
 
 	inline void BaseEntityComponent::InitEntity(SpriteEntity* Sprite)
 	{
-		this->Entity = Entity;
+		this->Entity = Sprite;
 
 		// add to renderer
 		// group with name Actor.name not nessesery is GroupSprite type! todo: resolve problem
@@ -28,7 +28,7 @@ namespace Framework2D {
 		}
 	}
 
-	inline void BaseEntityComponent::InitEntity(BaseEntity* Entitiy)
+	inline void BaseEntityComponent::InitEntity(BaseEntity* Entity)
 	{
 		ENGINE_ASSERT(true, "Not supported yet");
 		this->Entity = Entity;
@@ -46,6 +46,7 @@ namespace Framework2D {
 	{
 		// change current offset and also set new position with offset
 		ActorPositionOffset = PosOffsetFromActor;
+		ENGINE_LOG(info, "ActorPos {} {} Offset {} {}", Owner->GetPosition().X, Owner->GetPosition().Y, PosOffsetFromActor.X, PosOffsetFromActor.Y);
 		Entity->SetPosition(Owner->GetPosition() + PosOffsetFromActor);
 	}
 

@@ -11,6 +11,7 @@ namespace Framework2D {
 	GameMode::GameMode(Level* InLevel, PlayerController* InPlayerController, HUD* InHUD, AIController* InAIController)
 		: m_Level(InLevel), m_PlayerController(InPlayerController), m_HUD(InHUD), m_AIController(InAIController)
 	{
+
 		m_Level->GM_Owner = this;
 		m_PlayerController->GM_Owner = this;
 		m_HUD->GM_Owner = this;
@@ -28,23 +29,22 @@ namespace Framework2D {
 
 		m_PlayerController->OnTick(DeltaTime);
 		m_AIController->OnTick(DeltaTime);
+
+		OnTick(DeltaTime);
 	}
 
-	inline void GameMode::Start()
+	void GameMode::Start()
 	{
-		// todo
 		ENGINE_LOG(info, "_____GameMode::Start_____");
 	}
 
-	inline void GameMode::Restart()
+	void GameMode::Restart()
 	{
-		// todo
 		ENGINE_LOG(info, "_____GameMode::Restart_____");
 	}
 
-	inline void GameMode::End()
+	void GameMode::End()
 	{
-		// todo
 		ENGINE_LOG(info, "_____GameMode::End_____");
 	}
 }

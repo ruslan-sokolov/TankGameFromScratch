@@ -157,7 +157,13 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Game\Actors\TankActor.cpp" />
     <ClCompile Include="Source\Game\Game.cpp" />
+    <ClCompile Include="Source\Game\Gameplay\TankiAIController.cpp" />
+    <ClCompile Include="Source\Game\Gameplay\TankiGameMode.cpp" />
+    <ClCompile Include="Source\Game\Levels\TankiLevel_0.cpp" />
+    <ClCompile Include="Source\Game\Gameplay\TankiPlayerController.cpp" />
+    <ClCompile Include="Source\Game\UI\TankiHUD.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">
@@ -168,7 +174,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Game\Actors\TankActor.h" />
     <ClInclude Include="Source\Game\Game.h" />
+    <ClInclude Include="Source\Game\Gameplay\TankiAIController.h" />
+    <ClInclude Include="Source\Game\Gameplay\TankiGameMode.h" />
+    <ClInclude Include="Source\Game\Levels\TankiLevel_0.h" />
+    <ClInclude Include="Source\Game\Gameplay\TankiPlayerController.h" />
+    <ClInclude Include="Source\Game\UI\TankiHUD.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

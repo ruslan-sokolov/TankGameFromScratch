@@ -14,6 +14,8 @@
 #include <Framework2D/Graphic2D/Entities/SpriteSequence.h>
 #include <Framework2D/Graphic2D/Groups/GroupSprite.h>
 
+#include <Game/Gameplay/TankiGameMode.h>
+
 namespace Game {
 
 	class GameInitializer : public Framework2D::Initializer
@@ -206,6 +208,12 @@ namespace Game {
 			VecInt2D AlmostMid = Mid + VecInt2D(100, 0);
 			auto BoomSequence = new SpriteSequence("BigBoom", { T_BOOM_BIG_0, T_BOOM_BIG_1, T_BOOM_SMALL_0, T_BOOM_SMALL_1, T_BOOM_SMALL_2 }, AlmostMid, 0.2);
 			GroupTest_2->AddSprite(BoomSequence);
+
+			// test Gameplay framework
+			{
+				auto GM = new TankiGameMode;
+				game->ChangeGameMode(GM);
+			}
 		}
 	};
 

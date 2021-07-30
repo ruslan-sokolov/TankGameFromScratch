@@ -11,4 +11,13 @@ namespace Framework2D {
 		OnTick(DeltaTime);
 	}
 
+	HUD::HUD()
+	{
+	}
+
+	HUD::~HUD()
+	{
+		for (auto& HUDElem : Elements) delete HUDElem;
+	}
+
 }

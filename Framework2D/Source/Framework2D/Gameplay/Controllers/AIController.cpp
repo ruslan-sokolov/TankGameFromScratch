@@ -3,4 +3,11 @@
 
 namespace Framework2D {
 
+    AIController::AIController()
+    {
+    }
+
+    AIController::~AIController()
+    {
+    }
 }

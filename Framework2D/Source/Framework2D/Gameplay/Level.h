@@ -5,6 +5,8 @@
 #include <string>
 #include <unordered_set>
 
+#include <Framework2D/Gameplay/Actor/Actor.h>
+
 namespace Framework2D {	
 	
 	class Actor;
@@ -26,8 +28,14 @@ namespace Framework2D {
 		Level();
 		virtual ~Level();
 
-		template<typename T>
-		inline T* SpawnActorFromClass(const std::string& Name, const VecInt2D& Pos);
+		template<class T>
+		T* SpawnActorFromClass(const std::string& Name, const VecInt2D& Pos)
+		{
+			T* SpawnedActor = new T(Name, Pos);
+			SpawnedActor->LevelOwner = this;
+			Actors.insert(SpawnedActor);
+			return SpawnedActor;
+		}
 
 		inline void RemoveActor(Actor* ActorToRemove);
 		

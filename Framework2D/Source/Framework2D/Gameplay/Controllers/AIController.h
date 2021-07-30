@@ -19,6 +19,9 @@ namespace Framework2D {
 		GameMode* GetGameMode() const { return GM_Owner; }
 
 	public:
+		AIController();
+		virtual ~AIController();
+
 		virtual void OnTick(float DeltaTime) {}
 	};
 

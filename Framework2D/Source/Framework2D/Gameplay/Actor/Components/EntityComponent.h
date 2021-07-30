@@ -20,7 +20,6 @@ namespace Framework2D {
 
 		/** For Entity initialization in derrived classes */
 		inline void InitEntity(SpriteEntity* Entity);
-
 		inline void InitEntity(BaseEntity* Entitiy);
 
 		// Component position offset from it's actor position  
@@ -35,7 +34,6 @@ namespace Framework2D {
 	public:
 		BaseEntity* GetEntity() const { return Entity; }
 
-
 		/*
 		 * Control comp pos to actor pos attachment, 
 		 * if true - then on actor pos update, comp will change pos with it's offset  
@@ -44,16 +42,15 @@ namespace Framework2D {
 
 		/** Set new component position with offset value from actor position*/
 		inline void SetRelativePosition(const VecInt2D& PosOffsetFromActor);
-
 		/** Change component absolute position */
 		inline void SetAbsolutePosition(const VecInt2D& NewWorldPosition);
 
 		inline VecInt2D GetRelativePosition() const { return ActorPositionOffset; }
-
-		inline VecInt2D GetAbsolutePosition() const { return Entity->GetPosition(); }
+		inline VecInt2D GetAbsolutePosition() const { return Entity ? Entity->GetPosition() : 0; }
 
 		/** todo: This should be changed to set scale instead */
-		inline void SetSize(const VecInt2D& NewSize) { Entity->SetSize(NewSize); }
+		inline void SetSize(const VecInt2D& NewSize) { if (Entity) Entity->SetSize(NewSize); }
+		inline VecInt2D GetSize() const { return Entity ? Entity->GetSize() : 0; }
 
 		BaseEntityComponent(Actor* ActorOwner) :
 			ActorComponent(ActorOwner, ActorComponentType::EntityComponent) {}
@@ -68,30 +65,33 @@ namespace Framework2D {
 	template <class T>
 	class FRAMEWORK2D_API EntityComponent : public BaseEntityComponent
 	{
+	public:
 		template <typename... Args>
-		inline EntityComponent(Args&& ... args) = delete;
+		inline EntityComponent(Args ... args) = delete;
 	};
-
+	
+	// Sprite comp
 	template <> template <>
-	inline EntityComponent<SpriteEntity>::EntityComponent(Actor*&& ActorOwner, const std::string&& Name,
-		const std::string&& TexturePath, const VecInt2D&& Position)
+	inline EntityComponent<SpriteEntity>::EntityComponent(Actor* ActorOwner, std::string Name, VecInt2D Position,
+		const char* TexturePath)
 		: BaseEntityComponent(ActorOwner) 
 	{
 		InitEntity(new SpriteEntity(Name, TexturePath, Position));
 	}
 
+	// SpriteFlipFlop comp
 	template <> template <>
-	inline EntityComponent<SpriteFlipFlop>::EntityComponent(Actor*&& ActorOwner, const std::string&& Name,
-		const std::string&& TextureFlipPath, const std::string&& TextureFlopPath,
-		const VecInt2D&& Position, const float&& FlipFlopRate)
+	inline EntityComponent<SpriteFlipFlop>::EntityComponent(Actor* ActorOwner, std::string Name, VecInt2D Position,
+		float FlipFlopRate, const char* TextureFlipPath, const char* TextureFlopPath)
 		: BaseEntityComponent(ActorOwner)
 	{
 		InitEntity(new SpriteFlipFlop(Name, TextureFlipPath, TextureFlopPath, Position, FlipFlopRate));
 	}
-
+	
+	// SpriteSequence comp
 	template<> template <>
-	inline EntityComponent<SpriteSequence>::EntityComponent(Actor*&& ActorOwner, const std::string&& Name,
-		const std::initializer_list<const char*>&& TexturePathList, const VecInt2D&& Position, const float&& AnimRate)
+	inline EntityComponent<SpriteSequence>::EntityComponent(Actor* ActorOwner, std::string Name, VecInt2D Position, 
+		float AnimRate, std::initializer_list<const char*> TexturePathList)
 		: BaseEntityComponent(ActorOwner)
 	{
 		InitEntity(new SpriteSequence(Name, TexturePathList, Position, AnimRate));
