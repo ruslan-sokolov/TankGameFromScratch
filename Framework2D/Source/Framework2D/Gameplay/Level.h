@@ -29,11 +29,17 @@ namespace Framework2D {
 		virtual ~Level();
 
 		template<class T>
-		T* SpawnActorFromClass(const std::string& Name, const VecInt2D& Pos)
+		T* SpawnActorFromClass(const std::string& Name, const VecInt2D& Pos, Anchor Anchor = Anchor::TOP_LEFT)
 		{
 			T* SpawnedActor = new T(Name, Pos);
+
+			// anchor pos offset
+			SpawnedActor->SetPosition(Pos - GetAnchorOffset(SpawnedActor->GetSize(), Anchor));
+			
 			SpawnedActor->LevelOwner = this;
 			Actors.insert(SpawnedActor);
+
+			GAME_LOG(warn, "Spawned Actor: {}_{}", SpawnedActor->GetName(), SpawnedActor->GetId());
 			return SpawnedActor;
 		}
 

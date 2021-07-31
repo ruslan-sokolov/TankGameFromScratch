@@ -26,6 +26,9 @@ namespace Framework2D {
 
 		Level* LevelOwner = nullptr;
 
+		static inline unsigned int TotalActorsCreatedNum = 0;
+		unsigned int Id;  // creation count num
+
 	public:
 		virtual ~Actor();
 
@@ -36,6 +39,8 @@ namespace Framework2D {
 		virtual void OnCollide(BaseEntity* Other, CollisionFilter Filter) {}
 
 		inline Level* GetLevel() const { return LevelOwner; }
+		inline static unsigned int GetTotalActorsCreatedNum() { return TotalActorsCreatedNum; }
+		inline unsigned int GetId() const { return Id; }
 
 		/** slow operation. runtime check for component class */
 		template<class T>

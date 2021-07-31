@@ -10,36 +10,27 @@ namespace Game {
 	using namespace Framework2D;
 
 	/*
-	 * This class is represent main AI/Player controlled actor - tank
-	 *
+	 * This class is represent 
+	 * 
 	 */
-	class Tank : public Framework2D::Actor
+	class BrickSolid : public Framework2D::Actor
 	{
 	protected:
-		class EntityComponent<SpriteEntity>* TankUpComp;
-
+		EntityComponent<SpriteEntity>* BrickSpriteComp;
 
 	public:
-		/*
+		/* 
 		 * Constructor should be called only from Level::SpawnActorFromClass() method;
 		 * Constructor can initialize Actor Components;
-		 */
-		Tank(const std::string& Name, const VecInt2D& Position);
-		
+		 */ 
+		BrickSolid(const std::string& Name, const VecInt2D& Position);
+
 		// frame per frame logic, no need to call Framework2D::Actor implementation
 		virtual void OnTick(float DeltaTime) override;
 
+		// will be called when actor overlaps with other entity with enabled collision
 		virtual void OnCollide(BaseEntity* Other, CollisionFilter Filter) override;
 
-	protected:
-		// movement
-		inline void Move(float DeltaTime);
-
-	public:
-		void MoveBegin(Direction DirectionTo);
-		void MoveEnd(Direction DirectionTo);
-
-		void Fire();
 
 	};
 }

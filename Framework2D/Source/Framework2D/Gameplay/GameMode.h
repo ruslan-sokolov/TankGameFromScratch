@@ -38,8 +38,11 @@ namespace Framework2D
 		AIController* GetAIController() const { return m_AIController.get(); }
 
 		virtual void OnTick(float DeltaTime) {}
+		/** BeginPlay kinda but only in one exemplar */
 		virtual void Start();
+		/** Restart Current Level */
 		virtual void Restart();
+		/** End Current Level */
 		virtual void End();
 	};
 }

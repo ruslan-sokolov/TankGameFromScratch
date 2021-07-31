@@ -9,6 +9,8 @@
 #include <iostream>
 #include <functional>
 #include <string>
+#include <sstream>
+
 
 namespace Engine {
 

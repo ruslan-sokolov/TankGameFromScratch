@@ -4,6 +4,7 @@
 #include "TankiAIController.h"
 #include <Game/UI/TankiHUD.h>
 #include <Game/Levels/TankiLevel_0.h>
+#include <Game/Actors/TankActor.h>
 
 namespace Game {
 
@@ -15,6 +16,10 @@ namespace Game {
 		CustomHUD = static_cast<TankiHUD*>(GetHUD());
 		PlayerTankController = static_cast<TankiPlayerController*>(GetPlayerController());
 		AITankController = static_cast<TankiAIController*>(GetAIController());
+
+		// Pass Tank To Player Controller
+		Tank* PlayerTank = BasicLevel->GetPlayerTank();
+		PlayerTankController->SetControlledTank(PlayerTank);
 	}
 
 	void TankiGameMode::OnTick(float DeltaTime)

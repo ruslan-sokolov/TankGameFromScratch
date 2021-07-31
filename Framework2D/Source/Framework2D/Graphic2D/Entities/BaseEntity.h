@@ -89,7 +89,7 @@ namespace Framework2D {
 	
 	protected:
 		Group* EntityGroup;
-		const std::string Name;
+		std::string Name;
 
 		BaseEntity(const std::string& Name, const VecInt2D& Size = VecInt2D::VecZero, 
 			const VecInt2D& Position = VecInt2D::VecZero, bool bRenderEnable = false) 

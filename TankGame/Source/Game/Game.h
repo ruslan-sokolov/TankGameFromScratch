@@ -9,6 +9,9 @@ namespace ResPath
 
 	// Textures path (starts with prefix "T_")
 	
+	// Background
+	constexpr auto T_BG = "..\\Resources\\Textures\\Tank\\BG.png";
+
 	// Tank yellow
 	constexpr auto T_TANK_DOWN_0 = "..\\Resources\\Textures\\Tank\\tank0\\tank0_down_0.png";
 	constexpr auto T_TANK_DOWN_1 = "..\\Resources\\Textures\\Tank\\tank0\\tank0_down_1.png";

@@ -100,7 +100,7 @@ namespace Framework2D {
 
 	inline Vec2::Vec2(const VecInt2D& Other) : X(Other.X), Y(Other.Y) {}
 
-	enum class Direction
+	enum class FRAMEWORK2D_API Direction
 	{
 		LEFT,
 		RIGHT,

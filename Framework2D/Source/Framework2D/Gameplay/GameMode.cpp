@@ -35,16 +35,16 @@ namespace Framework2D {
 
 	void GameMode::Start()
 	{
-		ENGINE_LOG(info, "_____GameMode::Start_____");
+		GAME_LOG(info, "_____GameMode::Start_____");
 	}
 
 	void GameMode::Restart()
 	{
-		ENGINE_LOG(info, "_____GameMode::Restart_____");
+		GAME_LOG(info, "_____GameMode::Restart_____");
 	}
 
 	void GameMode::End()
 	{
-		ENGINE_LOG(info, "_____GameMode::End_____");
+		GAME_LOG(info, "_____GameMode::End_____");
 	}
 }

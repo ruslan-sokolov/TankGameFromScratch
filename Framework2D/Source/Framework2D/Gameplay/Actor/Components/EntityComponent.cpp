@@ -46,7 +46,6 @@ namespace Framework2D {
 	{
 		// change current offset and also set new position with offset
 		ActorPositionOffset = PosOffsetFromActor;
-		ENGINE_LOG(info, "ActorPos {} {} Offset {} {}", Owner->GetPosition().X, Owner->GetPosition().Y, PosOffsetFromActor.X, PosOffsetFromActor.Y);
 		Entity->SetPosition(Owner->GetPosition() + PosOffsetFromActor);
 	}
 
