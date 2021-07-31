@@ -17,7 +17,7 @@ namespace Framework2D {
 
 	inline void SystemTimer::RemoveTimer(TimerHandle& InOutHandle)
 	{
-		if (InOutHandle.IsValid() && InOutHandle.TimerIndex < Timers.size())  // check if valid
+		if (InOutHandle.TimerIndex < Timers.size())  // check if valid
 		{
 			auto It = Timers.begin() + InOutHandle.TimerIndex;
 			It->Handle.Invalidate();  // Pending to remove Timer in next UpdateTimers cycle

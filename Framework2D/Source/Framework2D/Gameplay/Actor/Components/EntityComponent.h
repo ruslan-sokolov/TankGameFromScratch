@@ -62,19 +62,20 @@ namespace Framework2D {
 	 * EntityComponent template, for entities like SpriteEntity, SpriteFlipFlop, SpriteSequence
 	 * Template class should be derrived from BaseEntity
 	 */
-	template <class T>
-	class FRAMEWORK2D_API EntityComponent : public BaseEntityComponent
+	template <class T> class EntityComponent : public BaseEntityComponent
 	{
 	public:
 		template <typename... Args>
-		inline EntityComponent(Args ... args) = delete;
+		EntityComponent(Args ... args) = delete;
+
+		T* GetSprite() { return static_cast<T*>(Entity); }
 	};
 	
 	// Sprite comp
 	template <> template <>
 	inline EntityComponent<SpriteEntity>::EntityComponent(Actor* ActorOwner, std::string Name, VecInt2D Position,
 		const char* TexturePath)
-		: BaseEntityComponent(ActorOwner) 
+		: BaseEntityComponent(ActorOwner)
 	{
 		InitEntity(new SpriteEntity(Name, TexturePath, Position));
 	}

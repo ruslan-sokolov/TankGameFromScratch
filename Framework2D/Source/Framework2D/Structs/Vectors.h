@@ -102,10 +102,12 @@ namespace Framework2D {
 
 	enum class FRAMEWORK2D_API Direction
 	{
-		LEFT,
-		RIGHT,
-		DOWN,
-		UP
+		NONE = 0,
+
+		LEFT = 1,
+		RIGHT = 2,
+		DOWN = 3,
+		UP = 4
 	};
 
 	inline Direction GetRandomDirection()

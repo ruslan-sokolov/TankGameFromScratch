@@ -15,10 +15,6 @@ namespace Game {
 	 */
 	class Tank : public Framework2D::Actor
 	{
-	protected:
-		class EntityComponent<SpriteEntity>* TankUpComp;
-
-
 	public:
 		/*
 		 * Constructor should be called only from Level::SpawnActorFromClass() method;
@@ -32,14 +28,42 @@ namespace Game {
 		virtual void OnCollide(BaseEntity* Other, CollisionFilter Filter) override;
 
 	protected:
+
+		// direction
+		EntityComponent<SpriteFlipFlop>* SpriteComp_Up;
+		EntityComponent<SpriteFlipFlop>* SpriteComp_Down;
+		EntityComponent<SpriteFlipFlop>* SpriteComp_Left;
+		EntityComponent<SpriteFlipFlop>* SpriteComp_Right;
+
+		EntityComponent<SpriteFlipFlop>* SpriteComp_Current;
+		Direction CurrentDirection = Direction::NONE;
+
+		EntityComponent<SpriteFlipFlop>* SpriteComp_Next;
+		Direction NextDirection = Direction::NONE;
+
+		inline void ChangeCurrentDirectionSprite();
+		inline void SetNextDirectionSprite(Direction DirectionTo);
+
+		bool bCanMove = false;
+		float Speed;
+
 		// movement
 		inline void Move(float DeltaTime);
+
+		// movement anim
+		float MoveAnimRate;
+		inline void PlayMoveAnim();
+		inline void StopMoveAnim();
+
+		bool bPossesedByPlayer = false;
 
 	public:
 		void MoveBegin(Direction DirectionTo);
 		void MoveEnd(Direction DirectionTo);
 
 		void Fire();
+
+		Direction GetDirection() const { return CurrentDirection; }
 
 	};
 }
