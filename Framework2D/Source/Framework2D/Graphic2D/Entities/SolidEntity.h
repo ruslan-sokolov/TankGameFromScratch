@@ -13,7 +13,7 @@ namespace Framework2D {
 		Vec4 Color;
 
 	public:
-		SolidEntity(const std::string& Name, const Vec4& Color, const VecInt2D& Position, const VecInt2D& Size, bool bEnableRender=true);
+		SolidEntity(const std::string& Name, const Vec4& Color, const Vec2Int& Position, const Vec2Int& Size, bool bEnableRender=true);
 		~SolidEntity();
 
 		void OnUpdate(float DeltaTime) override;

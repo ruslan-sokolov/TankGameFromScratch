@@ -9,17 +9,17 @@ namespace Game {
 	{
 		using namespace GameConst;
 
-		const VecInt2D ChunkZero(GAME_AREA_OFFSET_W, GAME_AREA_OFFSET_H);
-		const VecInt2D ChunkOffset(GAME_CHUNK_W, GAME_CHUNK_H);
-		const VecInt2D ChunkOffset_X(GAME_CHUNK_W, 0);
-		const VecInt2D ChunkOffset_Y(0, GAME_CHUNK_H);
+		const Vec2Int ChunkZero(GAME_AREA_OFFSET_W, GAME_AREA_OFFSET_H);
+		const Vec2Int ChunkOffset(GAME_CHUNK_W, GAME_CHUNK_H);
+		const Vec2Int ChunkOffset_X(GAME_CHUNK_W, 0);
+		const Vec2Int ChunkOffset_Y(0, GAME_CHUNK_H);
 
-		const VecInt2D ChunkLastOffset_X(GAME_AREA_H1, 0);
-		const VecInt2D ChunkLastOffset_Y(0, GAME_AREA_W1);
+		const Vec2Int ChunkLastOffset_X(GAME_AREA_H1, 0);
+		const Vec2Int ChunkLastOffset_Y(0, GAME_AREA_W1);
 
-		const VecInt2D BasePosition(GAME_AREA_MID_W, GAME_AREA_H1);
+		const Vec2Int BasePosition(GAME_AREA_MID_W, GAME_AREA_H1);
 
-		const VecInt2D PlayerStart = BasePosition - ChunkOffset_X * 2;
+		const Vec2Int PlayerStart = BasePosition - ChunkOffset_X * 2;
 
 		// Level walls:
 		{

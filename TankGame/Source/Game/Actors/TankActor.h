@@ -20,7 +20,7 @@ namespace Game {
 		 * Constructor should be called only from Level::SpawnActorFromClass() method;
 		 * Constructor can initialize Actor Components;
 		 */
-		Tank(const std::string& Name, const VecInt2D& Position);
+		Tank(const std::string& Name, const Vec2Int& Position);
 		
 		// frame per frame logic, no need to call Framework2D::Actor implementation
 		virtual void OnTick(float DeltaTime) override;

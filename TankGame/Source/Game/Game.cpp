@@ -142,8 +142,8 @@ Engine::Application* Engine::CreateApplication()
 	using namespace GameConst;
 
 	auto App = Framework2D::CreateGame("Tanki From Shet", WINDOW_W, WINDOW_H, 
-		Framework2D::VecInt2D(GAME_AREA_W0, GAME_AREA_H0),
-		Framework2D::VecInt2D(GAME_AREA_W1, GAME_AREA_H1));
+		Framework2D::Vec2Int(GAME_AREA_W0, GAME_AREA_H0),
+		Framework2D::Vec2Int(GAME_AREA_W1, GAME_AREA_H1));
 
 	auto Initializer = Framework2D::CreateInitializer();
 	Initializer->Init();

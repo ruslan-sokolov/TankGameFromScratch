@@ -4,6 +4,7 @@
 
 #include <functional>
 #include <Framework2D/Structs/Vectors.h>
+#include <Framework2D/Structs/Direction.h>
 
 namespace Framework2D
 {

@@ -23,13 +23,13 @@ namespace Framework2D {
 		inline void InitEntity(BaseEntity* Entitiy);
 
 		// Component position offset from it's actor position  
-		VecInt2D ActorPositionOffset;
+		Vec2Int ActorPositionOffset;
 
 		// if true, then every time when actor pos change, component will update it's pos with ActorPos + CompOffset
 		bool bPosAttachedToActor = true;
 
 		/** handle new actor position translation to component */
-		inline void OnActorPositionChange(const VecInt2D& NewActorPosition);
+		inline void OnActorPositionChange(const Vec2Int& NewActorPosition);
 
 	public:
 		BaseEntity* GetEntity() const { return Entity; }
@@ -41,16 +41,16 @@ namespace Framework2D {
 		inline void SetFlagPosAttachedToActor(bool bPosIsAttached) { bPosAttachedToActor = bPosIsAttached; }
 
 		/** Set new component position with offset value from actor position*/
-		inline void SetRelativePosition(const VecInt2D& PosOffsetFromActor);
+		inline void SetRelativePosition(const Vec2Int& PosOffsetFromActor);
 		/** Change component absolute position */
-		inline void SetAbsolutePosition(const VecInt2D& NewWorldPosition);
+		inline void SetAbsolutePosition(const Vec2Int& NewWorldPosition);
 
-		inline VecInt2D GetRelativePosition() const { return ActorPositionOffset; }
-		inline VecInt2D GetAbsolutePosition() const { return Entity ? Entity->GetPosition() : 0; }
+		inline Vec2Int GetRelativePosition() const { return ActorPositionOffset; }
+		inline Vec2Int GetAbsolutePosition() const { return Entity ? Entity->GetPosition() : 0; }
 
 		/** todo: This should be changed to set scale instead */
-		inline void SetSize(const VecInt2D& NewSize) { if (Entity) Entity->SetSize(NewSize); }
-		inline VecInt2D GetSize() const { return Entity ? Entity->GetSize() : 0; }
+		inline void SetSize(const Vec2Int& NewSize) { if (Entity) Entity->SetSize(NewSize); }
+		inline Vec2Int GetSize() const { return Entity ? Entity->GetSize() : 0; }
 
 		BaseEntityComponent(Actor* ActorOwner) :
 			ActorComponent(ActorOwner, ActorComponentType::EntityComponent) {}
@@ -73,7 +73,7 @@ namespace Framework2D {
 	
 	// Sprite comp
 	template <> template <>
-	inline EntityComponent<SpriteEntity>::EntityComponent(Actor* ActorOwner, std::string Name, VecInt2D Position,
+	inline EntityComponent<SpriteEntity>::EntityComponent(Actor* ActorOwner, std::string Name, Vec2Int Position,
 		const char* TexturePath)
 		: BaseEntityComponent(ActorOwner)
 	{
@@ -82,7 +82,7 @@ namespace Framework2D {
 
 	// SpriteFlipFlop comp
 	template <> template <>
-	inline EntityComponent<SpriteFlipFlop>::EntityComponent(Actor* ActorOwner, std::string Name, VecInt2D Position,
+	inline EntityComponent<SpriteFlipFlop>::EntityComponent(Actor* ActorOwner, std::string Name, Vec2Int Position,
 		float FlipFlopRate, const char* TextureFlipPath, const char* TextureFlopPath)
 		: BaseEntityComponent(ActorOwner)
 	{
@@ -91,7 +91,7 @@ namespace Framework2D {
 	
 	// SpriteSequence comp
 	template<> template <>
-	inline EntityComponent<SpriteSequence>::EntityComponent(Actor* ActorOwner, std::string Name, VecInt2D Position, 
+	inline EntityComponent<SpriteSequence>::EntityComponent(Actor* ActorOwner, std::string Name, Vec2Int Position, 
 		float AnimRate, std::initializer_list<const char*> TexturePathList)
 		: BaseEntityComponent(ActorOwner)
 	{

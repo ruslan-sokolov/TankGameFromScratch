@@ -29,7 +29,7 @@ namespace Framework2D {
 		virtual ~Level();
 
 		template<class T>
-		T* SpawnActorFromClass(const std::string& Name, const VecInt2D& Pos, Anchor Anchor = Anchor::TOP_LEFT)
+		T* SpawnActorFromClass(const std::string& Name, const Vec2Int& Pos, Anchor Anchor = Anchor::TOP_LEFT)
 		{
 			T* SpawnedActor = new T(Name, Pos);
 

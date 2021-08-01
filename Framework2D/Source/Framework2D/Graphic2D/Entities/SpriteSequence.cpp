@@ -6,18 +6,18 @@
 
 namespace Framework2D {
 
-	SpriteSequence::SpriteSequence(const std::string& Name, std::vector<Texture*>&& Textures, const VecInt2D& Position,
+	SpriteSequence::SpriteSequence(const std::string& Name, std::vector<Texture*>&& Textures, const Vec2Int& Position,
 		float AnimRate, bool bAnimEnable, 
-		const VecInt2D& Size, const Vec4& Color, bool bEnableRender)
+		const Vec2Int& Size, const Vec4& Color, bool bEnableRender)
 		: SpriteEntity(Name, Textures[0], Position, Size, Color, bEnableRender), Textures(std::move(Textures)),
 		CurrentTextureIndex(0), bAnimEnabled(bAnimEnable), AnimRate(AnimRate)
 	{
 		SetAnimEnable(bAnimEnable);
 	}
 
-	SpriteSequence::SpriteSequence(const std::string& Name, const std::initializer_list<const char*>& TexturePathList, const VecInt2D& Position, 
+	SpriteSequence::SpriteSequence(const std::string& Name, const std::initializer_list<const char*>& TexturePathList, const Vec2Int& Position, 
 		float AnimRate, bool bAnimEnable, 
-		const VecInt2D& Size, const Vec4& Color, bool bEnableRender)
+		const Vec2Int& Size, const Vec4& Color, bool bEnableRender)
 		: SpriteSequence(Name, ResourceLoader::GetTextures(TexturePathList), Position, AnimRate, bAnimEnable, Size, Color, bEnableRender)
 	{
 	}

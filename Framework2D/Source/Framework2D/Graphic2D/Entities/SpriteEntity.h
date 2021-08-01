@@ -18,11 +18,11 @@ namespace Framework2D {
 	public:
 		// Constructor with texture instance ptr
 		SpriteEntity(const std::string& Name, Texture* texture,
-			const VecInt2D& Position, const VecInt2D& Size = VecInt2D::VecZero, const Vec4& Color = Vec4::WhiteColor, bool bEnableRender = true);
+			const Vec2Int& Position, const Vec2Int& Size = Vec2Int::VecZero, const Vec4& Color = Vec4::WhiteColor, bool bEnableRender = true);
 		
 		// Construct with texture resource location path
 		SpriteEntity(const std::string& Name, const std::string& TexturePath,
-			const VecInt2D& Position, const VecInt2D& Size = VecInt2D::VecZero, const Vec4& Color = Vec4::WhiteColor, bool bEnableRender = true);
+			const Vec2Int& Position, const Vec2Int& Size = Vec2Int::VecZero, const Vec4& Color = Vec4::WhiteColor, bool bEnableRender = true);
 		
 		~SpriteEntity();
 
