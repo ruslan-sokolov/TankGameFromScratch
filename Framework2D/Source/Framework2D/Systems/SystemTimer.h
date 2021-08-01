@@ -31,16 +31,19 @@ namespace Framework2D
 	private:
 		void Update(float DeltaTime)
 		{
-			TimeAcc += DeltaTime;
-
-			if (TimeAcc >= Rate)
+			if (Handle.IsValid())
 			{
-				Callback();
+				TimeAcc += DeltaTime;
 
-				if (bLoop)
-					TimeAcc = 0;
-				else
-					Handle.Invalidate();
+				if (TimeAcc >= Rate)
+				{
+					Callback();
+
+					if (bLoop)
+						TimeAcc = 0;
+					else
+						Handle.Invalidate();
+				}
 			}
 		}
 
@@ -66,8 +69,10 @@ namespace Framework2D
 	{
 		friend class LayerSystem;
 
+		static inline int TotalCreatedNum = 0; // this will be unique timer identifier
 		static std::vector<TimerData> Timers;
 
+		static inline TimerData* FindTimer(const TimerHandle& InHandle);
 		static inline void AddTimer(TimerData&& Data);
 		static inline void UpdateTimers(float DeltaTime);
 

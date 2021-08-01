@@ -36,13 +36,10 @@ namespace Game {
 		EntityComponent<SpriteFlipFlop>* SpriteComp_Right;
 
 		EntityComponent<SpriteFlipFlop>* SpriteComp_Current;
-		Direction CurrentDirection = Direction::NONE;
+		Direction CurrentDirection;
 
-		EntityComponent<SpriteFlipFlop>* SpriteComp_Next;
-		Direction NextDirection = Direction::NONE;
-
-		inline void ChangeCurrentDirectionSprite();
-		inline void SetNextDirectionSprite(Direction DirectionTo);
+		inline EntityComponent<SpriteFlipFlop>* GetDirectionSpriteComp(Direction Dir);
+		inline void ChangeDirection(Direction DirectionTo);
 
 		bool bCanMove = false;
 		float Speed;
@@ -52,8 +49,7 @@ namespace Game {
 
 		// movement anim
 		float MoveAnimRate;
-		inline void PlayMoveAnim();
-		inline void StopMoveAnim();
+		inline void EnableMoveAnim(bool bEnable, Direction Dir);
 
 		bool bPossesedByPlayer = false;
 

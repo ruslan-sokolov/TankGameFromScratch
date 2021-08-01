@@ -24,7 +24,7 @@ namespace Framework2D {
 
 	SpriteSequence::~SpriteSequence()
 	{
-		TimerHandle_SetNextTexture.Invalidate();
+		SystemTimer::RemoveTimer(TimerHandle_SetNextTexture);
 	}
 
 	// timer callback

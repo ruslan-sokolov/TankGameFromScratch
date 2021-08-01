@@ -9,37 +9,35 @@ namespace Game {
 		: Actor(Name, Position)
 	{
 		// Enable collision
-		SetEnableCollision(true);
+		SetEnableCollision(false);
 
 		// Actor defaults
 		Speed = 20.f;
 		MoveAnimRate = 0.1f;
 
 		// Create actor components
-		SpriteComp_Up = new EntityComponent<SpriteFlipFlop>((Actor*)this, Name, Position, MoveAnimRate, ResPath::T_TANK_UP_0, ResPath::T_TANK_UP_1);
+		SpriteComp_Up = new EntityComponent<SpriteFlipFlop>((Actor*)this, "FFSpriteUp" + Name, Position, MoveAnimRate, ResPath::T_TANK_UP_0, ResPath::T_TANK_UP_1);
 		SpriteComp_Up->GetSprite()->SetAutoFlipFlopEnable(false);
 		SpriteComp_Up->GetSprite()->SetEnableRender(false);
 
-		SpriteComp_Down = new EntityComponent<SpriteFlipFlop>((Actor*)this, Name, Position, MoveAnimRate, ResPath::T_TANK_DOWN_0, ResPath::T_TANK_DOWN_1);
+		SpriteComp_Down = new EntityComponent<SpriteFlipFlop>((Actor*)this, "FFSpriteDown" + Name, Position, MoveAnimRate, ResPath::T_TANK_DOWN_0, ResPath::T_TANK_DOWN_1);
 		SpriteComp_Down->GetSprite()->SetAutoFlipFlopEnable(false);
 		SpriteComp_Down->GetSprite()->SetEnableRender(false);
 		
-		SpriteComp_Left = new EntityComponent<SpriteFlipFlop>((Actor*)this, Name, Position, MoveAnimRate, ResPath::T_TANK_LEFT_0, ResPath::T_TANK_LEFT_1);
+		SpriteComp_Left = new EntityComponent<SpriteFlipFlop>((Actor*)this, "FFSpriteLeft" + Name, Position, MoveAnimRate, ResPath::T_TANK_LEFT_0, ResPath::T_TANK_LEFT_1);
 		SpriteComp_Left->GetSprite()->SetAutoFlipFlopEnable(false);
 		SpriteComp_Left->GetSprite()->SetEnableRender(false);
 		
-		SpriteComp_Right = new EntityComponent<SpriteFlipFlop>((Actor*)this, Name, Position, MoveAnimRate, ResPath::T_TANK_RIGHT_0, ResPath::T_TANK_RIGHT_1);
+		SpriteComp_Right = new EntityComponent<SpriteFlipFlop>((Actor*)this, "FFSpriteRight" + Name, Position, MoveAnimRate, ResPath::T_TANK_RIGHT_0, ResPath::T_TANK_RIGHT_1);
 		SpriteComp_Right->GetSprite()->SetAutoFlipFlopEnable(false);
 		SpriteComp_Right->GetSprite()->SetEnableRender(false);
 
 		// Initialize actor size
 		SetSize(SpriteComp_Up->GetSize());
 
-		// Tank initialization
+		// Initialize tank direction
 		SpriteComp_Current = SpriteComp_Up;
-		SetNextDirectionSprite(Direction::UP);
-		ChangeCurrentDirectionSprite();
-
+		ChangeDirection(Direction::UP);
 	}
 
 	void Tank::OnTick(float DeltaTime)
@@ -52,79 +50,62 @@ namespace Game {
 
 	}
 
-	inline void Tank::SetNextDirectionSprite(Direction DirectionTo)
+	inline EntityComponent<SpriteFlipFlop>* Tank::GetDirectionSpriteComp(Direction Dir)
 	{
-		if (DirectionTo == NextDirection) return;
-
-		NextDirection = DirectionTo;
-
-		switch (NextDirection)
+		switch (Dir)
 		{
-		case Direction::RIGHT:
-			SpriteComp_Next = SpriteComp_Right;
-			break;
+		case Direction::RIGHT: 
+			return SpriteComp_Right;
+		
 		case Direction::DOWN:
-			SpriteComp_Next = SpriteComp_Down;
-			break;
+			return SpriteComp_Down;
+		
 		case Direction::LEFT:
-			SpriteComp_Next = SpriteComp_Left;
-			break;
-		case Direction::UP:
-			SpriteComp_Next = SpriteComp_Up;
-			break;
+			return SpriteComp_Left;
+		
+		default:
+			return SpriteComp_Up;
 		}
 	}
 
-	inline void Tank::ChangeCurrentDirectionSprite()
+	inline void Tank::ChangeDirection(Direction DirectionTo)
 	{
+		CurrentDirection = DirectionTo;
+
 		SpriteComp_Current->GetEntity()->SetEnableRender(false);
-		
-		CurrentDirection = NextDirection;
-		SpriteComp_Current = SpriteComp_Next;
-
-		SpriteComp_Next->GetEntity()->SetEnableRender(true);
+		SpriteComp_Current = GetDirectionSpriteComp(DirectionTo);
+		SpriteComp_Current->GetEntity()->SetEnableRender(true);
 	}
 
-	inline void Tank::PlayMoveAnim()
+	inline void Tank::EnableMoveAnim(bool bEnable, Direction Dir)
 	{
-		SpriteComp_Current->GetSprite()->SetAutoFlipFlopEnable(true);
-	}
-
-	inline void Tank::StopMoveAnim()
-	{
-		SpriteComp_Current->GetSprite()->SetAutoFlipFlopEnable(false);
+		auto SpriteComp = GetDirectionSpriteComp(Dir);
+		SpriteComp->GetSprite()->SetAutoFlipFlopEnable(bEnable);
 	}
 
 	inline void Tank::Move(float DeltaTime)
 	{
 		if (!bCanMove) return;
 
-		if (NextDirection != CurrentDirection && bPrevPositionRelevent)
-		{
-			SetPosition(PrevPosition);
-		}
-		else
-		{
-			VecInt2D DeltaPos = DirectionToVec(CurrentDirection) * (((Speed * DeltaTime) + 1));
-			VecInt2D NewPos = GetPosition() + DeltaPos;
-			SetPosition(NewPos, true);
-		}
+		VecInt2D DeltaPos = DirectionToVec(CurrentDirection);
+		VecInt2D NewPos = GetPosition() + DeltaPos;
+		SetPosition(NewPos, true);
 	}
 
 	void Tank::MoveBegin(Direction DirectionTo)
 	{
-		SetNextDirectionSprite(DirectionTo);
-		ChangeCurrentDirectionSprite();
-		PlayMoveAnim();
+		ChangeDirection(DirectionTo);
+		EnableMoveAnim(true, DirectionTo);
+		
 		bCanMove = true;
 	}
 
 	void Tank::MoveEnd(Direction DirectionTo)
 	{
-		if (DirectionTo != NextDirection) return; // do not execute when two key are pressed then on of them is released
+		EnableMoveAnim(false, DirectionTo);
 
-		bCanMove = false;
-		StopMoveAnim();
+		if (DirectionTo == CurrentDirection) // execute only if last key pressed is last key released
+			bCanMove = false;
 	}
 
 	void Tank::Fire()

@@ -26,7 +26,7 @@ namespace Framework2D
 
 	SpriteFlipFlop::~SpriteFlipFlop()
 	{
-		TimerHandle_FlipFlop.Invalidate();
+		SystemTimer::RemoveTimer(TimerHandle_FlipFlop);
 	}
 
 	// timer callback

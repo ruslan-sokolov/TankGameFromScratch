@@ -11,14 +11,20 @@ namespace Framework2D {
 		friend class LayerSystem;
 
 	private:
-		/** Represent index in SystemTimer::Timers */
-		int TimerIndex;
+		/** Represent unique identifier in SystemTimer::Timers container */
+		int TimerId;
+
+		/* Use SystemTimer::RemoveTimer to remove timer */
+		void Invalidate() { TimerId = -1; }
 
 	public:
-		TimerHandle() : TimerIndex(-1) {}
+		TimerHandle() : TimerId(-1) {}
 
-		bool IsValid() const { return TimerIndex != -1; }
-		void Invalidate() { TimerIndex = -1; }
+		bool IsValid() const { return TimerId != -1; }
+
+		int GetTimerId() const { return TimerId; }
+
+		bool operator==(const TimerHandle& Other) const { return TimerId == Other.TimerId; }
 	};
 
 }
