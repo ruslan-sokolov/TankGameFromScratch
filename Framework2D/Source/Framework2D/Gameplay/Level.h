@@ -2,6 +2,8 @@
 #include <Framework2D/Framework2DAPI.h>
 
 #include <Framework2D/Structs/Vectors.h>
+#include <Framework2D/Structs/Anchor.h>
+
 #include <string>
 #include <unordered_set>
 
@@ -29,7 +31,7 @@ namespace Framework2D {
 		virtual ~Level();
 
 		template<class T>
-		T* SpawnActorFromClass(const std::string& Name, const Vec2Int& Pos, Anchor Anchor = Anchor::TOP_LEFT)
+		T* SpawnActorFromClass(const std::string& Name, const Vec2& Pos, Anchor Anchor = Anchor::TOP_LEFT)
 		{
 			T* SpawnedActor = new T(Name, Pos);
 

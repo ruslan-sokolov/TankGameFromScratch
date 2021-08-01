@@ -3,7 +3,7 @@
 
 namespace Game {
 
-	BrickSolid::BrickSolid(const std::string& Name, const Vec2Int& Position)
+	BrickSolid::BrickSolid(const std::string& Name, const Vec2& Position)
 		: Actor(Name, Position)
 	{
 		// Enable collision

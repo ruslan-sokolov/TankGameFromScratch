@@ -25,14 +25,14 @@ namespace Framework2D {
 
 	public:
 		// Create instance with texture
-		SpriteFlipFlop(const std::string& Name, Texture* TextureFlip, Texture* TextureFlop, const Vec2Int& Position,
+		SpriteFlipFlop(const std::string& Name, Texture* TextureFlip, Texture* TextureFlop, const Vec2& Position,
 			float FlipFlopRate = 0, bool bAutoFlipFlopEnabled = true,
-			const Vec2Int& Size = 0, const Vec4& Color = Vec4::WhiteColor, bool bEnableRender = true);
+			const Vec2& Size = 0, const Vec4& Color = Vec4::WhiteColor, bool bEnableRender = true);
 
 		// Create instance with texturePath
-		SpriteFlipFlop(const std::string& Name, const std::string& TextureFlipPath, const std::string& TextureFlopPath, const Vec2Int& Position,
+		SpriteFlipFlop(const std::string& Name, const std::string& TextureFlipPath, const std::string& TextureFlopPath, const Vec2& Position,
 			float FlipFlopRate = 0, bool bAutoFlipFlopEnabled = true,
-			const Vec2Int& Size = 0, const Vec4& Color = Vec4::WhiteColor, bool bEnableRender = true);
+			const Vec2& Size = 0, const Vec4& Color = Vec4::WhiteColor, bool bEnableRender = true);
 
 		~SpriteFlipFlop();
 

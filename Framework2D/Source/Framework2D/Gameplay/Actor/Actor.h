@@ -69,13 +69,13 @@ namespace Framework2D {
 		 * Hides BaseEntity implementation
 		 * Set Actor Position (will update all components relative pos) 
 		 */
-		inline void SetPosition(const Vec2Int& NewPos, bool bSweep = false);
+		inline void SetPosition(const Vec2& NewPos, bool bSweep = false);
 		
 		/* 
 		 * Hides BaseEntity implementation
 		 * Resize Actor if flag is true - translate new size to all EntityComponents 
 		 */
-		inline void SetSize(const Vec2Int& NewSize, bool bTranslateToComponents = false);
+		inline void SetSize(const Vec2& NewSize, bool bTranslateToComponents = false);
 
 		// Remove component 
 		inline void RemoveComponent(ActorComponent* Component);
@@ -94,7 +94,7 @@ namespace Framework2D {
 		}
 
 	protected:
-		Actor(const std::string& Name, const Vec2Int& Position);  // can be created only as derrived and from Level::SpawnActorFromClass();
+		Actor(const std::string& Name, const Vec2& Position);  // can be created only as derrived and from Level::SpawnActorFromClass();
 
 	};
 }

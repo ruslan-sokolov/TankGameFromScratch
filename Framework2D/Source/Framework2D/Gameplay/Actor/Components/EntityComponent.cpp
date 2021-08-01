@@ -34,7 +34,7 @@ namespace Framework2D {
 		this->Entity = Entity;
 	}
 
-	inline void BaseEntityComponent::OnActorPositionChange(const Vec2Int& NewActorPosition)
+	inline void BaseEntityComponent::OnActorPositionChange(const Vec2& NewActorPosition)
 	{
 		// update current component position with it's offset from actor
 		if (bPosAttachedToActor)
@@ -42,14 +42,14 @@ namespace Framework2D {
 			
 	}
 
-	inline void BaseEntityComponent::SetRelativePosition(const Vec2Int& PosOffsetFromActor)
+	inline void BaseEntityComponent::SetRelativePosition(const Vec2& PosOffsetFromActor)
 	{
 		// change current offset and also set new position with offset
 		ActorPositionOffset = PosOffsetFromActor;
 		Entity->SetPosition(Owner->GetPosition() + PosOffsetFromActor);
 	}
 
-	inline void BaseEntityComponent::SetAbsolutePosition(const Vec2Int& NewWorldPosition)
+	inline void BaseEntityComponent::SetAbsolutePosition(const Vec2& NewWorldPosition)
 	{
 		// regular entity position set
 		Entity->SetPosition(NewWorldPosition);

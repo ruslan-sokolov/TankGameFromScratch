@@ -59,7 +59,7 @@ namespace Framework2D {
 
 	// ------------------------------------------------------------------ //
 
-	inline Direction GetDirection(Vec2Int DeltaVec)
+	inline Direction GetDirection(const Vec2Int& DeltaVec)
 	{
 		if (DeltaVec.X - DeltaVec.Y > 0)
 		{
@@ -85,7 +85,7 @@ namespace Framework2D {
 		}
 	}
 
-	inline Direction GetDirection(Vec2 DeltaVec)
+	inline Direction GetDirection(const Vec2& DeltaVec)
 	{
 		if (DeltaVec.X - DeltaVec.Y > 0)
 		{
@@ -111,12 +111,12 @@ namespace Framework2D {
 		}
 	}
 
-	inline Direction GetDirection(Vec2Int From, Vec2Int To)
+	inline Direction GetDirection(const Vec2Int& From, const Vec2Int& To)
 	{
 		return GetDirection(From - To);
 	}
 
-	inline Direction GetDirection(Vec2 From, Vec2 To)
+	inline Direction GetDirection(const Vec2& From, const Vec2& To)
 	{
 		return GetDirection(From - To);
 	}
@@ -146,12 +146,12 @@ namespace Framework2D {
 		return DirectionVector;
 	}
 
-	inline Vec2Int GetDirectionVec2Int(Vec2Int DeltaVec)
+	inline Vec2Int GetDirectionVec2Int(const Vec2Int& DeltaVec)
 	{
 		return DirectionToVec2Int(GetDirection(DeltaVec));
 	}
 
-	inline Vec2Int GetDirectionVec2Int(Vec2Int From, Vec2Int To)
+	inline Vec2Int GetDirectionVec2Int(const Vec2Int& From, const Vec2Int& To)
 	{
 		return DirectionToVec2Int(GetDirection(From - To));
 	}
@@ -181,12 +181,12 @@ namespace Framework2D {
 		return DirectionVector;
 	}
 
-	inline Vec2 GetDirectionVec2(Vec2 DeltaVec)
+	inline Vec2 GetDirectionVec2(const Vec2& DeltaVec)
 	{
 		return DirectionToVec2(GetDirection(DeltaVec));
 	}
 
-	inline Vec2Int GetDirectionVec2(Vec2Int From, Vec2Int To)
+	inline Vec2Int GetDirectionVec2(const Vec2Int& From, const Vec2Int& To)
 	{
 		return DirectionToVec2(GetDirection(From - To));
 	}
