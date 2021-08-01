@@ -5,7 +5,7 @@
 
 namespace Framework2D
 {	
-	Actor::Actor(const std::string& Name, const VecInt2D& Position)
+	Actor::Actor(const std::string& Name, const Vec2& Position)
 		: Id(TotalActorsCreatedNum), BaseEntity(Name, 0, Position)
 	{
 		++TotalActorsCreatedNum;
@@ -35,7 +35,7 @@ namespace Framework2D
 		return nullptr;
 	}
 	
-	inline void Actor::SetPosition(const VecInt2D& NewPos, bool bSweep)
+	inline void Actor::SetPosition(const Vec2& NewPos, bool bSweep)
 	{
 		BaseEntity::SetPosition(NewPos, bSweep);
 		ForEachComp([&](ActorComponent* C) { if (C->GetType() == ActorComponentType::EntityComponent) {
@@ -44,7 +44,7 @@ namespace Framework2D
 			}});
 	}
 	
-	inline void Actor::SetSize(const VecInt2D& NewSize, bool bTranslateToComponents)
+	inline void Actor::SetSize(const Vec2& NewSize, bool bTranslateToComponents)
 	{
 		BaseEntity::SetSize(NewSize);
 	

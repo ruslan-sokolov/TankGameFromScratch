@@ -25,15 +25,15 @@ namespace Framework2D {
 		GameMode* CurrentGameMode = nullptr;
 
 		// 2D Game Gameplay boundaries
-		const VecInt2D GameBoundLeft;
-		const VecInt2D GameBoundRight;
+		const Vec2 GameBoundLeft;
+		const Vec2 GameBoundRight;
 
 		// function for creating Game2D instance
 		friend Game2D* CreateGame(const char* Title, unsigned int Width, unsigned int Height,
-			const VecInt2D& GameBoundLeft, const VecInt2D& GameBoundRight);
+			const Vec2& GameBoundLeft, const Vec2& GameBoundRight);
 		
 		Game2D(const char* Title, unsigned int Width, unsigned int Height, 
-			const VecInt2D& GameBoundLeft, const VecInt2D& GameBoundRight);
+			const Vec2& GameBoundLeft, const Vec2& GameBoundRight);
 
 	public:
 		inline ~Game2D();
@@ -43,8 +43,8 @@ namespace Framework2D {
 		inline Layer2D* GetMainLayer() const { return MainLayer; }
 		inline LayerGameplay* GetGameplayLayer() const { return GameplayLayer; }
 
-		inline const VecInt2D& GetGameBoundLeft() const { return GameBoundLeft; }
-		inline const VecInt2D& GetGameBoundRight() const { return GameBoundRight; }
+		inline const Vec2& GetGameBoundLeft() const { return GameBoundLeft; }
+		inline const Vec2& GetGameBoundRight() const { return GameBoundRight; }
 
 
 		inline GameMode* GetCurrentGameMode() const { return CurrentGameMode; }
@@ -70,7 +70,7 @@ namespace Framework2D {
 	//
 
 	inline Game2D* CreateGame(const char* Title, unsigned int Width, unsigned int Height, 
-		const VecInt2D& GameBoundLeft, const VecInt2D& GameBoundRight)
+		const Vec2& GameBoundLeft, const Vec2& GameBoundRight)
 	{
 		Game2D::Instance = new Game2D(Title, Width, Height, GameBoundLeft, GameBoundRight);
 		return Game2D::Instance;

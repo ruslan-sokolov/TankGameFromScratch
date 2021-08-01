@@ -3,7 +3,7 @@
 
 namespace Framework2D {
 
-	SolidEntity::SolidEntity(const std::string& Name, const Vec4& Color, const VecInt2D& Position, const VecInt2D& Size, bool bEnableRender)
+	SolidEntity::SolidEntity(const std::string& Name, const Vec4& Color, const Vec2& Position, const Vec2& Size, bool bEnableRender)
 		: BaseEntity(Name, Size, Position, bEnableRender), Color(Color)
 	{
 	}

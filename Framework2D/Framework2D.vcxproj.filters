@@ -123,6 +123,12 @@
     <ClInclude Include="Source\Framework2D\Layers\LayerGameplay.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Framework2D\Structs\Direction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework2D\Structs\Anchor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Framework2D\Initializer.cpp">

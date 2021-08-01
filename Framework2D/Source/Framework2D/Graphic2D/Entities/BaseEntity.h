@@ -2,6 +2,7 @@
 
 #include <Framework2D/Framework2DAPI.h>
 #include <Framework2D/Structs/Vectors.h>
+#include <Framework2D/Structs/Direction.h>
 
 #include <Framework2D/Gameplay/Game2D.h>
 
@@ -9,59 +10,6 @@ namespace Framework2D {
 
 	class Group;
 	class SystemCollision;
-
-	// using for spawn position adjusting
-	enum class Anchor
-	{
-		TOP_LEFT,
-		TOP_RIGHT,
-		BOTTOM_LEFT,
-		BOTTOM_RIGHT,
-		CENTER,
-		TOP,
-		BOTTOM,
-		LEFT,
-		RIGHT
-	};
-
-	inline VecInt2D GetAnchorOffset(VecInt2D Size, Anchor Anchor)
-	{
-		VecInt2D Offset{ 0, 0 };
-
-		switch (Anchor)
-		{
-		case Anchor::CENTER:
-			Offset = Size / 2;
-			break;
-		case Anchor::TOP_RIGHT:
-			Offset.X = Size.X;
-			break;
-		case Anchor::BOTTOM_LEFT:
-			Offset.Y = Size.Y;
-			break;
-		case Anchor::BOTTOM_RIGHT:
-			Offset = Size;
-			break;
-		case Anchor::TOP:
-			Offset.X = Size.X / 2;
-			break;
-		case Anchor::BOTTOM:
-			Offset.X = Size.X / 2;
-			Offset.Y = Size.Y;
-			break;
-		case Anchor::LEFT:
-			Offset.Y = Size.Y / 2;
-			break;
-		case Anchor::RIGHT:
-			Offset.X = Size.X;
-			Offset.Y = Size.Y / 2;
-			break;
-		default: // Anchor::TOP_LEFT
-			break;
-		}
-
-		return Offset;
-	}
 
 	// simplest collision filter, used in setPosition()
 	enum class CollisionFilter
@@ -91,23 +39,23 @@ namespace Framework2D {
 		Group* EntityGroup;
 		std::string Name;
 
-		BaseEntity(const std::string& Name, const VecInt2D& Size = VecInt2D::VecZero, 
-			const VecInt2D& Position = VecInt2D::VecZero, bool bRenderEnable = false) 
+		BaseEntity(const std::string& Name, const Vec2& Size = Vec2::VecZero, 
+			const Vec2& Position = Vec2::VecZero, bool bRenderEnable = false) 
 			: Name(Name), Size(Size), Position(Position), bRenderEnabled(bRenderEnable), EntityGroup(nullptr) {}
 
 		bool bRenderEnabled;
 		bool bCollisionEnabled = false;
 
-		VecInt2D Size;
-		VecInt2D Position;
+		Vec2 Size;
+		Vec2 Position;
 
 		/** control if Collision Ignore Is BlackList or WhiteList */
 		bool bCollisionFilterIsWhiteList = false;
 		/** collision filter list, can work as blacklist or as whitelist */
 		std::vector<BaseEntity*> CollisionFilterList = {};
 		CollisionCheckResult LastCollisonResult;
-		VecInt2D NextPosition;
-		VecInt2D PrevPosition;
+		Vec2 NextPosition;
+		Vec2 PrevPosition;
 		bool bNextPositionRelevent = false;
 		bool bPrevPositionRelevent = false;
 		static BaseEntity* InvisibleWall;  // used to informate about collision with game 2d walls bound
@@ -122,8 +70,8 @@ namespace Framework2D {
 		virtual void OnUpdate(float DeltaTime) = 0;
 		virtual void OnCollide(BaseEntity* Other, CollisionFilter Filter) = 0;
 		
-		inline VecInt2D GetSize() const { return Size; }
-		inline void SetSize(const VecInt2D& Size) { this->Size = Size; }
+		inline Vec2 GetSize() const { return Size; }
+		inline void SetSize(const Vec2& Size) { this->Size = Size; }
 
 		inline void SetEnableRender(bool bEnable) { bRenderEnabled = bEnable; }
 		inline bool IsRenderEnabled() const { return bRenderEnabled;}
@@ -132,14 +80,14 @@ namespace Framework2D {
 		inline bool IsCollisionEnabled() const { return bCollisionEnabled; }
 
 		/** Get Position, if bNextRelevent, get position from next tick */
-		inline VecInt2D GetPosition(bool bNextRelevent = false) const
+		inline Vec2 GetPosition(bool bNextRelevent = false) const
 		{
 			if (bNextRelevent & bNextPositionRelevent) return NextPosition;
 			return Position;
 		}
 
 		/** Set Position, instance should has Enabled Collision to process Sweep */
-		inline void SetPosition(const VecInt2D& NewPosition, bool bSweep = false)
+		inline void SetPosition(const Vec2& NewPosition, bool bSweep = false)
 		{
 			if (bCollisionEnabled & bSweep)
 			{
@@ -165,11 +113,11 @@ namespace Framework2D {
 		// Collision Block ----------------------------------------------------------------------------------------------- //
 
 		/** Raw check for two Boxed object collision. Should be accessible only form class SystemCollision */
-		inline bool IsCollidingWith(const VecInt2D& Position, BaseEntity* Other, const VecInt2D& OtherPosition)
+		inline bool IsCollidingWith(const Vec2& Position, BaseEntity* Other, const Vec2& OtherPosition)
 		{
 			if (Other == nullptr) return false;
 
-			VecInt2D OtherSize = Other->GetSize();
+			Vec2 OtherSize = Other->GetSize();
 
 			if (Position.X < OtherPosition.X + OtherSize.X && Position.X + Size.X > OtherPosition.X &&
 				Position.Y < OtherPosition.Y + OtherSize.Y && Position.Y + Size.Y > OtherPosition.Y)
@@ -194,11 +142,11 @@ namespace Framework2D {
 			return bCanCollide;
 		}
 
-		inline bool IsPosGameBound(const VecInt2D& NewPosition)
+		inline bool IsPosGameBound(const Vec2& NewPosition)
 		{
 			auto Game = GetGame();
-			const VecInt2D& BoundLeft = Game->GetGameBoundLeft();
-			const VecInt2D& BoundRight = Game->GetGameBoundRight();
+			const Vec2& BoundLeft = Game->GetGameBoundLeft();
+			const Vec2& BoundRight = Game->GetGameBoundRight();
 			
 			if (NewPosition.X < BoundLeft.X) return false;
 			if (NewPosition.X + Size.X > BoundRight.X) return false;
@@ -208,13 +156,13 @@ namespace Framework2D {
 			return true;
 		}
 
-		inline void SetPosBoundClamped(const VecInt2D& NewPosition)
+		inline void SetPosBoundClamped(const Vec2& NewPosition)
 		{
 			auto Game = GetGame();
-			const VecInt2D& BoundLeft = Game->GetGameBoundLeft();
-			const VecInt2D& BoundRight = Game->GetGameBoundRight();
+			const Vec2& BoundLeft = Game->GetGameBoundLeft();
+			const Vec2& BoundRight = Game->GetGameBoundRight();
 
-			VecInt2D FixedPos = NewPosition;
+			Vec2 FixedPos = NewPosition;
 
 			// clamp x
 			if (NewPosition.X < BoundLeft.X) FixedPos.X = BoundLeft.X;
@@ -228,13 +176,13 @@ namespace Framework2D {
 			Position = FixedPos;
 		}
 		 
-		inline void SetPosBlockClamped(const VecInt2D& NewPosition, BaseEntity* Blocker)
+		inline void SetPosBlockClamped(const Vec2& NewPosition, BaseEntity* Blocker)
 		{
-			VecInt2D DeltaPos = NewPosition - Position;
-			VecInt2D BlockerSize = Blocker->Size;
-			VecInt2D BlockerPos = Blocker->Position;
+			Vec2 DeltaPos = NewPosition - Position;
+			Vec2 BlockerSize = Blocker->Size;
+			Vec2 BlockerPos = Blocker->Position;
 			
-			VecInt2D FixedPos = NewPosition;
+			Vec2 FixedPos = NewPosition;
 
 			if (DeltaPos.X > 0)  // NewPosition is on the right side from old Position and on left from blocker
 			{
@@ -262,7 +210,7 @@ namespace Framework2D {
 		}
 
 		// Call only in class SystemCollision
-		inline void HandleSweepPosition(const VecInt2D& NewPosition, const CollisionCheckResult& CollisionResult)
+		inline void HandleSweepPosition(const Vec2& NewPosition, const CollisionCheckResult& CollisionResult)
 		{
 			if (CollisionResult.bCollided)
 			{
@@ -289,15 +237,15 @@ namespace Framework2D {
 		// Position meta info Block -------------------------------------------------------------------------------------- //
 
 		/** Get center offset, offset = Size / 2 */
-		inline VecInt2D GetCenterOffset() const { return Size / 2; }
+		inline Vec2 GetCenterOffset() const { return Size / 2; }
 
 		/** Get center position, CenterPos = Position + CenterOffset */
-		inline VecInt2D GetCenterPosition() const { return Position + GetCenterOffset(); }
+		inline Vec2 GetCenterPosition() const { return Position + GetCenterOffset(); }
 
 		/** Get side offset relative to CenterPos */
-		inline VecInt2D GetSideOffset(Direction Side) const
+		inline Vec2 GetSideOffset(Direction Side) const
 		{
-			VecInt2D SideOffset;
+			Vec2 SideOffset;
 
 			switch (Side)
 			{
@@ -319,10 +267,10 @@ namespace Framework2D {
 		}
 
 		/** Get center point of chosen bounding box line, SidePos = CenterPos + SideOffset */
-		inline VecInt2D GetSidePosition(Direction Side) const { return GetCenterPosition() + GetSideOffset(Side); }
+		inline Vec2 GetSidePosition(Direction Side) const { return GetCenterPosition() + GetSideOffset(Side); }
 
 		/** Get center point of opposite bounding box line, OppositeSidePos = CenterPos - SideOffset */
-		inline VecInt2D GetOppositeSidePosition(Direction Side) const { return GetCenterPosition() - GetSideOffset(Side); }
+		inline Vec2 GetOppositeSidePosition(Direction Side) const { return GetCenterPosition() - GetSideOffset(Side); }
 
 		// Position meta info Block End ---------------------------------------------------------------------------------- //
 	};

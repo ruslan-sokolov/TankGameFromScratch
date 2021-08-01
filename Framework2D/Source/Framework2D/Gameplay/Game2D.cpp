@@ -11,7 +11,7 @@ namespace Framework2D {
 	Game2D* Game2D::Instance = nullptr;
 
 	Game2D::Game2D(const char* Title, unsigned int Width, unsigned int Height,
-		const VecInt2D& GameBoundLeft, const VecInt2D& GameBoundRight)
+		const Vec2& GameBoundLeft, const Vec2& GameBoundRight)
 		: Application(Title, Width, Height), GameBoundLeft(GameBoundLeft), GameBoundRight(GameBoundRight)
 	{
 		// create layers

@@ -23,7 +23,7 @@ namespace Game {
 		 * Constructor should be called only from Level::SpawnActorFromClass() method;
 		 * Constructor can initialize Actor Components;
 		 */ 
-		BrickSolid(const std::string& Name, const VecInt2D& Position);
+		BrickSolid(const std::string& Name, const Vec2& Position);
 
 		// frame per frame logic, no need to call Framework2D::Actor implementation
 		virtual void OnTick(float DeltaTime) override;

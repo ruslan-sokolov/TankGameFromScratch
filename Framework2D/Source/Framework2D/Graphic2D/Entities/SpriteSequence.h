@@ -24,13 +24,13 @@ namespace Framework2D {
 		inline void SetNextTexture_OnTimer();
 
 	public:
-		SpriteSequence(const std::string& Name, std::vector<Texture*>&& Textures, const VecInt2D& Position,
+		SpriteSequence(const std::string& Name, std::vector<Texture*>&& Textures, const Vec2& Position,
 			float AnimRate = 0, bool bAnimEnable = true, 
-			const VecInt2D& Size = 0, const Vec4& Color = Vec4::WhiteColor, bool bEnableRender = true);
+			const Vec2& Size = 0, const Vec4& Color = Vec4::WhiteColor, bool bEnableRender = true);
 
-		SpriteSequence(const std::string& Name, const std::initializer_list<const char*>& TexturePathList, const VecInt2D& Position,
+		SpriteSequence(const std::string& Name, const std::initializer_list<const char*>& TexturePathList, const Vec2& Position,
 			float AnimRate = 0, bool bAnimEnable = true,
-			const VecInt2D& Size = 0, const Vec4& Color = Vec4::WhiteColor, bool bEnableRender = true);
+			const Vec2& Size = 0, const Vec4& Color = Vec4::WhiteColor, bool bEnableRender = true);
 
 		~SpriteSequence();
 

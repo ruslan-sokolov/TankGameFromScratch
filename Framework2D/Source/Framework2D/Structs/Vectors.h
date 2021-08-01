@@ -5,7 +5,7 @@
 
 namespace Framework2D {
 
-	struct VecInt2D;
+	struct Vec2Int;
 
 	struct FRAMEWORK2D_API Vec4
 	{
@@ -40,181 +40,89 @@ namespace Framework2D {
 		Vec2(float X, float Y) : X(X), Y(Y) {}
 		Vec2(int X, int Y) : X(X), Y(Y) {}
 		Vec2(float Both) : X(Both), Y(Both) {}
-		Vec2(const VecInt2D&);
+		Vec2(const Vec2Int&);
+
+		inline bool operator == (const Vec2& Other) const { return X == Other.X && Y == Other.Y; }
+		inline bool operator != (const Vec2& Other) const { return X != Other.X || Y != Other.Y; }
+
+		inline Vec2 operator += (const Vec2& Other) { X += Other.X; Y += Other.Y; return *this; }
+		inline Vec2 operator -= (const Vec2& Other) { X -= Other.X; Y -= Other.Y; return *this; }
+
+		inline Vec2 operator + (const Vec2& Other) const { return Vec2(X + Other.X, Y + Other.Y); }
+		inline Vec2 operator - (const Vec2& Other) const { return Vec2(X - Other.X, Y - Other.Y); }
+
+		inline Vec2 operator - () const { return Vec2(-X, -Y); }
+
+		inline Vec2 operator * (float Scalar) const { return Vec2(X * Scalar, Y * Scalar); }
+		inline Vec2 operator / (float Scalar) const { return Vec2(X / Scalar, Y / Scalar); }
+
+		inline Vec2 operator = (const Vec2& Other) { X = Other.X; Y = Other.Y; return *this; }
+
+		inline Vec2 GetAbs() const { return Vec2(std::abs(X), std::abs(Y)); }
+
+		inline float Square() const { return X * Y; }
+
+		inline float Size() const { return sqrt(X * X + Y * Y); }
+
+		/** Creates new vector with biggest X and Y values of two vectors */
+		inline static Vec2 GetMax(const Vec2& Left, const Vec2& Right) {
+			return Vec2(Left.X > Right.X ? Left.X : Right.X, Left.Y > Right.Y ? Left.Y : Right.Y);
+		}
+
+		static const Vec2 VecZero;
+		static const Vec2 VecOne;
+		static const Vec2 VecLeft;
+		static const Vec2 VecRight;
+		static const Vec2 VecUp;
+		static const Vec2 VecDown;
 	};
 
-	struct FRAMEWORK2D_API VecInt2D
+	struct FRAMEWORK2D_API Vec2Int
 	{
 	public:
 		int X = 0;
 		int Y = 0;
 
-		VecInt2D() {}
+		Vec2Int() {}
+		Vec2Int(const Vec2Int& Other) : X(Other.X), Y(Other.Y) {}
+		Vec2Int(const Vec2& Other) : X(static_cast<int>(Other.X)), Y(static_cast<int>(Other.Y)) {};
+		Vec2Int(int InX, int InY) : X(InX), Y(InY) {}
+		Vec2Int(int InBoth) : X(InBoth), Y(InBoth) {}
 
-		VecInt2D(const VecInt2D& Other) : X(Other.X), Y(Other.Y) {}
-		 
-		VecInt2D(const Vec2& Other) : X(static_cast<int>(Other.X)), Y(static_cast<int>(Other.Y)) {};
+		inline bool operator == (const Vec2Int& Other) const { return X == Other.X && Y == Other.Y; }
+		inline bool operator != (const Vec2Int& Other) const { return X != Other.X || Y != Other.Y; }
 
-		VecInt2D(int InX, int InY) : X(InX), Y(InY) {}
-		VecInt2D(int InBoth) : X(InBoth), Y(InBoth) {}
+		inline Vec2Int operator += (const Vec2Int& Other) { X += Other.X; Y += Other.Y; return *this; }
+		inline Vec2Int operator -= (const Vec2Int& Other) { X -= Other.X; Y -= Other.Y; return *this; }
 
-		inline bool operator == (const VecInt2D& Other) const { return X == Other.X && Y == Other.Y; }
-		inline bool operator != (const VecInt2D& Other) const { return X != Other.X || Y != Other.Y; }
+		inline Vec2Int operator + (const Vec2Int& Other) const { return Vec2Int(X + Other.X, Y + Other.Y); }
+		inline Vec2Int operator - (const Vec2Int& Other) const { return Vec2Int(X - Other.X, Y - Other.Y); }
 
-		inline VecInt2D operator += (const VecInt2D& Other) { X += Other.X; Y += Other.Y; return *this; }
-		inline VecInt2D operator -= (const VecInt2D& Other) { X -= Other.X; Y -= Other.Y; return *this; }
+		inline Vec2Int operator - () const { return Vec2Int(-X, -Y); }
 
-		inline VecInt2D operator + (const VecInt2D& Other) const { return VecInt2D(X + Other.X, Y + Other.Y); }
-		inline VecInt2D operator - (const VecInt2D& Other) const { return VecInt2D(X - Other.X, Y - Other.Y); }
+		inline Vec2Int operator * (int Scalar) const { return Vec2Int(X * Scalar, Y * Scalar); }
+		inline Vec2Int operator / (int Scalar) const { return Vec2Int(X / Scalar, Y / Scalar); }
 
-		inline VecInt2D operator - () const { return VecInt2D(-X, -Y); }
+		inline Vec2Int operator = (const Vec2Int& Other) { X = Other.X; Y = Other.Y; return *this; }
 
-		inline VecInt2D operator * (int Scalar) const { return VecInt2D(X * Scalar, Y * Scalar); }
-		inline VecInt2D operator / (int Scalar) const { return VecInt2D(X / Scalar, Y / Scalar); }
-
-		inline VecInt2D operator = (const VecInt2D& Other) { X = Other.X; Y = Other.Y; return *this; }
-
-		inline VecInt2D GetAbs() const { return VecInt2D(std::abs(X), std::abs(Y)); }
+		inline Vec2Int GetAbs() const { return Vec2Int(std::abs(X), std::abs(Y)); }
 
 		inline int Square() const { return X * Y; }
 
-		inline int Size() const {
-			int X_Square = X * X;
-			int Y_Square = Y * Y;
-			int Sum = X_Square + Y_Square;
-			return sqrt(Sum);
-		}
+		inline int Size() const { return sqrt(X * X + Y * Y); }
 
 		/** Creates new vector with biggest X and Y values of two vectors */
-		inline static VecInt2D GetMax(const VecInt2D& Vec1, const VecInt2D& Vec2) {
-			return VecInt2D(Vec1.X > Vec2.X ? Vec1.X : Vec2.X, Vec1.Y > Vec2.Y ? Vec1.Y : Vec2.Y);
+		inline static Vec2Int GetMax(const Vec2Int& Left, const Vec2Int& Right) {
+			return Vec2Int(Left.X > Right.X ? Left.X : Right.X, Left.Y > Right.Y ? Left.Y : Right.Y);
 		}
 
-		static const VecInt2D VecZero;
-		static const VecInt2D VecOne;
-		static const VecInt2D VecLeft;
-		static const VecInt2D VecRight;
-		static const VecInt2D VecUp;
-		static const VecInt2D VecDown;
+		static const Vec2Int VecZero;
+		static const Vec2Int VecOne;
+		static const Vec2Int VecLeft;
+		static const Vec2Int VecRight;
+		static const Vec2Int VecUp;
+		static const Vec2Int VecDown;
 	};
 
-	inline Vec2::Vec2(const VecInt2D& Other) : X(Other.X), Y(Other.Y) {}
-
-	enum class FRAMEWORK2D_API Direction
-	{
-		NONE = 0,
-
-		LEFT = 1,
-		RIGHT = 2,
-		DOWN = 3,
-		UP = 4
-	};
-
-	inline Direction GetRandomDirection()
-	{
-		return static_cast<Direction>(std::rand() % 4);
-	}
-
-	// fix this
-	inline Direction GetDirection(VecInt2D DeltaVec)
-	{
-		if (DeltaVec.X - DeltaVec.Y > 0)
-		{
-			if (std::abs(DeltaVec.X) > std::abs(DeltaVec.Y))
-			{
-				return Direction::RIGHT;
-			}
-			else
-			{
-				return Direction::UP;
-			}
-		}
-		else
-		{
-			if (std::abs(DeltaVec.X) > std::abs(DeltaVec.Y))
-			{
-				return Direction::LEFT;
-			}
-			else
-			{
-				return Direction::DOWN;
-			}
-		}
-	}
-
-	inline Direction GetDirection(VecInt2D From, VecInt2D To)
-	{
-		return GetDirection(From - To);
-	}
-
-	inline Direction GetDirectionOposite(Direction Dir)
-	{
-		Direction Oposite;
-
-		switch (Dir)
-		{
-		case Direction::UP:
-			Oposite = Direction::DOWN;
-			break;
-		case Direction::DOWN:
-			Oposite = Direction::UP;
-			break;
-		case Direction::LEFT:
-			Oposite = Direction::RIGHT;
-			break;
-		default:
-			Oposite = Direction::LEFT;
-			break;
-		}
-
-		return Oposite;
-	}
-
-	inline VecInt2D DirectionToVec(Direction Dir)
-	{
-		VecInt2D DirectionVector;
-
-		switch (Dir)
-		{
-		case Direction::UP:
-			DirectionVector = VecInt2D::VecUp;
-			break;
-		case Direction::DOWN:
-			DirectionVector = VecInt2D::VecDown;
-			break;
-		case Direction::LEFT:
-			DirectionVector = VecInt2D::VecLeft;
-			break;
-		default:
-			DirectionVector = VecInt2D::VecRight;
-			break;
-		}
-
-		return DirectionVector;
-	}
-
-	inline VecInt2D GetDirectionVector(VecInt2D DeltaVec)
-	{
-		return DirectionToVec(GetDirection(DeltaVec));
-	}
-
-	inline VecInt2D GetDirectionVector(VecInt2D From, VecInt2D To)
-	{
-		return DirectionToVec(GetDirection(From - To));
-	}
-
-	inline const char* DirectionToString(Direction Dir)
-	{
-		switch (Dir)
-		{
-		case Direction::LEFT:
-			return "LEFT";
-		case Direction::RIGHT:
-			return "RIGHT";
-		case Direction::UP:
-			return "UP";
-		default:
-			return "DOWN";
-		}
-	}
+	inline Vec2::Vec2(const Vec2Int& Other) : X(Other.X), Y(Other.Y) {}
 }

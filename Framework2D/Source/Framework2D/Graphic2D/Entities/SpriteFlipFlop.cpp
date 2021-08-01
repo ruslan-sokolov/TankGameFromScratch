@@ -6,9 +6,9 @@
 
 namespace Framework2D
 {
-	SpriteFlipFlop::SpriteFlipFlop(const std::string& Name, Texture* TextureFlip, Texture* TextureFlop, const VecInt2D& Position, 
+	SpriteFlipFlop::SpriteFlipFlop(const std::string& Name, Texture* TextureFlip, Texture* TextureFlop, const Vec2& Position, 
 		float FlipFlopRate, bool bAutoFlipFlopEnabled,
-		const VecInt2D& Size, const Vec4& Color, bool bEnableRender)
+		const Vec2& Size, const Vec4& Color, bool bEnableRender)
 		: SpriteEntity(Name, TextureFlip, Position, Size, Color, bEnableRender), 
 		TextureFlip(texture), TextureFlop(TextureFlop), 
 		bCurrentIsFlip(true), bAutoFlipFlopEnabled(bAutoFlipFlopEnabled), FlipFlopRate(FlipFlopRate)
@@ -16,9 +16,9 @@ namespace Framework2D
 		SetAutoFlipFlopEnable(bAutoFlipFlopEnabled);
 	}
 
-	SpriteFlipFlop::SpriteFlipFlop(const std::string& Name, const std::string& TextureFlipPath, const std::string& TextureFlopPath, const VecInt2D& Position,
+	SpriteFlipFlop::SpriteFlipFlop(const std::string& Name, const std::string& TextureFlipPath, const std::string& TextureFlopPath, const Vec2& Position,
 		float FlipFlopRate, bool bAutoFlipFlopEnabled,
-		const VecInt2D& Size, const Vec4& Color, bool bEnableRender)
+		const Vec2& Size, const Vec4& Color, bool bEnableRender)
 		: SpriteFlipFlop(Name, ResourceLoader::GetTexture(TextureFlipPath), ResourceLoader::GetTexture(TextureFlopPath), Position,
 			FlipFlopRate, bAutoFlipFlopEnabled, Size, Color, bEnableRender)
 	{

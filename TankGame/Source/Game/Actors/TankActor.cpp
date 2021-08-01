@@ -5,7 +5,7 @@
 
 namespace Game {
 
-	Tank::Tank(const std::string& Name, const VecInt2D& Position)
+	Tank::Tank(const std::string& Name, const Vec2& Position)
 		: Actor(Name, Position)
 	{
 		// Enable collision
@@ -87,8 +87,8 @@ namespace Game {
 	{
 		if (!bCanMove) return;
 
-		VecInt2D DeltaPos = DirectionToVec(CurrentDirection);
-		VecInt2D NewPos = GetPosition() + DeltaPos;
+		Vec2 DeltaPos = DirectionToVec2(CurrentDirection) * Speed * DeltaTime;
+		Vec2 NewPos = GetPosition() + DeltaPos;
 		SetPosition(NewPos, true);
 	}
 
