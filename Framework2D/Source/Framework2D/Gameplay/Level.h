@@ -6,6 +6,7 @@
 
 #include <string>
 #include <unordered_set>
+#include <vector>
 
 #include <Framework2D/Gameplay/Actor/Actor.h>
 
@@ -23,6 +24,7 @@ namespace Framework2D {
 		// should be called in GM, calls tick for actors and level
 		inline void Update(float DeltaTime);
 
+	protected:
 		std::unordered_set <Actor*> Actors;
 		GameMode* GM_Owner = nullptr;
 
@@ -51,8 +53,38 @@ namespace Framework2D {
 
 		virtual void OnTick(float DeltaTime) {};
 
-		// todo: get actors of class
-		// todo: get actor by name
+		/** Get all actors in level of chosen class. Slow operation */
+		template<class T>
+		std::vector<Actor*> GetAllActorsOfClass()
+		{
+			std::vector<Actor*> OutActors;
+
+			for (auto& Actor : Actors)
+			{
+				if (dynamic_cast<T*>(Actor)) OutActors.emplace_back(Actor);
+			}
+			return OutActors;
+		}
+
+		/** Get all actors in level of chosen class */
+		template<class T> Actor* GetActorOfClass() 
+		{
+			for (auto& Actor : Actors)
+			{
+				if (dynamic_cast<T*>(Actor)) return Actor;
+			}
+			return nullptr;
+		}
+
+		/** Get first matched actor with accordant name */
+		Actor* GetActorByName(const std::string& ActorName)
+		{
+			for (auto& Actor : Actors)
+			{
+				if (Actor->GetName() == ActorName) return Actor;
+			}
+			return nullptr;
+		}
 
 	};
 

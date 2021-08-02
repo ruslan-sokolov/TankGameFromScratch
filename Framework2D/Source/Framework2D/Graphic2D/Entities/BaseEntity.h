@@ -1,8 +1,10 @@
 #pragma once
 
 #include <Framework2D/Framework2DAPI.h>
+
 #include <Framework2D/Structs/Vectors.h>
 #include <Framework2D/Structs/Direction.h>
+#include <Framework2D/Structs/Collision.h>
 
 #include <Framework2D/Gameplay/Game2D.h>
 
@@ -10,25 +12,6 @@ namespace Framework2D {
 
 	class Group;
 	class SystemCollision;
-
-	// simplest collision filter, used in setPosition()
-	enum class CollisionFilter
-	{
-		CF_IGNORE,  // no collision check, set newPosition
-		CF_OVERLAP, // set newPosition, calls onCollide(this Filter=Overlap) for overlapped instance
-		CF_BLOCK,  // don't set newPosition, calls onCollide(this, Filter=Block) if collided with other instance (can collide with wall).
-	};
-
-	struct FRAMEWORK2D_API CollisionCheckResult
-	{
-		bool bCollided = false;
-		class BaseEntity* LastCollided = nullptr;
-		int Distance = 0;
-		static CollisionCheckResult DefaultResultOut;
-
-		/** Updating result, LastCollided will be closest one */
-		inline void UpdateResult(class BaseEntity* Left, class BaseEntity* Right);
-	};
 
 	class FRAMEWORK2D_API BaseEntity
 	{
@@ -76,7 +59,7 @@ namespace Framework2D {
 		inline void SetEnableRender(bool bEnable) { bRenderEnabled = bEnable; }
 		inline bool IsRenderEnabled() const { return bRenderEnabled;}
 
-		inline void SetEnableCollision(bool bEnable);
+		inline void SetEnableCollision(bool bEnable, bool bIsDynamic = false /* mean if object can move */);
 		inline bool IsCollisionEnabled() const { return bCollisionEnabled; }
 
 		/** Get Position, if bNextRelevent, get position from next tick */
@@ -156,24 +139,34 @@ namespace Framework2D {
 			return true;
 		}
 
-		inline void SetPosBoundClamped(const Vec2& NewPosition)
+		inline void SetPosBoundClamped(Vec2 NewPosition)
 		{
 			auto Game = GetGame();
 			const Vec2& BoundLeft = Game->GetGameBoundLeft();
 			const Vec2& BoundRight = Game->GetGameBoundRight();
 
-			Vec2 FixedPos = NewPosition;
-
 			// clamp x
-			if (NewPosition.X < BoundLeft.X) FixedPos.X = BoundLeft.X;
-			else if (NewPosition.X + Size.X > BoundRight.X) FixedPos.X = BoundLeft.X - Size.X;
+			if (NewPosition.X < BoundLeft.X)
+			{
+				NewPosition.X = BoundLeft.X;
+			}
+			else if (NewPosition.X + Size.X > BoundRight.X)
+			{
+				NewPosition.X = BoundRight.X - Size.X;
+			}
 
 			// clamp y
-			if (NewPosition.Y < BoundLeft.X) FixedPos.Y = BoundLeft.Y;
-			else if (NewPosition.Y + Size.Y > BoundRight.Y) FixedPos.Y = BoundRight.Y - Size.Y;
+			if (NewPosition.Y < BoundLeft.Y)
+			{
+				NewPosition.Y = BoundLeft.Y;
+			}
+			else if (NewPosition.Y + Size.Y > BoundRight.Y)
+			{
+				NewPosition.Y = BoundRight.Y - Size.Y;
+			}
 
-			// Set new position
-			Position = FixedPos;
+			// set new position
+			Position = NewPosition;
 		}
 		 
 		inline void SetPosBlockClamped(const Vec2& NewPosition, BaseEntity* Blocker)

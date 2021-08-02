@@ -7,7 +7,7 @@ namespace Game {
 		: Actor(Name, Position)
 	{
 		// Enable collision
-		SetEnableCollision(false);
+		SetEnableCollision(true);
 
 		// Create actor components
 		BrickSpriteComp = new EntityComponent<SpriteEntity>((Actor*)this, Name, Position, ResPath::T_BRICK_BASE);

@@ -9,10 +9,10 @@ namespace Game {
 		: Actor(Name, Position)
 	{
 		// Enable collision
-		SetEnableCollision(false);
+		SetEnableCollision(true, true);
 
 		// Actor defaults
-		Speed = 20.f;
+		Speed = 100.f;
 		MoveAnimRate = 0.1f;
 
 		// Create actor components
@@ -90,6 +90,7 @@ namespace Game {
 		Vec2 DeltaPos = DirectionToVec2(CurrentDirection) * Speed * DeltaTime;
 		Vec2 NewPos = GetPosition() + DeltaPos;
 		SetPosition(NewPos, true);
+		//GAME_LOG(warn, "Tank move is out game area: {}", IsPosGameBound(GetPosition()));
 	}
 
 	void Tank::MoveBegin(Direction DirectionTo)

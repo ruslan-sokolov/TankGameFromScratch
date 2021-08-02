@@ -26,26 +26,17 @@ namespace Framework2D {
 			EntityGroup->RemoveEntity(this);
 	}
 	
-	inline void CollisionCheckResult::UpdateResult(BaseEntity* Left, BaseEntity* Right)
+	inline void BaseEntity::SetEnableCollision(bool bEnable, bool bIsDynamic)
 	{
-		bCollided = true;
-
-		int CollidableDistance = (Left->GetPosition() - Right->GetPosition()).Size();
-
-		if (LastCollided == nullptr || CollidableDistance <= Distance)
+		if (bEnable && !bCollisionEnabled)
 		{
-			Distance = CollidableDistance;
-			LastCollided = Right;
+			SystemCollision::AddEntity(this, bIsDynamic);
+			bCollisionEnabled = true;
 		}
-	}
-
-	inline void BaseEntity::SetEnableCollision(bool bEnable)
-	{
-		if (bEnable)
-			SystemCollision::AddEntity(this);
-		else
-			SystemCollision::RemoveEntity(this);
-
-		bCollisionEnabled = bEnable;
+		else if (!bEnable && bCollisionEnabled)
+		{
+			SystemCollision::RemoveEntity(this, bIsDynamic);
+			bCollisionEnabled = false;
+		}
 	}
 }

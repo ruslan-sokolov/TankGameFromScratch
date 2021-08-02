@@ -107,7 +107,6 @@ namespace Game {
 
 		// Spawn player tank
 		PlayerTank = SpawnActorFromClass<Tank>("MyTank", PlayerStart, Anchor::BOTTOM);
-
 	}
 
 	void TankiLevel_0::OnTick(float DeltaTime)
