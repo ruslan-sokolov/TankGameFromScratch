@@ -2,6 +2,7 @@
 
 #include <Framework2D/Gameplay/Level.h>
 #include <Game/Actors/TankActor.h>
+#include <Game/Actors/BoomActor.h>
 
 namespace Game {
 
@@ -52,6 +53,8 @@ namespace Game {
 		if (Instigator)
 			Instigator->ActiveBullet = nullptr;
 		
+		Boom::SpawnBoomSmall(GetLevel(), Position);
+
 		Destroy();
 	}
 
@@ -64,7 +67,7 @@ namespace Game {
 		constexpr float Speed = GameConst::BULLET_BASIC_SPEED;
 		constexpr float Damage = GameConst::BULLET_BASIC_DAMAGE;
 
-		Bullet* SpawnedBullet = TankFrom->GetLevel()->SpawnActorFromClass<Bullet>(Name, SpawnPos, Anchor::TOP_LEFT,
+		Bullet* SpawnedBullet = TankFrom->GetLevel()->SpawnActorFromClass<Bullet>(Name, SpawnPos, Anchor::CENTER,
 			TankFrom, BulletDirection, Speed, Damage);
 
 		return SpawnedBullet;

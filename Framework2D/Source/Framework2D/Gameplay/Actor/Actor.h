@@ -2,7 +2,7 @@
 
 #include <Framework2D/Framework2DAPI.h>
 #include <Framework2D/Graphic2D/Entities/BaseEntity.h>
-
+#include <Framework2D/Structs/TimerHandle.h>
 #include "Components/ActorComponent.h"
 
 namespace Framework2D {
@@ -30,9 +30,16 @@ namespace Framework2D {
 		unsigned int Id;  // creation count num
 
 		bool bIsPendingKill = false;
+
+		/** Called in Level to add it to remove queue*/
 		inline void PendToKill();
 
+		TimerHandle TimerHandle_TimeToLive;
+
 	public:
+		// Call actor delayed destroy
+		inline void SetActorLifeTime(float TimeToLive);
+
 		bool IsPendingKill() const { return bIsPendingKill; }
 		inline void Destroy();
 

@@ -5,6 +5,9 @@
 
 #include <Framework2D/Gameplay/Level.h>
 
+#include <Framework2D/Systems/SystemTimer.h>
+
+
 namespace Framework2D
 {	
 	Actor::Actor(const std::string& Name, const Vec2& Position)
@@ -85,12 +88,21 @@ namespace Framework2D
 		delete Component;
 	}
 	
+	inline void Actor::SetActorLifeTime(float TimeToLive)
+	{
+		SystemTimer::SetTimer(TimerHandle_TimeToLive, TIMER_CALLBACK(Actor::Destroy), TimeToLive);
+	}
+
 	inline void Actor::PendToKill()
 	{
 		if (bIsPendingKill) return;
 
 		SetEnableRender(false);
+
+		SystemTimer::RemoveTimer(TimerHandle_TimeToLive);
+
 		//DisableCollision();
+		
 		bIsPendingKill = true;
 	}
 

@@ -1,5 +1,6 @@
-#include "__ActorTempalte.h"
+#include "__ActorTemplate.h"
 
+#include <Framework2D/Gameplay/Level.h>
 
 namespace Game {
 
@@ -7,7 +8,7 @@ namespace Game {
 		: Actor(Name, Position)
 	{
 		// Enable collision
-		SetEnableCollision(false);
+		//EnableCollision(false);
 
 		// Create actor components
 		auto* TankUp = new EntityComponent<SpriteEntity>((Actor*)this, Name, Position,
