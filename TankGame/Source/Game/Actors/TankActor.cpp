@@ -1,7 +1,7 @@
 #include "TankActor.h"
 
-#include <Game/Game.h>
-#include <Framework2D/Gameplay/Actor/Components/EntityComponent.h>
+#include <Framework2D/Gameplay/Level.h>
+#include <Game/Actors/BulletActor.h>
 
 namespace Game {
 
@@ -9,7 +9,7 @@ namespace Game {
 		: Actor(Name, Position)
 	{
 		// Enable collision
-		SetEnableCollision(true, true);
+		EnableCollision(true);
 
 		// Actor defaults
 		Speed = 100.f;
@@ -87,10 +87,9 @@ namespace Game {
 	{
 		if (!bCanMove) return;
 
-		Vec2 DeltaPos = DirectionToVec2(CurrentDirection) * Speed * DeltaTime;
+		Vec2 DeltaPos = DirectionToVec2(CurrentDirection) * (Speed * DeltaTime);
 		Vec2 NewPos = GetPosition() + DeltaPos;
 		SetPosition(NewPos, true);
-		//GAME_LOG(warn, "Tank move is out game area: {}", IsPosGameBound(GetPosition()));
 	}
 
 	void Tank::MoveBegin(Direction DirectionTo)
@@ -111,7 +110,11 @@ namespace Game {
 
 	void Tank::Fire()
 	{
-		GAME_LOG(info, "Tank {} fired!", GetName());
+		if (ActiveBullet) return;
+
+		Vec2 BulletSpawnPos = GetSidePosition(CurrentDirection);
+		ActiveBullet = GetLevel()->SpawnActorFromClassWithDirection<Bullet>("Bullet_" + GetName(), BulletSpawnPos, CurrentDirection);
+		ActiveBullet->SetInstigator(this);
 	}
 
 }

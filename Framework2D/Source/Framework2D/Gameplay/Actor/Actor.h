@@ -29,7 +29,13 @@ namespace Framework2D {
 		static inline unsigned int TotalActorsCreatedNum = 0;
 		unsigned int Id;  // creation count num
 
+		bool bIsPendingKill = false;
+		inline void PendToKill();
+
 	public:
+		bool IsPendingKill() const { return bIsPendingKill; }
+		inline void Destroy();
+
 		virtual ~Actor();
 
 		/*
@@ -65,6 +71,12 @@ namespace Framework2D {
 		inline std::vector<ActorComponent*> GetAllComponentsByType(ActorComponentType Type);
 		inline ActorComponent* GetComponentByType(ActorComponentType Type);
 		
+		/*
+		 * Hides BaseEntity implementation
+		 * Set Actor Render Enable (will update all base entity components render enable)
+		 */
+		inline void SetEnableRender(bool bEnable);
+
 		/* 
 		 * Hides BaseEntity implementation
 		 * Set Actor Position (will update all components relative pos) 

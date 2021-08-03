@@ -3,6 +3,7 @@
 
 #include <Framework2D/Structs/Vectors.h>
 #include <Framework2D/Structs/Anchor.h>
+#include <Framework2D/Structs/Direction.h>
 
 #include <string>
 #include <unordered_set>
@@ -24,8 +25,30 @@ namespace Framework2D {
 		// should be called in GM, calls tick for actors and level
 		inline void Update(float DeltaTime);
 
+		/** Store PendingToKill actors then remove them on next update */
+		std::vector<Actor*> PendingToKillActors;
+		static inline unsigned int PendingToKillActorsAddExtend = 16;
+
+		/** Add actor to remove in next update */
+		void ActorPendToKill(Actor* ActorToKill)
+		{
+			if (PendingToKillActors.size() % PendingToKillActorsAddExtend)  // extend vector
+				PendingToKillActors.reserve(PendingToKillActors.size() + PendingToKillActorsAddExtend);
+
+			ActorToKill->PendToKill();
+			PendingToKillActors.emplace_back(ActorToKill);
+		}
+
+		/** delete actors is RemovedActors */
+		inline void DeletePendingKillActors() 
+		{ 
+			for (auto& A : PendingToKillActors) delete A; 
+			PendingToKillActors.clear(); 
+		}
+
 	protected:
 		std::unordered_set <Actor*> Actors;
+
 		GameMode* GM_Owner = nullptr;
 
 	public: 
@@ -40,6 +63,22 @@ namespace Framework2D {
 			// anchor pos offset
 			SpawnedActor->SetPosition(Pos - GetAnchorOffset(SpawnedActor->GetSize(), Anchor));
 			
+			SpawnedActor->LevelOwner = this;
+			Actors.insert(SpawnedActor);
+
+			GAME_LOG(warn, "Spawned Actor: {}_{}", SpawnedActor->GetName(), SpawnedActor->GetId());
+			return SpawnedActor;
+		}
+
+		// todo: some kind of fabric generic method for variadic params
+		template <class T>
+		T* SpawnActorFromClassWithDirection(const std::string& Name, const Vec2& Pos, Direction Dir = Direction::UP, Anchor Anchor = Anchor::TOP_LEFT)
+		{
+			T* SpawnedActor = new T(Name, Pos, Dir);
+
+			// anchor pos offset
+			SpawnedActor->SetPosition(Pos - GetAnchorOffset(SpawnedActor->GetSize(), Anchor));
+
 			SpawnedActor->LevelOwner = this;
 			Actors.insert(SpawnedActor);
 

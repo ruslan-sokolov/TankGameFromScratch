@@ -3,6 +3,8 @@
 
 #include "Components/EntityComponent.h"
 
+#include <Framework2D/Gameplay/Level.h>
+
 namespace Framework2D
 {	
 	Actor::Actor(const std::string& Name, const Vec2& Position)
@@ -13,7 +15,10 @@ namespace Framework2D
 
 	Actor::~Actor()
 	{
-		ForEachComp([](ActorComponent* C) {delete C; });
+		for (auto& Comp : Components)
+		{
+			delete Comp;
+		}
 	}
 
 	void Actor::Update(float DeltaTime)
@@ -35,6 +40,17 @@ namespace Framework2D
 		return nullptr;
 	}
 	
+	inline void Actor::SetEnableRender(bool bEnable)
+	{
+		ForEachComp([&](ActorComponent* C) { if (C->GetType() == ActorComponentType::EntityComponent) {
+			auto BaseEntityComp = static_cast<BaseEntityComponent*>(C);
+			if (auto Entity = BaseEntityComp->GetEntity())
+				Entity->SetEnableRender(bEnable);
+		}});
+
+		BaseEntity::SetEnableRender(bEnable);
+	}
+
 	inline void Actor::SetPosition(const Vec2& NewPos, bool bSweep)
 	{
 		BaseEntity::SetPosition(NewPos, bSweep);
@@ -68,4 +84,18 @@ namespace Framework2D
 		Components.erase(std::remove_if(Components.begin(), Components.end(), _findIf));
 	}
 	
+	inline void Actor::PendToKill()
+	{
+		if (bIsPendingKill) return;
+
+		SetEnableRender(false);
+		//DisableCollision();
+		bIsPendingKill = true;
+	}
+
+	inline void Actor::Destroy()
+	{
+		LevelOwner->RemoveActor(this);
+	}
+
 }

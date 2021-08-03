@@ -9,6 +9,8 @@ namespace Game {
 
 	using namespace Framework2D;
 
+	class Bullet;
+
 	/*
 	 * This class is represent main AI/Player controlled actor - tank
 	 *
@@ -57,6 +59,7 @@ namespace Game {
 		void MoveBegin(Direction DirectionTo);
 		void MoveEnd(Direction DirectionTo);
 
+		Bullet* ActiveBullet = nullptr;
 		void Fire();
 
 		Direction GetDirection() const { return CurrentDirection; }

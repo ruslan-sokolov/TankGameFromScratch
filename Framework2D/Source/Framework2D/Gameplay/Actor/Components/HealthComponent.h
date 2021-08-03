@@ -14,10 +14,10 @@ namespace Framework2D
 	class FRAMEWORK2D_API HealthComponent : public ActorComponent
 	{
 		using OnDeathCbFn = std::function<void()>;
-		using OnDamageCbFn = std::function<void(int Damage, Direction From, Actor* Instigator)>;
+		using OnDamageCbFn = std::function<void(float Damage, Direction From, Actor* Instigator)>;
 
-		int Health = 1;
-		int BaseHealth = 1;
+		float Health = 1.f;
+		float BaseHealth = 1.f;
 		bool bIsDead = false;		
 
 		OnDamageCbFn OnDamageCb;
@@ -31,9 +31,9 @@ namespace Framework2D
 			: ActorComponent(ActorOwner, ActorComponentType::LogicComponent) {}
 
 		/** Get Current Health */
-		inline int GetHealth() const { return Health; }
+		inline float GetHealth() const { return Health; }
 		/** Get Base Full Health */
-		inline int GetBaseHealth() const { return BaseHealth; }
+		inline float GetBaseHealth() const { return BaseHealth; }
 		/** True if Health is was zero and not reseted back */
 		inline bool IsDead() const { return bIsDead; }
 
@@ -44,11 +44,11 @@ namespace Framework2D
 		inline void OnDeath() { OnDeathCb(); }
 
 		/** Set Health, flag bResetBase allow to reset base full HP */
-		inline void SetHealth(int NewHealth, bool bResetBaseHealth = false)
+		inline void SetHealth(float NewHealth, bool bResetBaseHealth = false)
 		{
-			if (NewHealth <= 0)
+			if (NewHealth <= 0.f)
 			{
-				Health = 0;
+				Health = 0.f;
 				bIsDead = true;
 				OnDeath();
 			}
@@ -64,7 +64,7 @@ namespace Framework2D
 		}
 
 		/** Can be called from elsewhere to damage another actor */
-		inline void OnDamage(int Damage, Direction From, Actor* Instigator)
+		inline void OnDamage(float Damage, Direction From, Actor* Instigator)
 		{
 			SetHealth(Health - Damage);
 			OnDamageCb(Damage, From, Instigator);

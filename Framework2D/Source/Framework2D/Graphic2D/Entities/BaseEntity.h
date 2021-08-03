@@ -32,6 +32,7 @@ namespace Framework2D {
 		Vec2 Size;
 		Vec2 Position;
 
+		bool bIsDynamicCollision = false;
 		/** control if Collision Ignore Is BlackList or WhiteList */
 		bool bCollisionFilterIsWhiteList = false;
 		/** collision filter list, can work as blacklist or as whitelist */
@@ -59,8 +60,10 @@ namespace Framework2D {
 		inline void SetEnableRender(bool bEnable) { bRenderEnabled = bEnable; }
 		inline bool IsRenderEnabled() const { return bRenderEnabled;}
 
-		inline void SetEnableCollision(bool bEnable, bool bIsDynamic = false /* mean if object can move */);
+		inline void EnableCollision(bool bIsDynamic = false /* mean if object can move */);
+		inline void DisableCollision();
 		inline bool IsCollisionEnabled() const { return bCollisionEnabled; }
+		inline bool IsCollisionDynamic() const { return bCollisionEnabled & bIsDynamicCollision; }
 
 		/** Get Position, if bNextRelevent, get position from next tick */
 		inline Vec2 GetPosition(bool bNextRelevent = false) const

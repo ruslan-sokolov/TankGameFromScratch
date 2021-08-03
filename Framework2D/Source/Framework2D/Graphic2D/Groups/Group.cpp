@@ -28,7 +28,7 @@ namespace Framework2D {
 
 		return true;
 	}
-
+	
 	inline bool Group::RemoveEntity(BaseEntity* Entity)
 	{
 		auto Removed = std::remove(Entities.begin(), Entities.end(), Entity);
@@ -36,7 +36,6 @@ namespace Framework2D {
 		{
 			BaseEntity* Entity = *Removed;
 			Entity->EntityGroup = nullptr;
-			delete Entity;
 
 			Entities.erase(Removed, Entities.end());
 			return true;

@@ -3,7 +3,7 @@
 
 namespace Game {
 
-	__ActorTemplate::__ActorTemplate(const std::string& Name, const VecInt2D& Position)
+	__ActorTemplate::__ActorTemplate(const std::string& Name, const Vec2& Position)
 		: Actor(Name, Position)
 	{
 		// Enable collision

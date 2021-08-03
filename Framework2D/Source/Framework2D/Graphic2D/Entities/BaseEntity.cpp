@@ -22,20 +22,27 @@ namespace Framework2D {
 
 	BaseEntity::~BaseEntity()
 	{
+		DisableCollision();
+
 		if (EntityGroup != nullptr)
 			EntityGroup->RemoveEntity(this);
 	}
 	
-	inline void BaseEntity::SetEnableCollision(bool bEnable, bool bIsDynamic)
+	inline void BaseEntity::EnableCollision(bool bIsDynamic)
 	{
-		if (bEnable && !bCollisionEnabled)
+		if (!bCollisionEnabled)
 		{
 			SystemCollision::AddEntity(this, bIsDynamic);
 			bCollisionEnabled = true;
+			bIsDynamicCollision = bIsDynamic;
 		}
-		else if (!bEnable && bCollisionEnabled)
+	}
+
+	inline void BaseEntity::DisableCollision()
+	{
+		if (bCollisionEnabled)
 		{
-			SystemCollision::RemoveEntity(this, bIsDynamic);
+			SystemCollision::RemoveEntity(this, bIsDynamicCollision);
 			bCollisionEnabled = false;
 		}
 	}

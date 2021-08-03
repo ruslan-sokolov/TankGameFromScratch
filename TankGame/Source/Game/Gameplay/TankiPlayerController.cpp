@@ -16,6 +16,8 @@ namespace Game {
 		SystemInput::BindKeyEvent(KEY_A, false, INPUT_CALLBACK(TankiPlayerController::MoveLeftStop));
 		SystemInput::BindKeyEvent(KEY_D, true, INPUT_CALLBACK(TankiPlayerController::MoveRight));
 		SystemInput::BindKeyEvent(KEY_D, false, INPUT_CALLBACK(TankiPlayerController::MoveRightStop));
+		
+		SystemInput::BindKeyEvent(KEY_SPACE, true, INPUT_CALLBACK(TankiPlayerController::Fire));
 	}
 
 	TankiPlayerController::~TankiPlayerController()
@@ -29,6 +31,8 @@ namespace Game {
 		SystemInput::UnbindKeyEvent(KEY_A, false, INPUT_CALLBACK(TankiPlayerController::MoveLeftStop));
 		SystemInput::UnbindKeyEvent(KEY_D, true, INPUT_CALLBACK(TankiPlayerController::MoveRight));
 		SystemInput::UnbindKeyEvent(KEY_D, false, INPUT_CALLBACK(TankiPlayerController::MoveRightStop));
+		
+		SystemInput::UnbindKeyEvent(KEY_SPACE, true, INPUT_CALLBACK(TankiPlayerController::Fire));
 	}
 
 	void TankiPlayerController::OnTick(float DeltaTime)
