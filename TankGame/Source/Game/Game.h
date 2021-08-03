@@ -79,6 +79,8 @@ namespace ResPath
 
 namespace GameConst
 {
+	// game geometric params
+
 	constexpr auto WINDOW_W = 640;
 	constexpr auto WINDOW_H = 480;
 
@@ -102,5 +104,53 @@ namespace GameConst
 
 	constexpr auto TANK_W = 13 * 2;
 	constexpr auto TANK_H = 13 * 2;
+
+	// game gameplay params
+
+	constexpr auto TANK_BASIC_SPEED = 120.0f;  // pixels / sec
+	constexpr auto TANK_BASIC_ANIM_SPEED = 0.1f;  // sprite_flip time in sec
+	constexpr auto TANK_BASIC_HEALTH = 1.0f;
+
+	constexpr auto BULLET_BASIC_SPEED = 400.0f;  // pixels / sec
+	constexpr auto BULLET_BASIC_DAMAGE = 1.0f;
+
+	constexpr auto BRICK_BASIC_HEALTH = 1.0f;
+
+	constexpr auto TANK_SPAWN_NUM_DEFAULT = 20;
+	constexpr auto TANK_SPAWN_RATE_DEFAULT = 2.0f; // sec
+
+	constexpr auto PLAYER_TANK_RESPAWN_NUM = 5;
+
+	constexpr auto ENEMY_BASIC_FIRE_RATE = 1.0f;  // sec
+	constexpr auto ENEMY_AI_CHANGE_DIRECTION_RATE = 0.6f; // sec
+
+	constexpr auto BOOM_SMALL_ANIM_SPEED = 0.05f; // sec
+	constexpr auto BOOM_BIG_ANIM_SPEED = 0.08f; // sec
+	
+	constexpr int FLASHY_ARRAY_DEFAULT[] = { 4, 11, 18 }; // sec
+	constexpr int FLASHY_ARRAY_DEFAULT_SIZE = sizeof FLASHY_ARRAY_DEFAULT / sizeof * FLASHY_ARRAY_DEFAULT;
+
+	constexpr auto FLASHY_ANIM_SPEED = 0.1f; // sec
+	constexpr auto RESPAWN_PROTECTION_TIME = 1.0f;  // sec
+	
+	constexpr auto HP_BOOSTER_VAL = 1.0f;  //
+
+	constexpr auto RESTART_TIME = 3.0f;  // sec
+
+	// ui geometric params
+
+	constexpr auto GAME_OVER_PLATE_W = 200;
+	constexpr auto GAME_OVER_PLATE_H = 225;
+
+	constexpr auto TANK_UI_FIRST_W = 496;
+	constexpr auto TANK_UI_FIRST_H = 496;
+	constexpr auto TANK_UI_OFFSET_W = 16;
+	constexpr auto TANK_UI_OFFSET_H = 16;
+	constexpr auto TANK_UI_MAX = 20;
+	constexpr auto TANK_UI_HORIZONTAL_MAX = 2;
+
+	constexpr auto PLAYER_RESPAWN_NUM_W = 514;
+	constexpr auto PLAYER_RESPAWN_NUM_H = 274;
+	constexpr auto UI_NUM_DIGIT_OFFSET = 16;
 
 }

@@ -82,6 +82,7 @@ namespace Framework2D
 	{
 		auto _findIf = [&](ActorComponent* Comp) {return Comp == Component; };
 		Components.erase(std::remove_if(Components.begin(), Components.end(), _findIf));
+		delete Component;
 	}
 	
 	inline void Actor::PendToKill()

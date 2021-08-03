@@ -3,13 +3,15 @@
 #include <Framework2D/Gameplay/Level.h>
 #include <Game/Game.h>
 
-namespace Game {
+#include <Game/Actors/TankActor.h>
 
-	class Tank;
+
+namespace Game {
 
 	class TankiLevel_0 : public Framework2D::Level
 	{
 		Tank* PlayerTank;
+		TankSpawnPoint PlayerSpawnPoint;
 
 	public:
 		TankiLevel_0();

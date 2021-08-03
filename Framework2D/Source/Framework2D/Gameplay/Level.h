@@ -8,6 +8,7 @@
 #include <string>
 #include <unordered_set>
 #include <vector>
+#include <utility>
 
 #include <Framework2D/Gameplay/Actor/Actor.h>
 
@@ -55,10 +56,10 @@ namespace Framework2D {
 		Level();
 		virtual ~Level();
 
-		template<class T>
-		T* SpawnActorFromClass(const std::string& Name, const Vec2& Pos, Anchor Anchor = Anchor::TOP_LEFT)
+		template<class T, class... Args>
+		T* SpawnActorFromClass(const std::string& Name, const Vec2& Pos, Anchor Anchor, Args&&... args)
 		{
-			T* SpawnedActor = new T(Name, Pos);
+			T* SpawnedActor = new T(Name, Pos, std::forward<Args>(args)...);
 
 			// anchor pos offset
 			SpawnedActor->SetPosition(Pos - GetAnchorOffset(SpawnedActor->GetSize(), Anchor));
@@ -70,21 +71,21 @@ namespace Framework2D {
 			return SpawnedActor;
 		}
 
-		// todo: some kind of fabric generic method for variadic params
-		template <class T>
-		T* SpawnActorFromClassWithDirection(const std::string& Name, const Vec2& Pos, Direction Dir = Direction::UP, Anchor Anchor = Anchor::TOP_LEFT)
-		{
-			T* SpawnedActor = new T(Name, Pos, Dir);
-
-			// anchor pos offset
-			SpawnedActor->SetPosition(Pos - GetAnchorOffset(SpawnedActor->GetSize(), Anchor));
-
-			SpawnedActor->LevelOwner = this;
-			Actors.insert(SpawnedActor);
-
-			GAME_LOG(warn, "Spawned Actor: {}_{}", SpawnedActor->GetName(), SpawnedActor->GetId());
-			return SpawnedActor;
-		}
+		//// todo: some kind of fabric generic method for variadic params
+		//template <class T>
+		//T* SpawnActorFromClassWithDirection(const std::string& Name, const Vec2& Pos, Direction Dir = Direction::UP, Anchor Anchor = //Anchor::TOP_LEFT)
+		//{
+		//	T* SpawnedActor = new T(Name, Pos, Dir);
+		//
+		//	// anchor pos offset
+		//	SpawnedActor->SetPosition(Pos - GetAnchorOffset(SpawnedActor->GetSize(), Anchor));
+		//
+		//	SpawnedActor->LevelOwner = this;
+		//	Actors.insert(SpawnedActor);
+		//
+		//	GAME_LOG(warn, "Spawned Actor: {}_{}", SpawnedActor->GetName(), SpawnedActor->GetId());
+		//	return SpawnedActor;
+		//}
 
 		inline void RemoveActor(Actor* ActorToRemove);
 		

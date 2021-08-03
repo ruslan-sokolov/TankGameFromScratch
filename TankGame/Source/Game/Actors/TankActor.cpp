@@ -5,30 +5,33 @@
 
 namespace Game {
 
-	Tank::Tank(const std::string& Name, const Vec2& Position)
-		: Actor(Name, Position)
+	TankSpawnPoint TankSpawnPoint::BottomLeftSpawnPoint(Vec2(GameConst::GAME_AREA_W0, GameConst::GAME_AREA_H1), Direction::UP, Anchor::BOTTOM_LEFT);
+	TankSpawnPoint TankSpawnPoint::BottomRightSpawnPoint(Vec2(GameConst::GAME_AREA_W1, GameConst::GAME_AREA_H1), Direction::UP, Anchor::BOTTOM_RIGHT);
+	TankSpawnPoint TankSpawnPoint::TopLeftSpawnPoint(Vec2(GameConst::GAME_AREA_W0, GameConst::GAME_AREA_H0), Direction::DOWN, Anchor::TOP_LEFT);
+	TankSpawnPoint TankSpawnPoint::TopRightSpawnPoint(Vec2(GameConst::GAME_AREA_W1, GameConst::GAME_AREA_H0), Direction::DOWN, Anchor::TOP_RIGHT);
+	TankSpawnPoint TankSpawnPoint::TopCenterSpawnPoint(Vec2(GameConst::GAME_AREA_W1 / 2, GameConst::GAME_AREA_H0), Direction::DOWN, Anchor::TOP);
+
+	Tank::Tank(const std::string& Name, const Vec2& Position, 
+		Direction StartDirection, float Speed, float MoveAnimRate, const TankSkin& Skin)
+		: Actor(Name, Position), CurrentDirection(StartDirection), Speed(Speed), MoveAnimRate(MoveAnimRate)
 	{
 		// Enable collision
 		EnableCollision(true);
 
-		// Actor defaults
-		Speed = 100.f;
-		MoveAnimRate = 0.1f;
-
 		// Create actor components
-		SpriteComp_Up = new EntityComponent<SpriteFlipFlop>((Actor*)this, "FFSpriteUp" + Name, Position, MoveAnimRate, ResPath::T_TANK_UP_0, ResPath::T_TANK_UP_1);
+		SpriteComp_Up = new EntityComponent<SpriteFlipFlop>((Actor*)this, "FFSpriteUp" + Name, Position, MoveAnimRate, Skin.Up_0, Skin.Up_1);
 		SpriteComp_Up->GetSprite()->SetAutoFlipFlopEnable(false);
 		SpriteComp_Up->GetSprite()->SetEnableRender(false);
 
-		SpriteComp_Down = new EntityComponent<SpriteFlipFlop>((Actor*)this, "FFSpriteDown" + Name, Position, MoveAnimRate, ResPath::T_TANK_DOWN_0, ResPath::T_TANK_DOWN_1);
+		SpriteComp_Down = new EntityComponent<SpriteFlipFlop>((Actor*)this, "FFSpriteDown" + Name, Position, MoveAnimRate, Skin.Down_0, Skin.Down_1);
 		SpriteComp_Down->GetSprite()->SetAutoFlipFlopEnable(false);
 		SpriteComp_Down->GetSprite()->SetEnableRender(false);
 		
-		SpriteComp_Left = new EntityComponent<SpriteFlipFlop>((Actor*)this, "FFSpriteLeft" + Name, Position, MoveAnimRate, ResPath::T_TANK_LEFT_0, ResPath::T_TANK_LEFT_1);
+		SpriteComp_Left = new EntityComponent<SpriteFlipFlop>((Actor*)this, "FFSpriteLeft" + Name, Position, MoveAnimRate, Skin.Left_0, Skin.Left_1);
 		SpriteComp_Left->GetSprite()->SetAutoFlipFlopEnable(false);
 		SpriteComp_Left->GetSprite()->SetEnableRender(false);
 		
-		SpriteComp_Right = new EntityComponent<SpriteFlipFlop>((Actor*)this, "FFSpriteRight" + Name, Position, MoveAnimRate, ResPath::T_TANK_RIGHT_0, ResPath::T_TANK_RIGHT_1);
+		SpriteComp_Right = new EntityComponent<SpriteFlipFlop>((Actor*)this, "FFSpriteRight" + Name, Position, MoveAnimRate, Skin.Right_0, Skin.Right_1);
 		SpriteComp_Right->GetSprite()->SetAutoFlipFlopEnable(false);
 		SpriteComp_Right->GetSprite()->SetEnableRender(false);
 
@@ -37,7 +40,7 @@ namespace Game {
 
 		// Initialize tank direction
 		SpriteComp_Current = SpriteComp_Up;
-		ChangeDirection(Direction::UP);
+		ChangeDirection(StartDirection);
 	}
 
 	void Tank::OnTick(float DeltaTime)
@@ -110,11 +113,29 @@ namespace Game {
 
 	void Tank::Fire()
 	{
-		if (ActiveBullet) return;
+		if (bPossesedByPlayer && ActiveBullet) return;
 
-		Vec2 BulletSpawnPos = GetSidePosition(CurrentDirection);
-		ActiveBullet = GetLevel()->SpawnActorFromClassWithDirection<Bullet>("Bullet_" + GetName(), BulletSpawnPos, CurrentDirection);
-		ActiveBullet->SetInstigator(this);
+		ActiveBullet = Bullet::SpawnBasicBullet(this);
 	}
 
+	Tank* Tank::SpawnBasicPlayerTank(Level* Level, const TankSpawnPoint& Point)
+	{
+		using namespace ResPath;
+		using namespace GameConst;
+
+		constexpr TankSkin PlayerTankSkin{ 
+			T_TANK_UP_0, T_TANK_UP_1, 
+			T_TANK_DOWN_0, T_TANK_DOWN_1, 
+			T_TANK_RIGHT_0, T_TANK_RIGHT_1, 
+			T_TANK_LEFT_0, T_TANK_LEFT_1 };
+
+		ENGINE_ASSERT(Level, "SpawnBasicPlayerTank Level is nullptr!");
+
+		Tank* PlayerTank = Level->SpawnActorFromClass<Tank>("PlayerTank", Point.SpawnPosition, Point.SpawnAnchor, 
+			Point.SpawnDirection, TANK_BASIC_SPEED, TANK_BASIC_ANIM_SPEED, PlayerTankSkin);
+		
+		PlayerTank->bPossesedByPlayer = true;
+
+		return PlayerTank;
+	}
 }

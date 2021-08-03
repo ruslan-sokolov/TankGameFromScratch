@@ -5,6 +5,7 @@
 #include <Framework2D/Structs/Vectors.h>
 #include <Framework2D/Structs/Direction.h>
 #include <Framework2D/Structs/Collision.h>
+#include <Framework2D/Structs/Anchor.h>
 
 #include <Framework2D/Gameplay/Game2D.h>
 

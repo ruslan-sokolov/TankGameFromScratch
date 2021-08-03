@@ -11,6 +11,36 @@ namespace Game {
 
 	class Bullet;
 
+	struct TankSkin
+	{
+		const char* Up_0;
+		const char* Up_1;
+		const char* Down_0;
+		const char* Down_1;
+		const char* Right_0;
+		const char* Right_1;
+		const char* Left_0;
+		const char* Left_1;
+	};
+
+	struct TankSpawnPoint
+	{
+		Vec2 SpawnPosition;
+		Direction SpawnDirection = Direction::UP;
+		Anchor SpawnAnchor = Anchor::TOP_LEFT;
+
+		TankSpawnPoint() {}
+
+		TankSpawnPoint(Vec2 SpawnPosition, Direction SpawnDirection, Anchor SpawnAnchor)
+			: SpawnPosition(SpawnPosition), SpawnDirection(SpawnDirection), SpawnAnchor(SpawnAnchor) {}
+		
+		static TankSpawnPoint TopLeftSpawnPoint;
+		static TankSpawnPoint TopRightSpawnPoint;
+		static TankSpawnPoint BottomLeftSpawnPoint;
+		static TankSpawnPoint BottomRightSpawnPoint;
+		static TankSpawnPoint TopCenterSpawnPoint;
+	};
+
 	/*
 	 * This class is represent main AI/Player controlled actor - tank
 	 *
@@ -22,7 +52,8 @@ namespace Game {
 		 * Constructor should be called only from Level::SpawnActorFromClass() method;
 		 * Constructor can initialize Actor Components;
 		 */
-		Tank(const std::string& Name, const Vec2& Position);
+		Tank(const std::string& Name, const Vec2& Position, 
+			Direction StartDirection, float Speed, float MoveAnimRate, const TankSkin& Skin);
 		
 		// frame per frame logic, no need to call Framework2D::Actor implementation
 		virtual void OnTick(float DeltaTime) override;
@@ -63,6 +94,8 @@ namespace Game {
 		void Fire();
 
 		Direction GetDirection() const { return CurrentDirection; }
+
+		static Tank* SpawnBasicPlayerTank(Level* Level, const TankSpawnPoint& Point);
 
 	};
 }

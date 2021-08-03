@@ -5,15 +5,16 @@
 
 namespace Game {
 
-	Bullet::Bullet(const std::string& Name, const Vec2& Position, Direction SpawnDirection)
-		: Actor(Name, Position)
+	Bullet::Bullet(const std::string& Name, const Vec2& Position, 
+		Tank* Instigator, Direction SpawnDirection, float Speed, float Damage)
+		: Actor(Name, Position), 
+		Instigator(Instigator), Speed(Speed), Damage(Damage), 
+		BulletDirection(SpawnDirection), DirectionVec(DirectionToVec2(SpawnDirection))
 	{
 		// Enable collision
 		EnableCollision(true);
-
-		// Actor defaults
-		Damage = 1.f;
-		Speed = 300.f;
+		
+		Instigator->AddToCollisionFilter(this);
 
 		const char* BulletTexPath;
 		switch (SpawnDirection)
@@ -30,9 +31,6 @@ namespace Game {
 		default:
 			BulletTexPath = ResPath::T_BULLET_UP;
 		}
-
-		BulletDirection = SpawnDirection;
-		DirectionVec = DirectionToVec2(SpawnDirection);
 
 		// Create actor components
 		BulletSpriteComp = new EntityComponent<SpriteEntity>((Actor*)this, Name, Position, BulletTexPath);
@@ -57,9 +55,18 @@ namespace Game {
 		Destroy();
 	}
 
-	void Bullet::SetInstigator(Tank* Instigator)
+	Bullet* Bullet::SpawnBasicBullet(Tank* TankFrom)
 	{
-		this->Instigator = Instigator;
-		Instigator->AddToCollisionFilter(this);
+		std::string Name = TankFrom->GetName() + "_Bullet";
+		Direction BulletDirection = TankFrom->GetDirection();
+		Vec2 SpawnPos = TankFrom->GetSidePosition(TankFrom->GetDirection());
+		
+		constexpr float Speed = GameConst::BULLET_BASIC_SPEED;
+		constexpr float Damage = GameConst::BULLET_BASIC_DAMAGE;
+
+		Bullet* SpawnedBullet = TankFrom->GetLevel()->SpawnActorFromClass<Bullet>(Name, SpawnPos, Anchor::TOP_LEFT,
+			TankFrom, BulletDirection, Speed, Damage);
+
+		return SpawnedBullet;
 	}
 }

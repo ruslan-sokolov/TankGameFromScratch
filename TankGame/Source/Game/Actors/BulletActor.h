@@ -26,16 +26,15 @@ namespace Game {
 		float Damage;
 		float Speed;
 
-		Tank* Instigator = nullptr;
+		Tank* Instigator;
 
 	public:
-		void SetInstigator(Tank* Instigator);
-
 		/* 
 		 * Constructor should be called only from Level::SpawnActorFromClass() method;
 		 * Constructor can initialize Actor Components;
 		 */ 
-		Bullet(const std::string& Name, const Vec2& Position, Direction SpawnDirection);
+		Bullet(const std::string& Name, const Vec2& Position, 
+			Tank* Instigator, Direction SpawnDirection, float Speed, float Damage);
 
 		// frame per frame logic, no need to call Framework2D::Actor implementation
 		virtual void OnTick(float DeltaTime) override;
@@ -43,6 +42,6 @@ namespace Game {
 		// will be called when actor overlaps with other entity with enabled collision
 		virtual void OnCollide(BaseEntity* Other, CollisionFilter Filter) override;
 
-
+		static Bullet* SpawnBasicBullet(Tank* Instigator);
 	};
 }
