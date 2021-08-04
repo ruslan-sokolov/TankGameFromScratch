@@ -7,11 +7,6 @@ namespace Framework2D {
 
 	Group::~Group()
 	{
-		//for (auto& Entity : Entities)
-		//{
-		//	Entity->EntityGroup = nullptr;
-		//	delete Entity;
-		//}
 	}
 
 	inline bool Group::AddEntity(BaseEntity* Entity)
@@ -29,15 +24,15 @@ namespace Framework2D {
 		return true;
 	}
 	
-	inline bool Group::RemoveEntity(BaseEntity* Entity)
+	inline bool Group::RemoveEntity(BaseEntity* EntityToRemove)
 	{
-		auto Removed = std::remove(Entities.begin(), Entities.end(), Entity);
-		if (Removed != Entities.end())
+		auto It = std::find(Entities.begin(), Entities.end(), EntityToRemove);
+		if (It != Entities.end())
 		{
-			BaseEntity* Entity = *Removed;
+			BaseEntity* Entity = *It;
 			Entity->EntityGroup = nullptr;
-
-			Entities.erase(Removed, Entities.end());
+			
+			Entities.erase(It);
 			return true;
 		}
 		return false;

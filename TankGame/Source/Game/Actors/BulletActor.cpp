@@ -34,7 +34,7 @@ namespace Game {
 		}
 
 		// Create actor components
-		BulletSpriteComp = new EntityComponent<SpriteEntity>((Actor*)this, Name, Position, BulletTexPath);
+		BulletSpriteComp = new EntityComponent<SpriteEntity>((Actor*)this, "Sprite_" + Name, Position, BulletTexPath);
 
 		// Initialize actor size
 		SetSize(BulletSpriteComp->GetSize());

@@ -8,6 +8,12 @@
 
 namespace Framework2D {
 
+	BaseEntityComponent::~BaseEntityComponent()
+	{
+		// todo: smart group clean up
+		delete Entity;
+	}
+
 	inline void BaseEntityComponent::InitEntity(SpriteEntity* Sprite)
 	{
 		this->Entity = Sprite;

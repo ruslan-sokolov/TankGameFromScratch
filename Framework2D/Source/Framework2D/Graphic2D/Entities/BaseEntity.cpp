@@ -4,6 +4,7 @@
 #include <Framework2D/Systems/SystemCollision.h>
 #include <Framework2D/Graphic2D/Groups/Group.h>
 
+
 namespace Framework2D {
 
 	// static
@@ -21,7 +22,7 @@ namespace Framework2D {
 	//
 
 	BaseEntity::~BaseEntity()
-	{
+	{	
 		DisableCollision();
 
 		if (EntityGroup != nullptr)

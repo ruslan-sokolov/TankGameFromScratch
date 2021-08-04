@@ -67,7 +67,7 @@ namespace Framework2D {
 			SpawnedActor->LevelOwner = this;
 			Actors.insert(SpawnedActor);
 
-			GAME_LOG(warn, "Spawned Actor: {}_{}", SpawnedActor->GetName(), SpawnedActor->GetId());
+			GAME_LOG(warn, "Spawned Actor: {}_{} {}", SpawnedActor->GetName(), SpawnedActor->GetId(), (void*)SpawnedActor);
 			return SpawnedActor;
 		}
 

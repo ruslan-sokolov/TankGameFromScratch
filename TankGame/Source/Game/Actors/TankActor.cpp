@@ -3,7 +3,6 @@
 #include <Framework2D/Gameplay/Level.h>
 #include <Game/Actors/BulletActor.h>
 
-
 namespace Game {
 
 	TankSpawnPoint TankSpawnPoint::BottomLeftSpawnPoint(Vec2(GameConst::GAME_AREA_W0, GameConst::GAME_AREA_H1), Direction::UP, Anchor::BOTTOM_LEFT);
@@ -117,7 +116,7 @@ namespace Game {
 
 	void Tank::Fire()
 	{
-		if (bPossesedByPlayer && ActiveBullet) return;
+		// if (bPossesedByPlayer && ActiveBullet) return;
 
 		ActiveBullet = Bullet::SpawnBasicBullet(this);
 	}

@@ -9,7 +9,7 @@ namespace Game {
 		EnableCollision();
 
 		// Create actor components
-		BrickSpriteComp = new EntityComponent<SpriteEntity>((Actor*)this, Name, Position, ResPath::T_BRICK_BASE);
+		BrickSpriteComp = new EntityComponent<SpriteEntity>((Actor*)this, "Sprite_" + Name, Position, ResPath::T_BRICK_BASE);
 		
 		HealthComp = new Framework2D::HealthComponent(this);
 		HealthComp->SetHealth(GameConst::BRICK_BASIC_HEALTH, true);

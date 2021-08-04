@@ -79,6 +79,7 @@ namespace Framework2D
 	inline void Actor::AddComponent(ActorComponent* Component)
 	{
 		Components.push_back(Component);
+
 	}
 	
 	inline void Actor::RemoveComponent(ActorComponent* Component)

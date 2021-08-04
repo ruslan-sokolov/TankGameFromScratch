@@ -7,13 +7,16 @@ namespace Game {
 	Boom::Boom(const std::string& Name, const Vec2& Position, std::initializer_list<const char*>BoomTexPathList, float AnimRate)
 		: Actor(Name, Position)
 	{
-		//auto SpriteBoom = EntityComponent<SpriteEntity>((Actor*)this, Name, Position, ResPath::T_BOOM_SMALL_0);
+		auto SpriteBoom = EntityComponent<SpriteEntity>((Actor*)this, Name, Position, ResPath::T_BOOM_SMALL_0);
+
+
 		//auto BoomComp = EntityComponent<SpriteSequence>((Actor*)this, Name, Position, AnimRate, BoomTexPathList);
+
 		//auto BoomComp = EntityComponent<SpriteFlipFlop>((Actor*)this, Name, Position, AnimRate, ResPath::T_BOOM_BIG_0, ResPath::T_BOOM_BIG_1);
-		SetActorLifeTime(AnimRate * 6);
+		//SetActorLifeTime(AnimRate * BoomTexPathList.size());
 
 		// Initialize actor size
-		//SetSize(SpriteBoom.GetSize());
+		//SetSize(BoomComp.GetSize());
 	}
 
 	Boom* Boom::SpawnBoomSmall(Level* Level, const Vec2& Position)

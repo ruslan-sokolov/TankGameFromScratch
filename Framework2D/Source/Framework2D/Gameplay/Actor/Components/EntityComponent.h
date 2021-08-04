@@ -55,7 +55,7 @@ namespace Framework2D {
 		BaseEntityComponent(Actor* ActorOwner) :
 			ActorComponent(ActorOwner, ActorComponentType::EntityComponent) {}
 
-		~BaseEntityComponent() { delete Entity; }
+		~BaseEntityComponent();
 	};
 
 	/*
