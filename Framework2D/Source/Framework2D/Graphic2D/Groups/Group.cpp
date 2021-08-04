@@ -7,11 +7,11 @@ namespace Framework2D {
 
 	Group::~Group()
 	{
-		for (auto& Entity : Entities)
-		{
-			Entity->EntityGroup = nullptr;
-			delete Entity;
-		}
+		//for (auto& Entity : Entities)
+		//{
+		//	Entity->EntityGroup = nullptr;
+		//	delete Entity;
+		//}
 	}
 
 	inline bool Group::AddEntity(BaseEntity* Entity)

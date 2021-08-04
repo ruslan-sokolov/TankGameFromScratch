@@ -23,12 +23,11 @@ namespace Framework2D
 		OnDamageCbFn OnDamageCb;
 		OnDeathCbFn OnDeathCb;
 
-	protected:
-		~HealthComponent() {}
-
 	public:
 		HealthComponent(Actor* ActorOwner)
 			: ActorComponent(ActorOwner, ActorComponentType::LogicComponent) {}
+
+		~HealthComponent() {}
 
 		/** Get Current Health */
 		inline float GetHealth() const { return Health; }
@@ -41,7 +40,7 @@ namespace Framework2D
 		inline void SetOnDeathCb(OnDeathCbFn&& OnDeathCb) { this->OnDeathCb = OnDeathCb; }
 
 		/** Will be called when health reached zero */
-		inline void OnDeath() { OnDeathCb(); }
+		inline void OnDeath() { if (OnDeathCb) OnDeathCb(); }
 
 		/** Set Health, flag bResetBase allow to reset base full HP */
 		inline void SetHealth(float NewHealth, bool bResetBaseHealth = false)
@@ -67,10 +66,10 @@ namespace Framework2D
 		inline void OnDamage(float Damage, Direction From, Actor* Instigator)
 		{
 			SetHealth(Health - Damage);
-			OnDamageCb(Damage, From, Instigator);
+			if (OnDamageCb) OnDamageCb(Damage, From, Instigator);
 		}
 
-#define HEALTH_COMP_CB(x) std::bind(&x, this);
+#define HEALTH_COMP_CB(x) std::bind(&x, this)
 	};
 
 }

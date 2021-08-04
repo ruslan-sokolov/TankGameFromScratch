@@ -3,6 +3,7 @@
 #include <Framework2D/Gameplay/Level.h>
 #include <Game/Actors/BulletActor.h>
 
+
 namespace Game {
 
 	TankSpawnPoint TankSpawnPoint::BottomLeftSpawnPoint(Vec2(GameConst::GAME_AREA_W0, GameConst::GAME_AREA_H1), Direction::UP, Anchor::BOTTOM_LEFT);
@@ -12,7 +13,7 @@ namespace Game {
 	TankSpawnPoint TankSpawnPoint::TopCenterSpawnPoint(Vec2(GameConst::GAME_AREA_W1 / 2, GameConst::GAME_AREA_H0), Direction::DOWN, Anchor::TOP);
 
 	Tank::Tank(const std::string& Name, const Vec2& Position, 
-		Direction StartDirection, float Speed, float MoveAnimRate, const TankSkin& Skin)
+		Direction StartDirection, float Speed, float MoveAnimRate, float Health, const TankSkin& Skin)
 		: Actor(Name, Position), CurrentDirection(StartDirection), Speed(Speed), MoveAnimRate(MoveAnimRate)
 	{
 		// Enable collision
@@ -34,6 +35,9 @@ namespace Game {
 		SpriteComp_Right = new EntityComponent<SpriteFlipFlop>((Actor*)this, "FFSpriteRight" + Name, Position, MoveAnimRate, Skin.Right_0, Skin.Right_1);
 		SpriteComp_Right->GetSprite()->SetAutoFlipFlopEnable(false);
 		SpriteComp_Right->GetSprite()->SetEnableRender(false);
+
+		HealthComp = new HealthComponent((Actor*)this);
+		HealthComp->SetHealth(Health, true);
 
 		// Initialize actor size
 		SetSize(SpriteComp_Up->GetSize());
@@ -132,7 +136,7 @@ namespace Game {
 		ENGINE_ASSERT(Level, "SpawnBasicPlayerTank Level is nullptr!");
 
 		Tank* PlayerTank = Level->SpawnActorFromClass<Tank>("PlayerTank", Point.SpawnPosition, Point.SpawnAnchor, 
-			Point.SpawnDirection, TANK_BASIC_SPEED, TANK_BASIC_ANIM_SPEED, PlayerTankSkin);
+			Point.SpawnDirection, TANK_BASIC_SPEED, TANK_BASIC_ANIM_SPEED, TANK_BASIC_HEALTH, PlayerTankSkin);
 		
 		PlayerTank->bPossesedByPlayer = true;
 

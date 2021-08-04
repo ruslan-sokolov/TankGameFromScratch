@@ -4,6 +4,7 @@
 
 #include <Game/Game.h>
 #include <Framework2D/Gameplay/Actor/Components/EntityComponent.h>
+#include <Framework2D/Gameplay/Actor/Components/HealthComponent.h>
 
 namespace Game {
 
@@ -17,6 +18,7 @@ namespace Game {
 	{
 	protected:
 		EntityComponent<SpriteEntity>* BrickSpriteComp;
+		HealthComponent* HealthComp;
 
 	public:
 		/* 
@@ -30,7 +32,5 @@ namespace Game {
 
 		// will be called when actor overlaps with other entity with enabled collision
 		virtual void OnCollide(BaseEntity* Other, CollisionFilter Filter) override;
-
-
 	};
 }

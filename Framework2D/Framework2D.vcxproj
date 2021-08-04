@@ -161,6 +161,7 @@
     <ClCompile Include="Source\Framework2D\Gameplay\Actor\Actor.cpp" />
     <ClCompile Include="Source\Framework2D\Gameplay\Actor\Components\ActorComponent.cpp" />
     <ClCompile Include="Source\Framework2D\Gameplay\Actor\Components\EntityComponent.cpp" />
+    <ClCompile Include="Source\Framework2D\Gameplay\Actor\Components\HealthComponent.cpp" />
     <ClCompile Include="Source\Framework2D\Gameplay\Controllers\AIController.cpp" />
     <ClCompile Include="Source\Framework2D\Gameplay\Controllers\PlayerController.cpp" />
     <ClCompile Include="Source\Framework2D\Gameplay\Game2D.cpp" />

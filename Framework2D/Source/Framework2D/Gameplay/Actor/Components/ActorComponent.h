@@ -19,6 +19,7 @@ namespace Framework2D {
 	{
 		friend class Actor;
 
+	protected:
 		bool bCompTickEnable = false;
 		virtual void OnCompTick(float DeltaTime) {};
 

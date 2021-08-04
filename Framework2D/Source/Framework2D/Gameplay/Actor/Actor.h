@@ -57,11 +57,11 @@ namespace Framework2D {
 
 		/** slow operation. runtime check for component class */
 		template<class T>
-		inline std::vector<ActorComponent*> GetAllComponentsByClass()
+		inline std::vector<T*> GetAllComponentsByClass()
 		{
-			std::vector<ActorComponent*> OutComponents;
+			std::vector<T*> OutComponents;
 			
-			auto _addComp = [&](ActorComponent* Comp) { if (dynamic_cast<T*>(Comp)) OutComponents.push_back(Comp); };
+			auto _addComp = [&](ActorComponent* Comp) { if (auto T_Comp = dynamic_cast<T*>(Comp)) OutComponents.push_back(T_Comp); };
 			ForEachComp(_addComp);
 		
 			return OutComponents;
@@ -69,9 +69,9 @@ namespace Framework2D {
 		
 		/** slow operation. runtime check for component class and return first matched */
 		template<class T>
-		inline ActorComponent* GetComponentByClass()
+		inline T* GetComponentByClass()
 		{
-			for (auto& Comp : Components) if (dynamic_cast<T*>(Comp)) return Comp;
+			for (auto& Comp : Components) if (auto T_Comp = dynamic_cast<T*>(Comp)) return T_Comp;
 			return nullptr;
 		}
 		

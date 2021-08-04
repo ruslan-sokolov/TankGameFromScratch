@@ -50,6 +50,14 @@ namespace Game {
 	{
 		if (Other == Instigator) return; // tank can't shoot itself
 
+		if (auto A = dynamic_cast<Actor*>(Other))
+		{
+			if (auto HealthComp = A->GetComponentByClass<HealthComponent>())
+			{
+				HealthComp->OnDamage(Damage, BulletDirection, this);
+			}
+		}
+
 		if (Instigator)
 			Instigator->ActiveBullet = nullptr;
 		

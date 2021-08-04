@@ -1,6 +1,5 @@
 #include "BrickSolidActor.h"
 
-
 namespace Game {
 
 	BrickSolid::BrickSolid(const std::string& Name, const Vec2& Position)
@@ -11,6 +10,10 @@ namespace Game {
 
 		// Create actor components
 		BrickSpriteComp = new EntityComponent<SpriteEntity>((Actor*)this, Name, Position, ResPath::T_BRICK_BASE);
+		
+		HealthComp = new Framework2D::HealthComponent(this);
+		HealthComp->SetHealth(GameConst::BRICK_BASIC_HEALTH, true);
+		HealthComp->SetOnDeathCb(HEALTH_COMP_CB(BrickSolid::Destroy));
 
 		// Initialize actor size
 		SetSize(BrickSpriteComp->GetSize());
@@ -27,5 +30,4 @@ namespace Game {
 		{
 		}
 	}
-
 }

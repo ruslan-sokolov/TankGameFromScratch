@@ -4,12 +4,11 @@
 
 #include <Game/Game.h>
 #include <Framework2D/Gameplay/Actor/Components/EntityComponent.h>
+#include <Framework2D/Gameplay/Actor/Components/HealthComponent.h>
 
 namespace Game {
 
 	using namespace Framework2D;
-
-	class Bullet;
 
 	struct TankSkin
 	{
@@ -53,7 +52,7 @@ namespace Game {
 		 * Constructor can initialize Actor Components;
 		 */
 		Tank(const std::string& Name, const Vec2& Position, 
-			Direction StartDirection, float Speed, float MoveAnimRate, const TankSkin& Skin);
+			Direction StartDirection, float Speed, float MoveAnimRate, float Health, const TankSkin& Skin);
 		
 		// frame per frame logic, no need to call Framework2D::Actor implementation
 		virtual void OnTick(float DeltaTime) override;
@@ -61,6 +60,7 @@ namespace Game {
 		virtual void OnCollide(BaseEntity* Other, CollisionFilter Filter) override;
 
 	protected:
+		HealthComponent* HealthComp;
 
 		// direction
 		EntityComponent<SpriteFlipFlop>* SpriteComp_Up;
@@ -90,7 +90,7 @@ namespace Game {
 		void MoveBegin(Direction DirectionTo);
 		void MoveEnd(Direction DirectionTo);
 
-		Bullet* ActiveBullet = nullptr;
+		class Bullet* ActiveBullet = nullptr;
 		void Fire();
 
 		Direction GetDirection() const { return CurrentDirection; }

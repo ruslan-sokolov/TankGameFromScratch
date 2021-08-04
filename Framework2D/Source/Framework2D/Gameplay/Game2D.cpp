@@ -29,10 +29,10 @@ namespace Framework2D {
 	Game2D::~Game2D()
 	{
 		delete SystemLayer;
-		delete HUDLayer;
-		delete MainLayer;
 		delete GameplayLayer;
 		delete CurrentGameMode;
+		delete HUDLayer;
+		delete MainLayer;
 	}
 	
 	inline void Game2D::ChangeGameMode(GameMode* NewGameMode, bool bAutoStart)
