@@ -2,9 +2,6 @@
 
 #include <Game/Actors/BrickSolidActor.h>
 
-// debig
-#include <Game/Actors/BoomActor.h>
-
 namespace Game {
 
 	TankiLevel_0::TankiLevel_0()
@@ -23,94 +20,89 @@ namespace Game {
 
 		TankSpawnPoint PlayerSpawnPoint(BasePosition - ChunkOffset_X * 2, Direction::UP, Anchor::BOTTOM);
 
-		// debug
-		Boom::SpawnBoomBig(this, PlayerSpawnPoint.SpawnPosition);
-
 		// Level walls:
 		{
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 0 + ChunkOffset_Y * 0, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 0 + ChunkOffset_Y * 1, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 0 + ChunkOffset_Y * 2, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 0 + ChunkOffset_Y * 3, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 0 + ChunkOffset_Y * 4, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 0 + ChunkOffset_Y * 0, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 0 + ChunkOffset_Y * 1, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 0 + ChunkOffset_Y * 2, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 0 + ChunkOffset_Y * 3, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 0 + ChunkOffset_Y * 4, Anchor::TOP_LEFT);
+			
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 2 + ChunkOffset_Y * 0, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 2 + ChunkOffset_Y * 1, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 2 + ChunkOffset_Y * 2, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 2 + ChunkOffset_Y * 3, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 2 + ChunkOffset_Y * 4, Anchor::TOP_LEFT);
+			
+			
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 4 + ChunkOffset_Y * 0, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 4 + ChunkOffset_Y * 1, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 4 + ChunkOffset_Y * 2, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 4 + ChunkOffset_Y * 3, Anchor::TOP_LEFT);
+			
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 6 + ChunkOffset_Y * 0, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 6 + ChunkOffset_Y * 1, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 6 + ChunkOffset_Y * 2, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 6 + ChunkOffset_Y * 3, Anchor::TOP_LEFT);
+			
+			
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 8 + ChunkOffset_Y * 0, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 8 + ChunkOffset_Y * 1, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 8 + ChunkOffset_Y * 2, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 8 + ChunkOffset_Y * 3, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 8 + ChunkOffset_Y * 4, Anchor::TOP_LEFT);
+			
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 10 + ChunkOffset_Y * 0, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 10 + ChunkOffset_Y * 1, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 10 + ChunkOffset_Y * 2, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 10 + ChunkOffset_Y * 3, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 10 + ChunkOffset_Y * 4, Anchor::TOP_LEFT);
+			
+			
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset_Y * 7, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset_Y * 7 + ChunkOffset_X * 2, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset_Y * 7 + ChunkOffset_X * 3, Anchor::TOP_LEFT);
+			
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkOffset_Y * 8 + ChunkLastOffset_X, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkOffset_Y * 8 - ChunkOffset_X * 2 + ChunkLastOffset_X, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkOffset_Y * 8 - ChunkOffset_X * 3 + ChunkLastOffset_X, Anchor::TOP_LEFT);
+			
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset_Y * 6 + ChunkOffset_X * 5, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset_Y * 6 + ChunkOffset_X * 7, Anchor::TOP_LEFT);
+			
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset_Y * 8 + ChunkOffset_X * 5, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset_Y * 8 + ChunkOffset_X * 7, Anchor::TOP_LEFT);
+			
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset_Y * 9 + ChunkOffset_X * 5, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset_Y * 9 + ChunkOffset_X * 7, Anchor::TOP_LEFT);
+			
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset_Y * 8 + ChunkOffset_X * 6, Anchor::TOP_LEFT);
+			
+			// around base
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset_Y * 11 + ChunkOffset_X * 7, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset_Y * 11 + ChunkOffset_X * 6, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset_Y * 11 + ChunkOffset_X * 5, Anchor::TOP_LEFT);
+			
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset_Y * 12 + ChunkOffset_X * 7, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset_Y * 12 + ChunkOffset_X * 5, Anchor::TOP_LEFT);
 			//
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 2 + ChunkOffset_Y * 0, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 2 + ChunkOffset_Y * 1, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 2 + ChunkOffset_Y * 2, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 2 + ChunkOffset_Y * 3, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 2 + ChunkOffset_Y * 4, Anchor::TOP_LEFT);
-			//
-			//
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 4 + ChunkOffset_Y * 0, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 4 + ChunkOffset_Y * 1, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 4 + ChunkOffset_Y * 2, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 4 + ChunkOffset_Y * 3, Anchor::TOP_LEFT);
-			//
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 6 + ChunkOffset_Y * 0, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 6 + ChunkOffset_Y * 1, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 6 + ChunkOffset_Y * 2, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 6 + ChunkOffset_Y * 3, Anchor::TOP_LEFT);
-			//
-			//
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 8 + ChunkOffset_Y * 0, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 8 + ChunkOffset_Y * 1, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 8 + ChunkOffset_Y * 2, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 8 + ChunkOffset_Y * 3, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 8 + ChunkOffset_Y * 4, Anchor::TOP_LEFT);
-			//
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 10 + ChunkOffset_Y * 0, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 10 + ChunkOffset_Y * 1, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 10 + ChunkOffset_Y * 2, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 10 + ChunkOffset_Y * 3, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 10 + ChunkOffset_Y * 4, Anchor::TOP_LEFT);
-			//
-			//
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset_Y * 7, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset_Y * 7 + ChunkOffset_X * 2, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset_Y * 7 + ChunkOffset_X * 3, Anchor::TOP_LEFT);
-			//
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkOffset_Y * 8 + ChunkLastOffset_X, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkOffset_Y * 8 - ChunkOffset_X * 2 + ChunkLastOffset_X, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkOffset_Y * 8 - ChunkOffset_X * 3 + ChunkLastOffset_X, Anchor::TOP_LEFT);
-			//
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset_Y * 6 + ChunkOffset_X * 5, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset_Y * 6 + ChunkOffset_X * 7, Anchor::TOP_LEFT);
-			//
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset_Y * 8 + ChunkOffset_X * 5, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset_Y * 8 + ChunkOffset_X * 7, Anchor::TOP_LEFT);
-			//
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset_Y * 9 + ChunkOffset_X * 5, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset_Y * 9 + ChunkOffset_X * 7, Anchor::TOP_LEFT);
-			//
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset_Y * 8 + ChunkOffset_X * 6, Anchor::TOP_LEFT);
-			//
-			//// around base
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset_Y * 11 + ChunkOffset_X * 7, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset_Y * 11 + ChunkOffset_X * 6, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset_Y * 11 + ChunkOffset_X * 5, Anchor::TOP_LEFT);
-			//
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset_Y * 12 + ChunkOffset_X * 7, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset_Y * 12 + ChunkOffset_X * 5, Anchor::TOP_LEFT);
-			////
-			//
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 0 + ChunkOffset_Y * 8, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 0 + ChunkOffset_Y * 9, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 0 + ChunkOffset_Y * 10, Anchor::TOP_LEFT);
-			//
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 2 + ChunkOffset_Y * 8, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 2 + ChunkOffset_Y * 9, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 2 + ChunkOffset_Y * 10, Anchor::TOP_LEFT);
-			//
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 8 + ChunkOffset_Y * 8, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 8 + ChunkOffset_Y * 9, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 8 + ChunkOffset_Y * 10, Anchor::TOP_LEFT);
-			//
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 10 + ChunkOffset_Y * 8, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 10 + ChunkOffset_Y * 9, Anchor::TOP_LEFT);
-			//SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 10 + ChunkOffset_Y * 10, Anchor::TOP_LEFT);
+			
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 0 + ChunkOffset_Y * 8, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 0 + ChunkOffset_Y * 9, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 0 + ChunkOffset_Y * 10, Anchor::TOP_LEFT);
+			
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 2 + ChunkOffset_Y * 8, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 2 + ChunkOffset_Y * 9, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 2 + ChunkOffset_Y * 10, Anchor::TOP_LEFT);
+			
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 8 + ChunkOffset_Y * 8, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 8 + ChunkOffset_Y * 9, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 8 + ChunkOffset_Y * 10, Anchor::TOP_LEFT);
+			
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 10 + ChunkOffset_Y * 8, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 10 + ChunkOffset_Y * 9, Anchor::TOP_LEFT);
+			SpawnActorFromClass<BrickSolid>("Brick", ChunkZero + ChunkOffset + ChunkOffset_X * 10 + ChunkOffset_Y * 10, Anchor::TOP_LEFT);
 		}
-
-
 
 		// Spawn player tank
 		PlayerTank = Tank::SpawnBasicPlayerTank(this, PlayerSpawnPoint);

@@ -107,7 +107,7 @@ namespace Framework2D {
 		 * Iterate Components with lambda function call for each
 		 */
 		template <class _Fn>
-		inline void ForEachComp(_Fn&& Lambda) noexcept
+		inline void ForEachComp(const _Fn& Lambda) noexcept
 		{
 			std::for_each(Components.begin(), Components.end(), Lambda);
 		}

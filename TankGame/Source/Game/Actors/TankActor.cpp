@@ -116,7 +116,7 @@ namespace Game {
 
 	void Tank::Fire()
 	{
-		// if (bPossesedByPlayer && ActiveBullet) return;
+		if (bPossesedByPlayer && ActiveBullet) return;  // player can only shoot if prev bullet is destroyed
 
 		ActiveBullet = Bullet::SpawnBasicBullet(this);
 	}

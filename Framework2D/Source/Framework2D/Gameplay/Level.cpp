@@ -12,7 +12,7 @@ namespace Framework2D {
 			Actors.erase(ActorToRemove);
 			ActorPendToKill(ActorToRemove);
 
-			GAME_LOG(warn, "DestroyedActor: {}_{} {}", ActorToRemove->GetName(), ActorToRemove->GetId(), (void*)ActorToRemove);
+			// GAME_LOG(warn, "DestroyedActor: {}_{} {}", ActorToRemove->GetName(), ActorToRemove->GetId(), (void*)ActorToRemove);
 		}
 	}
 

@@ -23,8 +23,9 @@ namespace Framework2D {
 		bool bCompTickEnable = false;
 		virtual void OnCompTick(float DeltaTime) {};
 
-	public:
 		virtual ~ActorComponent() {}
+
+	public:
 
 		void SeCompTickEnable(bool bCanTick) { this->bCompTickEnable = bCompTickEnable; }
 		bool IsCompTickEnabled() const { return bCompTickEnable; }
