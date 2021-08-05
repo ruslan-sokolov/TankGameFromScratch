@@ -2,7 +2,6 @@
 
 #include <Framework2D/Gameplay/Actor/Actor.h>
 
-#include <Game/Game.h>
 #include <Framework2D/Gameplay/Actor/Components/EntityComponent.h>
 #include <Framework2D/Gameplay/Actor/Components/HealthComponent.h>
 

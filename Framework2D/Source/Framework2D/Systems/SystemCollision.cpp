@@ -18,6 +18,9 @@ namespace Framework2D {
 		BaseEntity* CollidableLeft;
 		BaseEntity* CollidableRight;
 
+		// dbg iter count
+		int IterCount = 0;
+
 		// Clear prev collision results for static
 		for (IterLeft = StaticCollidables.begin(); IterLeft != StaticCollidables.end(); ++IterLeft)
 			(*IterLeft)->LastCollisonResult = CollisionCheckResult();
@@ -30,6 +33,8 @@ namespace Framework2D {
 
 			for (IterRight = StaticCollidables.begin(); IterRight != StaticCollidables.end(); ++IterRight)
 			{
+				++IterCount; // dbg
+
 				CollidableRight = *(IterRight);
 
 				if (CollidableLeft->CanCollideWith(CollidableRight, true))  // process black/white list filter
@@ -45,38 +50,40 @@ namespace Framework2D {
 
 		// Check dynamic against dynamic (loop with unique pairs traversing
 	    // complexity: 0.5 * m * (m - 1), total complexity: 0.5 * m * (m - 1) + m * n, but consider that m is small
-		for (IterLeft = DynamicCollidables.begin(); std::next(IterLeft) != DynamicCollidables.end(); IterLeft++)
-		{
-			CollidableLeft = *(IterLeft);
-
-			IterRight = IterLeft;
-			++IterRight;
-
-			for (IterRight; IterRight != DynamicCollidables.end(); ++IterRight)
-			{
-				CollidableRight = *(IterRight);
-
-				if (CollidableLeft->CanCollideWith(CollidableRight, true))  // process black/white list filter
-				{
-					if (CollidableLeft->IsCollidingWith(CollidableLeft->GetPosition(true), CollidableRight, CollidableRight->GetPosition(true)))
-					{
-						CollidableLeft->LastCollisonResult.UpdateResult(CollidableLeft, CollidableRight);
-						CollidableRight->LastCollisonResult.UpdateResult(CollidableRight, CollidableLeft);
-					}
-				}
-			}
-		}
+		//for (IterLeft = DynamicCollidables.begin(); std::next(IterLeft) != DynamicCollidables.end(); IterLeft++)
+		//{
+		//	CollidableLeft = *(IterLeft);
+		//
+		//	IterRight = IterLeft;
+		//	++IterRight;
+		//
+		//	for (IterRight; IterRight != DynamicCollidables.end(); ++IterRight)
+		//	{
+		//		++IterCount;  // dbg
+		//
+		//		CollidableRight = *(IterRight);
+		//
+		//		if (CollidableLeft->CanCollideWith(CollidableRight, true))  // process black/white list filter
+		//		{
+		//			if (CollidableLeft->IsCollidingWith(CollidableLeft->GetPosition(true), CollidableRight, CollidableRight->GetPosition(true)))
+		//			{
+		//				CollidableLeft->LastCollisonResult.UpdateResult(CollidableLeft, CollidableRight);
+		//				CollidableRight->LastCollisonResult.UpdateResult(CollidableRight, CollidableLeft);
+		//			}
+		//		}
+		//	}
+		//}
 
 		// Handle onCollide() for Static collidables
-		for (IterLeft = StaticCollidables.begin(); IterLeft != StaticCollidables.end(); ++IterLeft)
-		{
-			CollidableLeft = *(IterLeft);
-
-			CollisionCheckResult& Result = CollidableLeft->LastCollisonResult;
-
-			if (Result.bCollided)
-				CollidableLeft->OnCollide(Result.LastCollided, CollisionFilter::CF_BLOCK);
-		}
+		//for (IterLeft = StaticCollidables.begin(); IterLeft != StaticCollidables.end(); ++IterLeft)
+		//{
+		//	CollidableLeft = *(IterLeft);
+		//
+		//	CollisionCheckResult& Result = CollidableLeft->LastCollisonResult;
+		//
+		//	if (Result.bCollided)
+		//		CollidableLeft->OnCollide(Result.LastCollided, CollisionFilter::CF_BLOCK);
+		//}
 
 		// Handle onCollide() and Position Sweep for Dynamic collidables
 		for (IterLeft = DynamicCollidables.begin(); IterLeft != DynamicCollidables.end(); ++IterLeft)
@@ -86,11 +93,18 @@ namespace Framework2D {
 			CollisionCheckResult& Result = CollidableLeft->LastCollisonResult;
 
 			if (Result.bCollided)
-				CollidableLeft->OnCollide(Result.LastCollided, CollisionFilter::CF_BLOCK);
+			{
+				CollidableRight = Result.LastCollided; // litle optimization, no need to call onCollide() for all static, we can pull collided static from dynamic;
 
-			if (CollidableLeft->bNextPositionRelevent)
+				CollidableLeft->OnCollide(CollidableRight, CollisionFilter::CF_BLOCK);
+				CollidableRight->OnCollide(CollidableLeft, CollisionFilter::CF_BLOCK);
+			}
+
+			if (CollidableLeft->bNextPositionRelevent)  // dynamic collidable handle sweep
 				CollidableLeft->HandleSweepPosition(CollidableLeft->NextPosition, CollidableLeft->LastCollisonResult);
 		}
+
+		// ENGINE_LOG(error, "SystemCollision iter_num: {}", IterCount);  // dbg
 	}
 
 	void SystemCollision::ClearCheckCollisionSet()

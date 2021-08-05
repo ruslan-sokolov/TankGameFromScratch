@@ -157,8 +157,10 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Game\Actors\Blocks\BlockFragmentActor.cpp" />
+    <ClCompile Include="Source\Game\Actors\Blocks\BlockModularActor.cpp" />
     <ClCompile Include="Source\Game\Actors\BoomActor.cpp" />
-    <ClCompile Include="Source\Game\Actors\BrickSolidActor.cpp" />
+    <ClCompile Include="Source\Game\Actors\Blocks\BlockSolidActor.cpp" />
     <ClCompile Include="Source\Game\Actors\BulletActor.cpp" />
     <ClCompile Include="Source\Game\Actors\TankActor.cpp" />
     <ClCompile Include="Source\Game\Game.cpp" />
@@ -177,8 +179,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Game\Actors\Blocks\BlockFragmentActor.h" />
+    <ClInclude Include="Source\Game\Actors\Blocks\BlockModularActor.h" />
     <ClInclude Include="Source\Game\Actors\BoomActor.h" />
-    <ClInclude Include="Source\Game\Actors\BrickSolidActor.h" />
+    <ClInclude Include="Source\Game\Actors\Blocks\BlockSolidActor.h" />
     <ClInclude Include="Source\Game\Actors\BulletActor.h" />
     <ClInclude Include="Source\Game\Actors\TankActor.h" />
     <ClInclude Include="Source\Game\Game.h" />

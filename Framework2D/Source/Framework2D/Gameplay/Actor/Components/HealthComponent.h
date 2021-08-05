@@ -69,7 +69,8 @@ namespace Framework2D
 			if (OnDamageCb) OnDamageCb(Damage, From, Instigator);
 		}
 
-#define HEALTH_COMP_CB(x) std::bind(&x, this)
+#define HEALTH_ON_DEATH_CB(x) std::bind(&x, this)
+#define HEALTH_ON_DAMAGE_CB(x) std::bind(&x, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3)
 	};
 
 }

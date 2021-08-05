@@ -1,5 +1,6 @@
 #include "BulletActor.h"
 
+#include <Game/Game.h>
 #include <Framework2D/Gameplay/Level.h>
 #include <Game/Actors/TankActor.h>
 #include <Game/Actors/BoomActor.h>

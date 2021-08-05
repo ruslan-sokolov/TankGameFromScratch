@@ -98,6 +98,8 @@ namespace Framework2D
 	{
 		if (bIsPendingKill) return;
 
+		OnDestroy();
+
 		SetEnableRender(false);
 
 		SystemTimer::RemoveTimer(TimerHandle_TimeToLive);

@@ -36,6 +36,10 @@ namespace Framework2D {
 
 		TimerHandle TimerHandle_TimeToLive;
 
+	protected:
+		/** Called when actor is pending to kill */
+		virtual void OnDestroy() {}
+
 	public:
 		// Call actor delayed destroy
 		inline void SetActorLifeTime(float TimeToLive);

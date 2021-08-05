@@ -2,6 +2,8 @@
 
 #include <Framework2D/Gameplay/Level.h>
 #include <Game/Actors/BulletActor.h>
+#include <Game/Game.h>
+
 
 namespace Game {
 

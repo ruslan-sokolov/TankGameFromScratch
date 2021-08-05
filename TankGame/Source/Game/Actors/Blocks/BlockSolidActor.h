@@ -14,7 +14,7 @@ namespace Game {
 	 * This class is represent 
 	 * 
 	 */
-	class BrickSolid : public Framework2D::Actor
+	class BlockSolid : public Framework2D::Actor
 	{
 	protected:
 		EntityComponent<SpriteEntity>* BrickSpriteComp;
@@ -25,12 +25,6 @@ namespace Game {
 		 * Constructor should be called only from Level::SpawnActorFromClass() method;
 		 * Constructor can initialize Actor Components;
 		 */ 
-		BrickSolid(const std::string& Name, const Vec2& Position);
-
-		// frame per frame logic, no need to call Framework2D::Actor implementation
-		virtual void OnTick(float DeltaTime) override;
-
-		// will be called when actor overlaps with other entity with enabled collision
-		virtual void OnCollide(BaseEntity* Other, CollisionFilter Filter) override;
+		BlockSolid(const std::string& Name, const Vec2& Position);
 	};
 }

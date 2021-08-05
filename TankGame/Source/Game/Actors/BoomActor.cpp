@@ -1,6 +1,8 @@
 #include "BoomActor.h"
 
+#include <Game/Game.h>
 #include <Framework2D/Gameplay/Level.h>
+#include <Framework2D/Gameplay/Actor/Components/EntityComponent.h>
 
 namespace Game {
 
