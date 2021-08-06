@@ -51,6 +51,9 @@
     <ClCompile Include="Source\Game\Actors\Blocks\BlockModularActor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\Actors\PhoenixBaseActor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game\Game.h">
@@ -87,6 +90,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\Actors\Blocks\BlockModularActor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Actors\PhoenixBaseActor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

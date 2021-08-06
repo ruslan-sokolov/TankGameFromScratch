@@ -91,7 +91,11 @@ namespace Framework2D {
 		
 		inline GameMode* GetGameMode() const { return GM_Owner; }
 
-		virtual void OnTick(float DeltaTime) {};
+		/** Called in GameMode Start() */
+		virtual void OnStart() {};
+
+		/** Called in GameMode Update() each frame */
+		virtual void OnTick(float DeltaTime) {}
 
 		/** Get all actors in level of chosen class. Slow operation */
 		template<class T>

@@ -2,6 +2,9 @@
 
 #include <Game/Actors/Blocks/BlockSolidActor.h>
 #include <Game/Actors/Blocks/BlockModularActor.h>
+#include <Game/Game.h>
+
+#include <Game/Actors/PhoenixBaseActor.h>
 
 namespace Game {
 

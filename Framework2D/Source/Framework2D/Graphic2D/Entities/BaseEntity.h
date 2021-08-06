@@ -65,6 +65,8 @@ namespace Framework2D {
 		inline void DisableCollision();
 		inline bool IsCollisionEnabled() const { return bCollisionEnabled; }
 		inline bool IsCollisionDynamic() const { return bCollisionEnabled & bIsDynamicCollision; }
+		inline bool IsLastTimeCollisionPositive() const { return LastCollisonResult.bCollided; }
+		inline CollisionCheckResult GetLastCollisionResult() const { return LastCollisonResult; }
 
 		/** Get Position, if bNextRelevent, get position from next tick */
 		inline Vec2 GetPosition(bool bNextRelevent = false) const

@@ -27,9 +27,9 @@ namespace Game {
 
 	}
 
-	void TankiGameMode::Start()
+	void TankiGameMode::OnStart()
 	{
-		GameMode::Start();
+
 	}
 
 	void TankiGameMode::Restart()
@@ -40,5 +40,14 @@ namespace Game {
 	void TankiGameMode::End()
 	{
 		GameMode::End();
+	}
+
+	inline PhoenixBase* TankiGameMode::GetLevelPhoenixBase()
+	{
+		if (BasicLevel)
+		{
+			return BasicLevel->GetPlayerBase();
+		}
+		return nullptr;
 	}
 }

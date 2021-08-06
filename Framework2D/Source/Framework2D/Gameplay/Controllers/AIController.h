@@ -13,15 +13,21 @@ namespace Framework2D {
 	class FRAMEWORK2D_API AIController
 	{
 		friend class GameMode;
-
+	
+	protected:
 		GameMode* GM_Owner = nullptr;
 
-		GameMode* GetGameMode() const { return GM_Owner; }
 
 	public:
 		AIController();
 		virtual ~AIController();
 
+		GameMode* GetGameMode() const { return GM_Owner; }
+
+		/** Called in GameMode Start() */
+		virtual void OnStart() {};
+
+		/** Called in GameMode Update() each frame */
 		virtual void OnTick(float DeltaTime) {}
 	};
 

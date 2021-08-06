@@ -9,6 +9,8 @@ namespace Game {
 	class TankiHUD;
 	class TankiAIController;
 
+	class PhoenixBase;
+
 	class TankiGameMode : public Framework2D::GameMode
 	{
 		TankiAIController* AITankController;
@@ -25,9 +27,12 @@ namespace Game {
 		TankiGameMode();
 
 		virtual void OnTick(float DeltaTime) override;
-		virtual void Start() override;
+		virtual void OnStart() override;
+		
 		virtual void Restart() override;
 		virtual void End() override;
+
+		inline PhoenixBase* GetLevelPhoenixBase();
 
 	};
 

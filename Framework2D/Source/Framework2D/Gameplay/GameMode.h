@@ -37,9 +37,12 @@ namespace Framework2D
 		HUD* GetHUD() const { return m_HUD.get(); }
 		AIController* GetAIController() const { return m_AIController.get(); }
 
+		inline void Start();
+
 		virtual void OnTick(float DeltaTime) {}
 		/** BeginPlay kinda but only in one exemplar */
-		virtual void Start();
+		virtual void OnStart() {}
+
 		/** Restart Current Level */
 		virtual void Restart();
 		/** End Current Level */

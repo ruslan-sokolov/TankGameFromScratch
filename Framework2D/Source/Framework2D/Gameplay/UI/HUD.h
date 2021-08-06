@@ -22,6 +22,10 @@ namespace Framework2D {
 		HUD();
 		virtual ~HUD();
 
+		/** Called in GameMode Start() */
+		virtual void OnStart() {};
+
+		/** Called in GameMode Update() each frame */
 		virtual void OnTick(float DeltaTime) {}
 	};
 

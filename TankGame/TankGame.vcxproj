@@ -162,6 +162,7 @@
     <ClCompile Include="Source\Game\Actors\BoomActor.cpp" />
     <ClCompile Include="Source\Game\Actors\Blocks\BlockSolidActor.cpp" />
     <ClCompile Include="Source\Game\Actors\BulletActor.cpp" />
+    <ClCompile Include="Source\Game\Actors\PhoenixBaseActor.cpp" />
     <ClCompile Include="Source\Game\Actors\TankActor.cpp" />
     <ClCompile Include="Source\Game\Game.cpp" />
     <ClCompile Include="Source\Game\Gameplay\TankiAIController.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="Source\Game\Actors\BoomActor.h" />
     <ClInclude Include="Source\Game\Actors\Blocks\BlockSolidActor.h" />
     <ClInclude Include="Source\Game\Actors\BulletActor.h" />
+    <ClInclude Include="Source\Game\Actors\PhoenixBaseActor.h" />
     <ClInclude Include="Source\Game\Actors\TankActor.h" />
     <ClInclude Include="Source\Game\Game.h" />
     <ClInclude Include="Source\Game\Gameplay\TankiAIController.h" />

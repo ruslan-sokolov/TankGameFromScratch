@@ -33,8 +33,15 @@ namespace Framework2D {
 		OnTick(DeltaTime);
 	}
 
-	void GameMode::Start()
+	inline void GameMode::Start()
 	{
+		m_Level->OnStart();
+		m_PlayerController->OnStart();
+		m_HUD->OnStart();
+		m_AIController->OnStart();
+
+		OnStart();
+
 		GAME_LOG(info, "_____GameMode::Start_____");
 	}
 
