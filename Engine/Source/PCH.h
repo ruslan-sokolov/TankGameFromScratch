@@ -22,6 +22,8 @@
 #include <GLFW/glfw3.h>
 
 #include <cmath>
+#include <cstdlib>
+#include <ctime>
 
 #ifdef ENGINE_WIN_PLATFORM
 	#include <Windows.h>

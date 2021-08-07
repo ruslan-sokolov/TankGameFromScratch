@@ -113,6 +113,9 @@ namespace Game {
 		bool IsPossesedByAIController() const { return Type == TankType::EnemyTank; }
 
 		static Tank* SpawnBasicTank(Level* Level, const TankSpawnPoint& Point, TankType Type);
+		
+		// if this value is true then on death tank will spawn pickable boost
+		bool bDropPickableOnDeath = false;
 
 	};
 }

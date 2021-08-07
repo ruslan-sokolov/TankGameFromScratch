@@ -53,8 +53,10 @@ namespace Framework2D {
 
 	inline void SystemTimer::UpdateTimers(float DeltaTime)
 	{
-		auto It_InvalidBegin = Timers.begin(); // after loop invalid Timers should be in [It_InvalidBegin, Timers.End) range
-		for (auto It_Valid = It_InvalidBegin, It_End = Timers.end(); It_Valid != It_End; ++It_Valid)
+		using TimerIt = std::vector<TimerData>::iterator;
+
+		TimerIt It_InvalidBegin = Timers.begin(); // after loop invalid Timers should be in [It_InvalidBegin, Timers.End) range
+		for (TimerIt It_Valid = It_InvalidBegin, It_End = Timers.end(); It_Valid != It_End; ++It_Valid)
 		{
 			It_Valid->Update(DeltaTime); // update timers if valid, call cb if timer elapsed;
 

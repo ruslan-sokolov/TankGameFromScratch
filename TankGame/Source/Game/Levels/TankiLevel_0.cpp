@@ -10,6 +10,7 @@
 #include <Game/Actors/Blocks/BlockSolidActor.h>
 #include <Game/Actors/Blocks/BlockModularActor.h>
 #include <Game/Actors/PhoenixBaseActor.h>
+#include <Game/Actors/TankSpawnerActor.h>
 
 namespace Game {
 
@@ -118,23 +119,28 @@ namespace Game {
 
 		// todo: add player base
 		PlayerBase = nullptr;
+
+		EnemyTankSpawner = TankSpawner::CreateBasicTankAISpawnerCorners(this);
 	}
 
 	void TankiLevel_0::OnStart()
 	{
-		// debug, testing ai controller
 		if (auto GM = dynamic_cast<TankiGameMode*>(GetGameMode()))
 		{
 			if (auto AICon = GM->GetCustomAIController())
 			{
-				auto Tank_0 = Tank::SpawnBasicTank(this, TankSpawnPoint::TopLeftSpawnPoint, TankType::EnemyTank);
-				auto Tank_1 = Tank::SpawnBasicTank(this, TankSpawnPoint::TopCenterSpawnPoint, TankType::EnemyTank);
-				auto Tank_2 = Tank::SpawnBasicTank(this, TankSpawnPoint::TopRightSpawnPoint, TankType::EnemyTank);
-
-				AICon->AddTank(Tank_0);
-				AICon->AddTank(Tank_1);
-				AICon->AddTank(Tank_2);
+				// activate enemy tank spawner
+				EnemyTankSpawner->SetEnemyAIController(AICon);
+				EnemyTankSpawner->SetActivate(true);
 			}
+			else
+			{
+				GAME_LOG(error, "TankiLevel_0::OnStart() AI Controller in TankiGameMode is nullptr!!");
+			}
+		}
+		else
+		{
+			GAME_LOG(error, "TankiLevel_0::OnStart() casting GameMode to TankiGameMode failed!!");
 		}
 
 	}

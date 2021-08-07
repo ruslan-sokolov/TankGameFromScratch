@@ -95,6 +95,8 @@ namespace Game {
 	{
 		// todo: check if possesed by PC -> tryRepawn()
 
+		// todo: check if drop pickable on death -> DropPickable()
+
 		Destroy();
 	}
 

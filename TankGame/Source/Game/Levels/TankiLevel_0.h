@@ -12,6 +12,7 @@ namespace Game {
 		Tank* PlayerTank;
 		TankSpawnPoint PlayerSpawnPoint;
 		class PhoenixBase* PlayerBase;
+		class TankSpawner* EnemyTankSpawner;
 
 
 	public:

@@ -42,7 +42,10 @@ namespace Framework2D
 					if (bLoop)
 						TimeAcc = 0;
 					else
+					{
+
 						Handle.Invalidate();
+					}
 				}
 			}
 		}
