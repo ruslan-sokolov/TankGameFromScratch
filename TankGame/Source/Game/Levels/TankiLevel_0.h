@@ -17,6 +17,7 @@ namespace Game {
 	public:
 		TankiLevel_0();
 
+		virtual void OnStart() override;
 		virtual void OnTick(float DeltaTime) override;
 
 		Tank* GetPlayerTank() const { return PlayerTank; }

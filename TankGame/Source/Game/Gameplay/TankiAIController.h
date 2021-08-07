@@ -1,11 +1,14 @@
 #pragma once
 
+#include <Engine/Utility/Math.h>
+
 #include <Framework2D/Gameplay/Controllers/AIController.h>
 #include <Framework2D/Structs/Collision.h>
 #include <Framework2D/Structs/Direction.h>
 
-#include <vector>
+#include "Game/Game.h"
 
+#include <vector>
 
 namespace Game {
 
@@ -39,17 +42,28 @@ namespace Game {
 
 		Direction LastDirection = GetRandomDirection();
 
-		static float FireRate;
-		static float ChangeDirectionTime;
+		float FireRate;
+		float ChangeDirectionTime;
 
 		void UpdateTimers(float DeltaTime) {
 			TimeSinceLastShot += DeltaTime;
 			TimeSinceDirectionChange += DeltaTime;
 			TimeSinceLastCollide += DeltaTime;
 		}
+		
+		void SetRandFireRate()
+		{
+			FireRate = Engine::RandFloatRange(GameConst::ENEMY_BASIC_FIRE_RATE_MIN, GameConst::ENEMY_BASIC_FIRE_RATE_MAX);
+		}
 
-		TankBrain() {}
-		TankBrain(Tank* BrainOwner) : BrainOwner(BrainOwner) {}
+		void SetRandChangeDirTime()
+		{
+			ChangeDirectionTime = Engine::RandFloatRange(GameConst::ENEMY_AI_CHANGE_DIRECTION_RATE_MIN,
+				GameConst::ENEMY_AI_CHANGE_DIRECTION_RATE_MAX);
+		}
+
+		TankBrain() { SetRandFireRate(); SetRandChangeDirTime(); }
+		TankBrain(Tank* BrainOwner) : BrainOwner(BrainOwner) { SetRandFireRate(); SetRandChangeDirTime(); }
 
 		// movable only
 		TankBrain(const TankBrain&) = delete;
@@ -72,6 +86,18 @@ namespace Game {
 		TankCollectiveBrain CollectiveBrain;
 		std::vector<TankBrain> TankBrains;
 
+		/** Handle move direction change for tank with brain */
+		inline void TankChangeDirection(TankBrain& Brain);
+
+		/** TankBrain stops Tank movement */
+		inline void TankStop(TankBrain& Brain);
+
+		/** TankBrain force tank to shoot */
+		inline void TankShoot(TankBrain& Brain);
+
+		/** onTick Calcs Move() and Fire() for each Tank in TankBrains container */
+		inline void UpdateTankBehavior(float DeltaTime);
+
 	public:
 
 		TankiAIController();
@@ -79,14 +105,20 @@ namespace Game {
 		virtual void OnStart() override;
 		virtual void OnTick(float DeltaTime) override;
 
-		/** onTick Calcs Move() and Fire() for each Tank in TankBrains container */
-		inline void UpdateTankBehavior(float DeltaTime);
-
 		/** Tanks will be spawned dynamically and added on fly */
-		inline void AddTank(Tank* EnemyTank);
+		void AddTank(Tank* EnemyTank) 
+		{ 
+			if (EnemyTank) TankBrains.push_back(EnemyTank); 
+		}
 
-		inline void RemoveTank(Tank* EnemyTank);
+		void RemoveTank(Tank* EnemyTank)
+		{
+			if (!EnemyTank) return;
 	
+			auto It = std::find_if(TankBrains.begin(), TankBrains.end(), [&](const TankBrain& Brain) { return Brain.BrainOwner == EnemyTank; });
+				
+			if (It != TankBrains.end()) TankBrains.erase(It);
+		}
 	};
 
 }

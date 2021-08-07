@@ -107,7 +107,7 @@ namespace GameConst
 
 	// game gameplay params
 
-	constexpr auto TANK_BASIC_SPEED = 120.0f;  // pixels / sec
+	constexpr auto TANK_BASIC_SPEED = 100.0f;  // pixels / sec
 	constexpr auto TANK_BASIC_ANIM_SPEED = 0.1f;  // sprite_flip time in sec
 	constexpr auto TANK_BASIC_HEALTH = 1.0f;
 
@@ -121,8 +121,10 @@ namespace GameConst
 
 	constexpr auto PLAYER_TANK_RESPAWN_NUM = 5;
 
-	constexpr auto ENEMY_BASIC_FIRE_RATE = 1.0f;  // sec
-	constexpr auto ENEMY_AI_CHANGE_DIRECTION_RATE = 0.6f; // sec
+	constexpr auto ENEMY_BASIC_FIRE_RATE_MIN = 1.5f;  // sec
+	constexpr auto ENEMY_BASIC_FIRE_RATE_MAX = 3.0f;  // sec
+	constexpr auto ENEMY_AI_CHANGE_DIRECTION_RATE_MIN = 0.5f; // sec
+	constexpr auto ENEMY_AI_CHANGE_DIRECTION_RATE_MAX = 1.0f; // sec
 
 	constexpr auto BOOM_SMALL_ANIM_SPEED = 0.05f; // sec
 	constexpr auto BOOM_BIG_ANIM_SPEED = 0.08f; // sec
@@ -136,6 +138,8 @@ namespace GameConst
 	constexpr auto HP_BOOSTER_VAL = 1.0f;  //
 
 	constexpr auto RESTART_TIME = 3.0f;  // sec
+
+	constexpr bool BLUE_ON_BLUE = false; // if true -> allow friendly fire
 
 	// ui geometric params
 

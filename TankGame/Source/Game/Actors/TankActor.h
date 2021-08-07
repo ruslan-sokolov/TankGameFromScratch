@@ -9,6 +9,7 @@ namespace Game {
 
 	using namespace Framework2D;
 
+
 	struct TankSkin
 	{
 		const char* Up_0;
@@ -19,7 +20,11 @@ namespace Game {
 		const char* Right_1;
 		const char* Left_0;
 		const char* Left_1;
+
+		static TankSkin PlayerBasicTankSkin;
+		static TankSkin EnemyBasicTankSkin;
 	};
+
 
 	struct TankSpawnPoint
 	{
@@ -39,6 +44,15 @@ namespace Game {
 		static TankSpawnPoint TopCenterSpawnPoint;
 	};
 
+
+	enum class TankType
+	{
+		None = -1,
+		PlayerTank = 0,
+		EnemyTank = 1
+	};
+
+
 	/*
 	 * This class is represent main AI/Player controlled actor - tank
 	 *
@@ -55,8 +69,9 @@ namespace Game {
 		
 		// frame per frame logic, no need to call Framework2D::Actor implementation
 		virtual void OnTick(float DeltaTime) override;
-
-		virtual void OnCollide(BaseEntity* Other, CollisionFilter Filter) override;
+		virtual void OnDestroy() override;
+		// HealthComp cb
+		void OnDeath();
 
 	protected:
 		HealthComponent* HealthComp;
@@ -82,8 +97,8 @@ namespace Game {
 		// movement anim
 		float MoveAnimRate;
 		inline void EnableMoveAnim(bool bEnable, Direction Dir);
-
-		bool bPossesedByPlayer = false;
+		
+		TankType Type = TankType::None;
 
 	public:
 		void MoveBegin(Direction DirectionTo);
@@ -93,8 +108,11 @@ namespace Game {
 		void Fire();
 
 		Direction GetDirection() const { return CurrentDirection; }
+		TankType GetTankType() const { return Type; }
+		bool IsPossesedByPlayerController() const { return Type == TankType::PlayerTank; }
+		bool IsPossesedByAIController() const { return Type == TankType::EnemyTank; }
 
-		static Tank* SpawnBasicPlayerTank(Level* Level, const TankSpawnPoint& Point);
+		static Tank* SpawnBasicTank(Level* Level, const TankSpawnPoint& Point, TankType Type);
 
 	};
 }

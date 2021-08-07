@@ -19,6 +19,16 @@ namespace Framework2D {
 		return static_cast<Direction>(std::rand() % 4);
 	}
 
+	// return new random direction not equal to DirToIgnore
+	inline Direction GetRandDirectionFilter(Direction DirToIgnore)
+	{
+		Direction NewDirection = DirToIgnore;
+		while (NewDirection == DirToIgnore)
+			NewDirection = GetRandomDirection();
+
+		return NewDirection;
+	}
+
 	inline Direction GetDirectionOposite(Direction Dir)
 	{
 		Direction Oposite;

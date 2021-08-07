@@ -1,9 +1,14 @@
 #include "TankiLevel_0.h"
 
-#include <Game/Actors/Blocks/BlockSolidActor.h>
-#include <Game/Actors/Blocks/BlockModularActor.h>
 #include <Game/Game.h>
 
+#include <Game/Gameplay/TankiGameMode.h>
+
+// debug
+#include <Game/Gameplay/TankiAIController.h>
+
+#include <Game/Actors/Blocks/BlockSolidActor.h>
+#include <Game/Actors/Blocks/BlockModularActor.h>
 #include <Game/Actors/PhoenixBaseActor.h>
 
 namespace Game {
@@ -109,7 +114,29 @@ namespace Game {
 		}
 
 		// Spawn player tank
-		PlayerTank = Tank::SpawnBasicPlayerTank(this, PlayerSpawnPoint);
+		PlayerTank = Tank::SpawnBasicTank(this, PlayerSpawnPoint, TankType::PlayerTank);
+
+		// todo: add player base
+		PlayerBase = nullptr;
+	}
+
+	void TankiLevel_0::OnStart()
+	{
+		// debug, testing ai controller
+		if (auto GM = dynamic_cast<TankiGameMode*>(GetGameMode()))
+		{
+			if (auto AICon = GM->GetCustomAIController())
+			{
+				auto Tank_0 = Tank::SpawnBasicTank(this, TankSpawnPoint::TopLeftSpawnPoint, TankType::EnemyTank);
+				auto Tank_1 = Tank::SpawnBasicTank(this, TankSpawnPoint::TopCenterSpawnPoint, TankType::EnemyTank);
+				auto Tank_2 = Tank::SpawnBasicTank(this, TankSpawnPoint::TopRightSpawnPoint, TankType::EnemyTank);
+
+				AICon->AddTank(Tank_0);
+				AICon->AddTank(Tank_1);
+				AICon->AddTank(Tank_2);
+			}
+		}
+
 	}
 
 	void TankiLevel_0::OnTick(float DeltaTime)

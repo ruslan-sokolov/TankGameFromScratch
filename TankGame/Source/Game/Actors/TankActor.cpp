@@ -2,16 +2,29 @@
 
 #include <Framework2D/Gameplay/Level.h>
 #include <Game/Actors/BulletActor.h>
+
 #include <Game/Game.h>
+#include <Game/Gameplay/TankiGameMode.h>
+#include <Game/Gameplay/TankiAIController.h>
+#include <Game/Gameplay/TankiPlayerController.h>
 
 
 namespace Game {
+
+	using namespace GameConst;
+	using namespace ResPath;
+
 
 	TankSpawnPoint TankSpawnPoint::BottomLeftSpawnPoint(Vec2(GameConst::GAME_AREA_W0, GameConst::GAME_AREA_H1), Direction::UP, Anchor::BOTTOM_LEFT);
 	TankSpawnPoint TankSpawnPoint::BottomRightSpawnPoint(Vec2(GameConst::GAME_AREA_W1, GameConst::GAME_AREA_H1), Direction::UP, Anchor::BOTTOM_RIGHT);
 	TankSpawnPoint TankSpawnPoint::TopLeftSpawnPoint(Vec2(GameConst::GAME_AREA_W0, GameConst::GAME_AREA_H0), Direction::DOWN, Anchor::TOP_LEFT);
 	TankSpawnPoint TankSpawnPoint::TopRightSpawnPoint(Vec2(GameConst::GAME_AREA_W1, GameConst::GAME_AREA_H0), Direction::DOWN, Anchor::TOP_RIGHT);
 	TankSpawnPoint TankSpawnPoint::TopCenterSpawnPoint(Vec2(GameConst::GAME_AREA_W1 / 2, GameConst::GAME_AREA_H0), Direction::DOWN, Anchor::TOP);
+
+
+	TankSkin TankSkin::PlayerBasicTankSkin{ T_TANK_UP_0, T_TANK_UP_1, T_TANK_DOWN_0, T_TANK_DOWN_1, T_TANK_RIGHT_0, T_TANK_RIGHT_1, T_TANK_LEFT_0, T_TANK_LEFT_1 };
+	TankSkin TankSkin::EnemyBasicTankSkin{ T_TANK_EB_UP_0, T_TANK_EB_UP_1, T_TANK_EB_DOWN_0, T_TANK_EB_DOWN_1, T_TANK_EB_RIGHT_0, T_TANK_EB_RIGHT_1, T_TANK_EB_LEFT_0, T_TANK_EB_LEFT_1 };
+
 
 	Tank::Tank(const std::string& Name, const Vec2& Position, 
 		Direction StartDirection, float Speed, float MoveAnimRate, float Health, const TankSkin& Skin)
@@ -39,6 +52,7 @@ namespace Game {
 
 		HealthComp = new HealthComponent((Actor*)this);
 		HealthComp->SetHealth(Health, true);
+		HealthComp->SetOnDeathCb(HEALTH_ON_DEATH_CB(Tank::OnDeath));
 
 		// Initialize actor size
 		SetSize(SpriteComp_Up->GetSize());
@@ -53,9 +67,35 @@ namespace Game {
 		Move(DeltaTime);
 	}
 
-	void Tank::OnCollide(BaseEntity* Other, CollisionFilter Filter)
+	void Tank::OnDestroy()
 	{
+		if (IsPossesedByPlayerController() && GetLevel())  // remove from player controller
+		{
+			if (auto GM = dynamic_cast<TankiGameMode*>(GetLevel()->GetGameMode()))
+			{
+				if (auto PC = GM->GetCustomPlayerTankController(); PC->GetControlledTank() == this)
+				{
+					PC->SetControlledTank(nullptr);
+				}
+			}
+		}
+		else if (IsPossesedByAIController() && GetLevel())  // remove from ai controller
+		{
+			if (auto GM = dynamic_cast<TankiGameMode*>(GetLevel()->GetGameMode()))
+			{
+				if (auto AICon = GM->GetCustomAIController())
+				{
+					AICon->RemoveTank(this);
+				}
+			}
+		}
+	}
 
+	void Tank::OnDeath()
+	{
+		// todo: check if possesed by PC -> tryRepawn()
+
+		Destroy();
 	}
 
 	inline EntityComponent<SpriteFlipFlop>* Tank::GetDirectionSpriteComp(Direction Dir)
@@ -118,29 +158,37 @@ namespace Game {
 
 	void Tank::Fire()
 	{
-		if (bPossesedByPlayer && ActiveBullet) return;  // player can only shoot if prev bullet is destroyed
+		if (IsPossesedByPlayerController() && ActiveBullet) return;  // player can only shoot if prev bullet is destroyed
 
 		ActiveBullet = Bullet::SpawnBasicBullet(this);
 	}
 
-	Tank* Tank::SpawnBasicPlayerTank(Level* Level, const TankSpawnPoint& Point)
+	Tank* Tank::SpawnBasicTank(Level* Level, const TankSpawnPoint& Point, TankType Type)
 	{
-		using namespace ResPath;
-		using namespace GameConst;
-
-		constexpr TankSkin PlayerTankSkin{ 
-			T_TANK_UP_0, T_TANK_UP_1, 
-			T_TANK_DOWN_0, T_TANK_DOWN_1, 
-			T_TANK_RIGHT_0, T_TANK_RIGHT_1, 
-			T_TANK_LEFT_0, T_TANK_LEFT_1 };
-
 		ENGINE_ASSERT(Level, "SpawnBasicPlayerTank Level is nullptr!");
+		if (!Level) return nullptr;
 
-		Tank* PlayerTank = Level->SpawnActorFromClass<Tank>("PlayerTank", Point.SpawnPosition, Point.SpawnAnchor, 
-			Point.SpawnDirection, TANK_BASIC_SPEED, TANK_BASIC_ANIM_SPEED, TANK_BASIC_HEALTH, PlayerTankSkin);
+		TankSkin* Skin;
+		std::string Name;
+		switch (Type)
+		{
+		case TankType::PlayerTank:
+			Skin = &TankSkin::PlayerBasicTankSkin;
+			Name = "PlayerTank";
+			break;
+
+		case TankType::EnemyTank:
+		default:
+			Skin = &TankSkin::EnemyBasicTankSkin;
+			Name = "EnemyTank";
+			break;
+		}
+
+		auto SpawnedTank = Level->SpawnActorFromClass<Tank>(Name, Point.SpawnPosition, Point.SpawnAnchor, 
+			Point.SpawnDirection, TANK_BASIC_SPEED, TANK_BASIC_ANIM_SPEED, TANK_BASIC_HEALTH, *Skin);
 		
-		PlayerTank->bPossesedByPlayer = true;
-
-		return PlayerTank;
+		SpawnedTank->Type = Type;
+		
+		return SpawnedTank;
 	}
 }

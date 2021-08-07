@@ -1,7 +1,5 @@
 #include "TankiAIController.h"
 
-#include "Game/Game.h"
-
 #include "Game/Gameplay/TankiGameMode.h"
 #include "Game/Gameplay/TankiPlayerController.h"
 
@@ -9,9 +7,6 @@
 #include "Game/Actors/TankActor.h"
 
 namespace Game {
-	
-	float TankBrain::FireRate = GameConst::ENEMY_BASIC_FIRE_RATE;
-	float TankBrain::ChangeDirectionTime = GameConst::ENEMY_AI_CHANGE_DIRECTION_RATE;
 
 	TankiAIController::TankiAIController()
 	{
@@ -29,6 +24,38 @@ namespace Game {
 		UpdateTankBehavior(DeltaTime);
 	}
 
+	inline void TankiAIController::TankChangeDirection(TankBrain& Brain)
+	{
+		ENGINE_ASSERT(Brain.BrainOwner, "TankChangeDirection: TankBrain.BrainOwner == nullptr!!!");
+
+		Direction NewDirection = GetRandDirectionFilter(Brain.LastDirection);
+
+		Brain.BrainOwner->MoveEnd(Brain.LastDirection);
+		Brain.BrainOwner->MoveBegin(NewDirection);
+
+		Brain.LastDirection = NewDirection;
+		Brain.TimeSinceDirectionChange = 0.f;
+		Brain.SetRandChangeDirTime();
+	}
+
+	inline void TankiAIController::TankStop(TankBrain& Brain)
+	{
+		ENGINE_ASSERT(Brain.BrainOwner, "TankStop: TankBrain.BrainOwner == nullptr!!!");
+
+		Brain.BrainOwner->MoveEnd(Brain.LastDirection);
+		Brain.TimeSinceDirectionChange += Brain.ChangeDirectionTime * 0.1f * GetGame()->GetDeltaTime(); // adjustment
+	}
+
+	inline void TankiAIController::TankShoot(TankBrain& Brain)
+	{
+		ENGINE_ASSERT(Brain.BrainOwner, "TankStop: TankBrain.BrainOwner == nullptr!!!");
+
+		Brain.BrainOwner->Fire();
+
+		Brain.TimeSinceLastShot = 0.f;
+		Brain.SetRandFireRate();
+	}
+
 	inline void TankiAIController::UpdateTankBehavior(float DeltaTime)
 	{
 		// todo: fix
@@ -44,57 +71,26 @@ namespace Game {
 
 			if (Tank* AITank = Brain.BrainOwner)
 			{
-				// if tank collided -> change tank direction
+				// if tank collided -> stop
 				if (AITank->IsLastTimeCollisionPositive()) 
 				{
-					Direction NewDirection = GetRandomDirection();
-					while (NewDirection == Brain.LastDirection)
-						NewDirection = GetRandomDirection();
-
-					AITank->MoveEnd(Brain.LastDirection);
-					AITank->MoveBegin(NewDirection);
-
-					Brain.LastDirection = NewDirection;
-					Brain.TimeSinceDirectionChange = 0.f;
 					Brain.TimeSinceLastCollide = 0.f;
 					Brain.LastPositiveCollidedResult = std::move(AITank->GetLastCollisionResult());
+
+					TankStop(Brain);
 				}
 
 				// if tank moved too long in signle dir -> change tank dir
 				if (Brain.TimeSinceDirectionChange >= Brain.ChangeDirectionTime)
 				{
-					AITank->MoveEnd(Brain.LastDirection);
-					AITank->MoveBegin(GetRandomDirection());
-
-					Brain.TimeSinceDirectionChange = 0.f;
+					TankChangeDirection(Brain);
 				}
 
 				// if tank shooted while ago -> shoot
 				if (Brain.TimeSinceLastShot >= Brain.FireRate)
 				{
-					AITank->Fire();
-					Brain.TimeSinceLastShot = 0.f;
+					TankShoot(Brain);
 				}
-			}
-		}
-	}
-
-	inline void TankiAIController::AddTank(Tank* EnemyTank)
-	{
-		if (EnemyTank)
-		{
-			TankBrains.push_back(EnemyTank);
-		}
-	}
-
-	inline void TankiAIController::RemoveTank(Tank* EnemyTank)
-	{
-		if (EnemyTank)
-		{
-			auto It = std::find_if(TankBrains.begin(), TankBrains.end(), [&](const TankBrain& Brain) { return Brain.BrainOwner == EnemyTank; });
-			if (It != TankBrains.end())
-			{
-				TankBrains.erase(It);
 			}
 		}
 	}

@@ -18,8 +18,7 @@ namespace Framework2D {
 		BaseEntity* CollidableLeft;
 		BaseEntity* CollidableRight;
 
-		// dbg iter count
-		int IterCount = 0;
+		// int IterCount = 0;  // dbg
 
 		// Clear prev collision results for static
 		for (IterLeft = StaticCollidables.begin(); IterLeft != StaticCollidables.end(); ++IterLeft)
@@ -33,7 +32,7 @@ namespace Framework2D {
 
 			for (IterRight = StaticCollidables.begin(); IterRight != StaticCollidables.end(); ++IterRight)
 			{
-				++IterCount; // dbg
+				// ++IterCount; // dbg
 
 				CollidableRight = *(IterRight);
 
@@ -50,31 +49,31 @@ namespace Framework2D {
 
 		// Check dynamic against dynamic (loop with unique pairs traversing
 	    // complexity: 0.5 * m * (m - 1), total complexity: 0.5 * m * (m - 1) + m * n, but consider that m is small
-		//for (IterLeft = DynamicCollidables.begin(); std::next(IterLeft) != DynamicCollidables.end(); IterLeft++)
-		//{
-		//	CollidableLeft = *(IterLeft);
-		//
-		//	IterRight = IterLeft;
-		//	++IterRight;
-		//
-		//	for (IterRight; IterRight != DynamicCollidables.end(); ++IterRight)
-		//	{
-		//		++IterCount;  // dbg
-		//
-		//		CollidableRight = *(IterRight);
-		//
-		//		if (CollidableLeft->CanCollideWith(CollidableRight, true))  // process black/white list filter
-		//		{
-		//			if (CollidableLeft->IsCollidingWith(CollidableLeft->GetPosition(true), CollidableRight, CollidableRight->GetPosition(true)))
-		//			{
-		//				CollidableLeft->LastCollisonResult.UpdateResult(CollidableLeft, CollidableRight);
-		//				CollidableRight->LastCollisonResult.UpdateResult(CollidableRight, CollidableLeft);
-		//			}
-		//		}
-		//	}
-		//}
+		for (IterLeft = DynamicCollidables.begin(); std::next(IterLeft) != DynamicCollidables.end(); IterLeft++)
+		{
+			CollidableLeft = *(IterLeft);
+		
+			IterRight = IterLeft;
+			++IterRight;
+		
+			for (IterRight; IterRight != DynamicCollidables.end(); ++IterRight)
+			{
+				// ++IterCount;  // dbg
+		
+				CollidableRight = *(IterRight);
+		
+				if (CollidableLeft->CanCollideWith(CollidableRight, true))  // process black/white list filter
+				{
+					if (CollidableLeft->IsCollidingWith(CollidableLeft->GetPosition(true), CollidableRight, CollidableRight->GetPosition(true)))
+					{
+						CollidableLeft->LastCollisonResult.UpdateResult(CollidableLeft, CollidableRight);
+						CollidableRight->LastCollisonResult.UpdateResult(CollidableRight, CollidableLeft);
+					}
+				}
+			}
+		}
 
-		// Handle onCollide() for Static collidables
+		// Handle onCollide() for Static collidables, no need to call this actually
 		//for (IterLeft = StaticCollidables.begin(); IterLeft != StaticCollidables.end(); ++IterLeft)
 		//{
 		//	CollidableLeft = *(IterLeft);
@@ -98,10 +97,19 @@ namespace Framework2D {
 
 				CollidableLeft->OnCollide(CollidableRight, CollisionFilter::CF_BLOCK);
 				CollidableRight->OnCollide(CollidableLeft, CollisionFilter::CF_BLOCK);
-			}
 
-			if (CollidableLeft->bNextPositionRelevent)  // dynamic collidable handle sweep
-				CollidableLeft->HandleSweepPosition(CollidableLeft->NextPosition, CollidableLeft->LastCollisonResult);
+				if (CollidableLeft->bNextPositionRelevent && !CollidableRight->IsCollisionDynamic())
+				{
+					// fix teleport if both collidables are dynamic
+					CollidableLeft->HandleSweepPosition(CollidableLeft->NextPosition, CollidableLeft->LastCollisonResult);
+				}
+
+			}
+			else
+			{
+				if (CollidableLeft->bNextPositionRelevent)  // dynamic collidable handle sweep
+					CollidableLeft->HandleSweepPosition(CollidableLeft->NextPosition, CollidableLeft->LastCollisonResult);
+			}
 		}
 
 		// ENGINE_LOG(error, "SystemCollision iter_num: {}", IterCount);  // dbg

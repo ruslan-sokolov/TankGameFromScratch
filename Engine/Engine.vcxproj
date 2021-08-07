@@ -102,6 +102,7 @@
   <ItemGroup>
     <ClCompile Include="Source\Engine\Log.cpp" />
     <ClCompile Include="Source\Engine\Application.cpp" />
+    <ClCompile Include="Source\Engine\Utility\Math.cpp" />
     <ClCompile Include="Source\Platform\WindowsWindow.cpp" />
     <ClCompile Include="Source\PCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -119,6 +120,7 @@
     <ClInclude Include="Source\Engine\Application.h" />
     <ClInclude Include="Source\Engine\Core.h" />
     <ClInclude Include="Source\Engine.h" />
+    <ClInclude Include="Source\Engine\Utility\Math.h" />
     <ClInclude Include="Source\Engine\Window.h" />
     <ClInclude Include="Source\EntryPoint.h" />
     <ClInclude Include="Source\Platform\WindowsWindow.h" />

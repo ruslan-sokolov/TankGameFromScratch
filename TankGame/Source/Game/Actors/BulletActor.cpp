@@ -53,15 +53,35 @@ namespace Game {
 
 		if (auto A = dynamic_cast<Actor*>(Other))
 		{
-			if (auto HealthComp = A->GetComponentByClass<HealthComponent>())
+			if constexpr (GameConst::BLUE_ON_BLUE) // Handle tanks blue on blue:
 			{
-				HealthComp->OnDamage(Damage, BulletDirection, this);
+				// FriendlyFire allowed. Do not check if we can damage other actor
+				if (auto HealthComp = A->GetComponentByClass<HealthComponent>())
+					HealthComp->OnDamage(Damage, BulletDirection, this);
+
 			}
+			else
+			{
+				// FriendlyFire Disallowed. Extra check to see if we can damage other actor
+
+				// tank vs tank case:
+				if (auto T = dynamic_cast<Tank*>(Other); T && Instigator && T->GetTankType() == Instigator->GetTankType())
+				{
+					// can't damage teammates
+				}
+				else
+				{
+					// no damage restriction, do some dmg
+					if (auto HealthComp = A->GetComponentByClass<HealthComponent>())
+						HealthComp->OnDamage(Damage, BulletDirection, this);
+				}
+			}
+			
 		}
 
-		if (Instigator)
-			Instigator->ActiveBullet = nullptr;
+		if (Instigator) Instigator->ActiveBullet = nullptr;
 		
+		// bullet hit fx
 		Boom::SpawnBoomSmall(GetLevel(), Position);
 
 		Destroy();
