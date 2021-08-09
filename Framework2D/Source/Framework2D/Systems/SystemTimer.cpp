@@ -5,23 +5,44 @@ namespace Framework2D {
 
 	// Static
 	std::vector<TimerData> SystemTimer::Timers;
+	std::vector<TimerData> SystemTimer::TimersPushbackQueue;
 
 	inline void SystemTimer::AddTimer(TimerData&& Data)
 	{
-		if (Timers.size() % VecTimerDataExtend == 0)
-			Timers.reserve(Timers.size() + VecTimerDataExtend);
+		if (TimersPushbackQueue.size() % VecTimerDataExtend == 0)  // extend
+			TimersPushbackQueue.reserve(TimersPushbackQueue.size() + VecTimerDataExtend);
 
 		Data.Handle.TimerId = SystemTimer::TotalCreatedNum++;  // Set Unique Valid handler;
 		
-		Timers.push_back(std::move(Data));
+		TimersPushbackQueue.push_back(std::move(Data));
+	}
+
+	inline void SystemTimer::InsertNewTimers()
+	{
+		if (TimersPushbackQueue.size())
+		{
+			if (Timers.capacity() < TimersPushbackQueue.size() + VecTimerDataExtend)  // extend
+			{
+				Timers.reserve(Timers.size() + TimersPushbackQueue.size() + VecTimerDataExtend);
+			}
+
+			std::move(TimersPushbackQueue.begin(), TimersPushbackQueue.end(), std::back_inserter(Timers));
+			TimersPushbackQueue.clear();
+		}
 	}
 
 	inline TimerData* SystemTimer::FindTimer(const TimerHandle& InHandle)
 	{
+		for (auto& Timer : TimersPushbackQueue)
+		{
+			if (Timer.Handle == InHandle) return &Timer;
+		}
+
 		for (auto& Timer : Timers)
 		{
 			if (Timer.Handle == InHandle) return &Timer;
 		}
+		
 		return nullptr;
 	}
 
@@ -49,14 +70,18 @@ namespace Framework2D {
 	inline void SystemTimer::RemoveAllTimers()
 	{
 		Timers.clear();
+		TimersPushbackQueue.clear();
 	}
 
 	inline void SystemTimer::UpdateTimers(float DeltaTime)
 	{
-		using TimerIt = std::vector<TimerData>::iterator;
+		// this allow as safely add new timers if they called in timers delayed funcs
+		// so main loop will not invalidate it's iterators
+		InsertNewTimers();
 
-		TimerIt It_InvalidBegin = Timers.begin(); // after loop invalid Timers should be in [It_InvalidBegin, Timers.End) range
-		for (TimerIt It_Valid = It_InvalidBegin, It_End = Timers.end(); It_Valid != It_End; ++It_Valid)
+		// this loop handle delayedFuncs execution during iteration
+		auto It_InvalidBegin = Timers.begin(); // after loop invalid Timers should be in [It_InvalidBegin, Timers.End) range
+		for (auto It_Valid = It_InvalidBegin, It_End = Timers.end(); It_Valid != It_End; ++It_Valid)
 		{
 			It_Valid->Update(DeltaTime); // update timers if valid, call cb if timer elapsed;
 

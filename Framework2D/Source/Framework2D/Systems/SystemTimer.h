@@ -67,6 +67,7 @@ namespace Framework2D
 
 	/*
 	 * This system handles delayed function execution
+	 * It's stable to add/remnove timer in timer callback function
 	 */
 	class FRAMEWORK2D_API SystemTimer
 	{
@@ -75,8 +76,16 @@ namespace Framework2D
 		static inline int TotalCreatedNum = 0; // this will be unique timer identifier
 		static std::vector<TimerData> Timers;
 
+		/** This is allow as to add timer in delayed timer function execution while iteration all timers */
+		static std::vector<TimerData> TimersPushbackQueue;
+
 		static inline TimerData* FindTimer(const TimerHandle& InHandle);
+		
+		/* Put new created timer in TimersPushbackQueue */
 		static inline void AddTimer(TimerData&& Data);
+		/** Insert TimersPushbackQueue in Timers queue to activate them */
+		static inline void InsertNewTimers();
+		/** Main timers loop, will increment each timer time and execute them if timer elapsed */
 		static inline void UpdateTimers(float DeltaTime);
 
 	public:

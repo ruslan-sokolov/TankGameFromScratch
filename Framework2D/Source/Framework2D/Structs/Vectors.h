@@ -3,6 +3,11 @@
 #include <Framework2D/Framework2DAPI.h>
 #include <cmath>
 
+#include <iostream>
+#include <string>
+#include <sstream>
+
+
 namespace Framework2D {
 
 	struct Vec2Int;
@@ -75,6 +80,8 @@ namespace Framework2D {
 		static const Vec2 VecRight;
 		static const Vec2 VecUp;
 		static const Vec2 VecDown;
+
+		std::string ToString() const { std::stringstream SS; SS << "X=" << X << ", Y=" << Y; return SS.str(); }
 	};
 
 	struct FRAMEWORK2D_API Vec2Int
@@ -122,7 +129,19 @@ namespace Framework2D {
 		static const Vec2Int VecRight;
 		static const Vec2Int VecUp;
 		static const Vec2Int VecDown;
+
+		std::string ToString() const { std::stringstream SS; SS << "X=" << X << ", Y=" << Y; return SS.str(); }
 	};
 
 	inline Vec2::Vec2(const Vec2Int& Other) : X(Other.X), Y(Other.Y) {}
+
+	inline std::ostream& operator << (std::ostream& os, const Vec2& v)
+	{
+		return os << v.ToString();
+	}
+	
+	inline std::ostream& operator << (std::ostream& os, const Vec2Int& v)
+	{
+		return os << v.ToString();
+	}
 }
