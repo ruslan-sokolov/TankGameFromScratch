@@ -2,6 +2,7 @@
 #include "Group.h"
 
 #include <Framework2D/Graphic2D/Entities/BaseEntity.h>
+#include <Framework2D/Layers/Layer2D.h>
 
 namespace Framework2D {
 
@@ -33,8 +34,12 @@ namespace Framework2D {
 			Entity->EntityGroup = nullptr;
 			
 			Entities.erase(It);
+
+			if (!Entities.size() && Layer) Layer->RemoveGroup(this);  // delete group if last
+
 			return true;
 		}
+
 		return false;
 	}
 

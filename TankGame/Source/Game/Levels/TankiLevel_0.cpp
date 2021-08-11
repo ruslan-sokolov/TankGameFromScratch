@@ -22,13 +22,9 @@ namespace Game {
 		const Vec2 ChunkOffset(GAME_CHUNK_W, GAME_CHUNK_H);
 		const Vec2 ChunkOffset_X(GAME_CHUNK_W, 0);
 		const Vec2 ChunkOffset_Y(0, GAME_CHUNK_H);
-
 		const Vec2 ChunkLastOffset_X(GAME_AREA_H1, 0);
 		const Vec2 ChunkLastOffset_Y(0, GAME_AREA_W1);
-
 		const Vec2 BasePosition(GAME_AREA_MID_W, GAME_AREA_H1);
-
-		TankSpawnPoint PlayerSpawnPoint(BasePosition - ChunkOffset_X * 2, Direction::UP, Anchor::BOTTOM);
 
 		// Level walls:
 		{
@@ -117,13 +113,19 @@ namespace Game {
 			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 10 + ChunkOffset_Y * 10);
 		}
 
-		// Spawn player tank
-		PlayerTank = Tank::SpawnBasicTank(this, PlayerSpawnPoint, TankType::PlayerTank);
+		PlayerSpawnPoint = TankSpawnPoint(BasePosition - ChunkOffset_X * 2, Direction::UP, Anchor::BOTTOM);
+		RespawnPlayerTank();
 
 		// todo: add player base
 		PlayerBase = nullptr;
 
 		EnemyTankSpawner = TankSpawner::CreateBasicTankAISpawnerCorners(this);
+	}
+
+	Tank* TankiLevel_0::RespawnPlayerTank()
+	{
+		PlayerTank = Tank::SpawnBasicTank(this, PlayerSpawnPoint, TankType::PlayerTank);
+		return PlayerTank;
 	}
 
 	void TankiLevel_0::OnStart()
@@ -147,9 +149,4 @@ namespace Game {
 			GAME_LOG(error, "TankiLevel_0::OnStart() casting GameMode to TankiGameMode failed!!");
 		}
 	}
-
-	void TankiLevel_0::OnTick(float DeltaTime)
-	{
-	}
-
 }

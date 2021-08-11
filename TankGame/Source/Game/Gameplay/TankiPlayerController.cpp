@@ -3,6 +3,8 @@
 #include <Framework2D/Systems/SystemInput.h>
 #include <Game/Actors/TankActor.h>
 
+#include <Game/Gameplay/TankiGameMode.h>
+
 namespace Game {
 
 	TankiPlayerController::TankiPlayerController()
@@ -37,6 +39,11 @@ namespace Game {
 
 	void TankiPlayerController::OnTick(float DeltaTime)
 	{
+	}
+
+	void TankiPlayerController::OnStart()
+	{
+		GM = dynamic_cast<TankiGameMode*>(GM_Owner);
 	}
 
 	void TankiPlayerController::MoveForward()
@@ -88,5 +95,12 @@ namespace Game {
 	{
 		PlayerTank = TankToControl;
 		SetControlledActor(TankToControl);
+	}
+	void TankiPlayerController::OnTankDestroyed()
+	{
+		ENGINE_ASSERT(GM, "TankiPlayerController GM is nullptr!");
+
+		PlayerTank = nullptr;
+		if (GM) GM->TryRespawnPlayerTank();
 	}
 }

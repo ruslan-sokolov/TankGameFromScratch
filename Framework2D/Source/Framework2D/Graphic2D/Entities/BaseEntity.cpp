@@ -26,7 +26,9 @@ namespace Framework2D {
 		DisableCollision();
 
 		if (EntityGroup != nullptr)
+		{
 			EntityGroup->RemoveEntity(this);
+		}
 	}
 	
 	inline bool BaseEntity::IsCollidingWith(BaseEntity* Other, const Vec2& OtherPosition)

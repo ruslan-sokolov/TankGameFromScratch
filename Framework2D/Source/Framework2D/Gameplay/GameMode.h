@@ -13,6 +13,15 @@ namespace Framework2D
 
 	class LayerGameplay;
 
+	enum class GMState
+	{
+		Prepartation = 0,
+		Start = 1,
+		Run = 2,
+		End = 3,
+		Restart = 4
+	};
+
 	class FRAMEWORK2D_API GameMode
 	{
 		std::unique_ptr<Level> m_Level;
@@ -20,9 +29,13 @@ namespace Framework2D
 		std::unique_ptr<HUD> m_HUD;
 		std::unique_ptr<AIController> m_AIController;
 
+		GMState State = (GMState)0;
+
 		friend class LayerGameplay;
 		// called in LayerGameplay will tick for Level, HUD, PlayerContoller, AIController and GM itself
 		inline void Update(float DeltaTime);
+
+		inline void SetState(GMState NewState, bool bForce = false);
 
 	public:
 		GameMode(Level* InLevel, PlayerController* InPlayerController, HUD* InHUD, 
@@ -38,14 +51,18 @@ namespace Framework2D
 		AIController* GetAIController() const { return m_AIController.get(); }
 
 		inline void Start();
+		inline void Restart();
+		inline void End();
 
 		virtual void OnTick(float DeltaTime) {}
+
+		inline GMState GetState() const { return State; }
+
+	protected:
 		/** BeginPlay kinda but only in one exemplar */
 		virtual void OnStart() {}
-
-		/** Restart Current Level */
-		virtual void Restart();
 		/** End Current Level */
-		virtual void End();
+		virtual void OnEnd() {}
+		virtual void OnRestart() {}
 	};
 }

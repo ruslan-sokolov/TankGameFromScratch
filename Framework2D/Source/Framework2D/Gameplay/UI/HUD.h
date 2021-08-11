@@ -24,6 +24,7 @@ namespace Framework2D {
 
 		/** Called in GameMode Start() */
 		virtual void OnStart() {};
+		virtual void OnEnd() {};
 
 		/** Called in GameMode Update() each frame */
 		virtual void OnTick(float DeltaTime) {}

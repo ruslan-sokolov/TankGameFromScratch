@@ -48,8 +48,8 @@ namespace Framework2D
 			if (NewHealth <= 0.f)
 			{
 				Health = 0.f;
-				bIsDead = true;
 				OnDeath();
+				bIsDead = true;
 			}
 			else
 			{

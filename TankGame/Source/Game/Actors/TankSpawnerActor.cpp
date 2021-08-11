@@ -60,7 +60,7 @@ namespace Game {
 		TankSpawnPoint& RandSpawnPoint = SpawnPoints[RandIndex];
 
 		// debug
-		GAME_LOG(info, "Rand Spawn Point {}", RandSpawnPoint.SpawnPosition);
+		// GAME_LOG(info, "Rand Spawn Point {}", RandSpawnPoint.SpawnPosition);
 
 		return RandSpawnPoint;
 	}
@@ -95,7 +95,7 @@ namespace Game {
 					SpawnedTank->bDropPickableOnDeath = true;
 		
 					// debug
-					GAME_LOG(info, "TANKSPAWNER Flashy index used: {}", SpawnedTankNum - 1);
+					// GAME_LOG(info, "TANKSPAWNER Flashy index used: {}", SpawnedTankNum - 1);
 				}
 			}
 
@@ -106,7 +106,7 @@ namespace Game {
 			ResetSpawnTimer();
 		
 			// debug
-			GAME_LOG(info, "TANKSPAWNER SPAWNED num: {}", SpawnedTankNum);
+			// GAME_LOG(info, "TANKSPAWNER SPAWNED num: {}", SpawnedTankNum);
 		}
 	}
 

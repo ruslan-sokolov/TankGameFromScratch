@@ -111,7 +111,7 @@ namespace Framework2D
 
 	inline void Actor::Destroy()
 	{
-		LevelOwner->RemoveActor(this);
+		if (LevelOwner) LevelOwner->RemoveActor(this);
 	}
 
 }

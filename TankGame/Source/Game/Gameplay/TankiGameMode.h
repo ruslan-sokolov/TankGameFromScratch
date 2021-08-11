@@ -18,6 +18,12 @@ namespace Game {
 		TankiLevel_0* BasicLevel;
 		TankiHUD* CustomHUD;
 
+		int PlayerRespawnNum;
+		int EnemyTankToKill;
+		bool bBaseIsDestroyed;
+
+		bool bEndConditionIsWin;
+
 	public:
 		TankiAIController* GetCustomAIController() const { return AITankController; }
 		TankiPlayerController* GetCustomPlayerTankController() const { return PlayerTankController; }
@@ -26,13 +32,23 @@ namespace Game {
 
 		TankiGameMode();
 
-		virtual void OnTick(float DeltaTime) override;
 		virtual void OnStart() override;
-		
-		virtual void Restart() override;
-		virtual void End() override;
+		virtual void OnEnd() override;
+		virtual void OnRestart() override;
 
 		inline PhoenixBase* GetLevelPhoenixBase();
+
+		/** called in base instance */
+		void OnBaseDestroyed();
+
+		/** called in tank instance */
+		void OnEnemyTankKilled();
+
+		/** called in tank player controller instane */
+		void TryRespawnPlayerTank();
+		
+		/** Check game condition after each dependent event */
+		inline void CheckLooseWinCondition();
 
 	};
 

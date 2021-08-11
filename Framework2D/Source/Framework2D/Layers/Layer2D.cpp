@@ -28,24 +28,42 @@ namespace Framework2D {
 	inline void Layer2D::AddGroup(Group* group)
 	{
 		Groups.push_back(group);
+		group->Layer = this;
 	}
 
 	inline void Layer2D::AddGroupFront(Group* group)
 	{
 		Groups.emplace(Groups.begin(), group);
+		group->Layer = this;
 	}
 
 	inline void Layer2D::AddGroupAfter(Group* GroupAdd, Group* GroupAfter)
 	{
 		auto It = std::find(Groups.begin(), Groups.end(), GroupAfter);
 		
-		if (It != Groups.end()) Groups.emplace(++It, GroupAdd);
+		if (It != Groups.end())
+		{
+			Groups.emplace(++It, GroupAdd);
+			GroupAdd->Layer = this;
+		}
+		else
+		{
+			AddGroup(GroupAdd);
+		}
 	}
 
 	inline void Layer2D::AddGroupBefore(Group* GroupAdd, Group* GroupBefore)
 	{
 		auto It = std::find(Groups.begin(), Groups.end(), GroupBefore);
-		if (It != Groups.end()) Groups.emplace(It, GroupAdd);
+		if (It != Groups.end()) 
+		{ 
+			Groups.emplace(It, GroupAdd);
+			GroupAdd->Layer = this;
+		}
+		else
+		{
+			AddGroup(GroupAdd);
+		}
 	}
 
 	inline void Layer2D::SwapGroup(Group* GroupLeft, Group* GroupRight)
@@ -64,7 +82,10 @@ namespace Framework2D {
 		auto It = std::find(Groups.begin(), Groups.end(), group);
 		if (It != Groups.end())
 		{
+			auto ToRemove = *It;
 			Groups.erase(It);
+
+			delete ToRemove;
 		}
 	}
 

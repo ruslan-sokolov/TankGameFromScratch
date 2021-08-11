@@ -76,21 +76,24 @@ namespace Game {
 			if (auto GM = dynamic_cast<TankiGameMode*>(GetLevel()->GetGameMode()))
 			{
 				if (auto PC = GM->GetCustomPlayerTankController(); PC->GetControlledTank() == this)
-				{
-					PC->SetControlledTank(nullptr);
-				}
+					PC->OnTankDestroyed();
 			}
 		}
 		else if (IsPossesedByAIController() && GetLevel())  // remove from ai controller
 		{
 			if (auto GM = dynamic_cast<TankiGameMode*>(GetLevel()->GetGameMode()))
 			{
+				GM->OnEnemyTankKilled();
+
 				if (auto AICon = GM->GetCustomAIController())
-				{
 					AICon->RemoveTank(this);
-				}
 			}
 		}
+	}
+
+	void Tank::DropPickable()
+	{
+		// todo
 	}
 
 	void Tank::TankHitFX()
@@ -113,13 +116,14 @@ namespace Game {
 
 	void Tank::OnDeath()
 	{
-		bCanMove = false;
+		if (!HealthComp->IsDead())
+		{
+			bCanMove = false;
+			
+			if (bDropPickableOnDeath) DropPickable();
 
-		// todo: check if possesed by PC -> tryRepawn()
-
-		// todo: check if drop pickable on death -> DropPickable()
-	
-		TankHitFX();
+			TankHitFX();
+		}
 	}
 
 	inline EntityComponent<SpriteFlipFlop>* Tank::GetDirectionSpriteComp(Direction Dir)

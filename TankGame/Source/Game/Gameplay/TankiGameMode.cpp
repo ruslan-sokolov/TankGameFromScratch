@@ -6,6 +6,8 @@
 #include <Game/Levels/TankiLevel_0.h>
 #include <Game/Actors/TankActor.h>
 
+#include <Game/Game.h>
+
 namespace Game {
 
 	// todo: looks nasty, fix that later on
@@ -20,26 +22,37 @@ namespace Game {
 		// Pass Tank To Player Controller
 		Tank* PlayerTank = BasicLevel->GetPlayerTank();
 		PlayerTankController->SetControlledTank(PlayerTank);
-	}
 
-	void TankiGameMode::OnTick(float DeltaTime)
-	{
-
+		PlayerRespawnNum = GameConst::PLAYER_TANK_RESPAWN_NUM;
+		EnemyTankToKill = GameConst::TANK_SPAWN_NUM_DEFAULT;
+		bBaseIsDestroyed = false;
+		bEndConditionIsWin = false;
 	}
 
 	void TankiGameMode::OnStart()
 	{
-
+		// todo
 	}
 
-	void TankiGameMode::Restart()
+	void TankiGameMode::OnEnd()
 	{
-		GameMode::Restart();
+		if (bEndConditionIsWin)
+		{
+			GAME_LOG(trace, "GM: YOU WON!!!!");
+			// todo show win plate
+		}
+		else
+		{
+			GAME_LOG(trace, "GM: YOU LOOSE!!!");
+			// todo show loose plate
+		}
+
+		// inf loop here
+		Restart();
 	}
 
-	void TankiGameMode::End()
+	void TankiGameMode::OnRestart()
 	{
-		GameMode::End();
 	}
 
 	inline PhoenixBase* TankiGameMode::GetLevelPhoenixBase()
@@ -49,5 +62,52 @@ namespace Game {
 			return BasicLevel->GetPlayerBase();
 		}
 		return nullptr;
+	}
+
+	void TankiGameMode::OnBaseDestroyed()
+	{
+		bBaseIsDestroyed = true;
+
+		GAME_LOG(warn, "GM: BASE IS DESTROYED!!!");
+
+		CheckLooseWinCondition();
+	}
+
+	void TankiGameMode::OnEnemyTankKilled()
+	{
+		--EnemyTankToKill;
+
+		GAME_LOG(warn, "GM: Enemy to kill left: {}", EnemyTankToKill);
+
+		CheckLooseWinCondition();
+	}
+
+	void TankiGameMode::TryRespawnPlayerTank()
+	{
+		--PlayerRespawnNum;
+
+		GAME_LOG(error, "GM: Player respawn num left: {}", PlayerRespawnNum);
+
+		if (PlayerRespawnNum >= 0)
+		{
+			auto Tank = BasicLevel->RespawnPlayerTank();
+			PlayerTankController->SetControlledTank(Tank);
+		}
+
+		CheckLooseWinCondition();
+	}
+
+	inline void TankiGameMode::CheckLooseWinCondition()
+	{
+		if (PlayerRespawnNum <= -1 || bBaseIsDestroyed) 
+		{
+			bEndConditionIsWin = false;
+			End();
+		}
+		else if (EnemyTankToKill <= 0)
+		{
+			bEndConditionIsWin = true;
+			End();
+		}
 	}
 }

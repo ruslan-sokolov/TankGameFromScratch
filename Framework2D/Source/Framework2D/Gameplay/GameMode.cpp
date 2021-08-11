@@ -33,8 +33,27 @@ namespace Framework2D {
 		OnTick(DeltaTime);
 	}
 
+	inline void GameMode::SetState(GMState NewState, bool bForce)
+	{
+		if (bForce)
+		{
+			State = NewState;
+			return;
+		}
+		
+		if (State == GMState::Restart)
+		{
+			return;
+		}
+
+		State = NewState;
+	}
+
 	inline void GameMode::Start()
 	{
+		SetState(GMState::Start);
+		GAME_LOG(info, "_____GameMode::Start_____");
+
 		m_Level->OnStart();
 		m_PlayerController->OnStart();
 		m_HUD->OnStart();
@@ -42,16 +61,32 @@ namespace Framework2D {
 
 		OnStart();
 
-		GAME_LOG(info, "_____GameMode::Start_____");
+		SetState(GMState::Run);
 	}
 
 	void GameMode::Restart()
 	{
+		SetState(GMState::Restart);
 		GAME_LOG(info, "_____GameMode::Restart_____");
+		
+		OnRestart();
+
+		End();
+		Start();
+
+		SetState(GMState::Run, true);
 	}
 
 	void GameMode::End()
 	{
+		SetState(GMState::End);
 		GAME_LOG(info, "_____GameMode::End_____");
+
+		m_Level->OnEnd();
+		m_PlayerController->OnEnd();
+		m_HUD->OnEnd();
+		m_AIController->OnEnd();
+
+		OnEnd();
 	}
 }

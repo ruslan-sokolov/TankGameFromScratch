@@ -116,7 +116,9 @@ namespace Game {
 		
 		// if this value is true then on death tank will spawn pickable boost
 		bool bDropPickableOnDeath = false;
-		
+
+		void DropPickable();
+
 		void TankHitFX();
 		void TankHitFX_End();
 	};

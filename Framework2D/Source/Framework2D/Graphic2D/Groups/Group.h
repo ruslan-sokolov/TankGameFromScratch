@@ -5,12 +5,16 @@
 namespace Framework2D {
 
 	class BaseEntity;
+	class Layer2D;
 
 	constexpr unsigned int GroupVecEntitiesReserve = 32;
 
 	class FRAMEWORK2D_API Group
 	{
-		friend class BaseEntity;
+		friend BaseEntity;
+		friend Layer2D;
+
+		Layer2D* Layer = nullptr;
 
 	public:
 		virtual ~Group();

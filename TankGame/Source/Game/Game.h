@@ -126,7 +126,7 @@ namespace GameConst
 	constexpr auto ENEMY_AI_CHANGE_DIRECTION_RATE_MIN = 1.0f; // sec
 	constexpr auto ENEMY_AI_CHANGE_DIRECTION_RATE_MAX = 1.3f; // sec
 
-	constexpr auto BOOM_SMALL_ANIM_SPEED = 0.08f; // sec
+	constexpr auto BOOM_SMALL_ANIM_SPEED = 0.05f; // sec
 	constexpr auto BOOM_BIG_ANIM_SPEED = 0.06f; // sec
 	
 	constexpr int FLASHY_ARRAY_DEFAULT[] = { 4, 11, 18 }; // sec
