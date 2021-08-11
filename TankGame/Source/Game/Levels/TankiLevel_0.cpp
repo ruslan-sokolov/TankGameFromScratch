@@ -32,14 +32,14 @@ namespace Game {
 
 		// Level walls:
 		{
-			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 0 + ChunkOffset_Y * 0,0b1100110011001100);
-			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 0 + ChunkOffset_Y * 1,0b1111111111111111);
-			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 0 + ChunkOffset_Y * 2,0b0011001100110011);
-			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 0 + ChunkOffset_Y * 3,0b0101010101010101);
-			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 0 + ChunkOffset_Y * 4,0b0000111100001111);
+			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 0 + ChunkOffset_Y * 0, 0b1111110000000000);
+			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 0 + ChunkOffset_Y * 1);
+			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 0 + ChunkOffset_Y * 2);
+			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 0 + ChunkOffset_Y * 3);
+			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 0 + ChunkOffset_Y * 4);
 			
-			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 2 + ChunkOffset_Y * 0,0b1011011011011010);
-			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 2 + ChunkOffset_Y * 1,0b1010010110100101);
+			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 2 + ChunkOffset_Y * 0, 0b1111111111111100);
+			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 2 + ChunkOffset_Y * 1);
 			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 2 + ChunkOffset_Y * 2);
 			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 2 + ChunkOffset_Y * 3);
 			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 2 + ChunkOffset_Y * 4);
@@ -56,19 +56,19 @@ namespace Game {
 			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 6 + ChunkOffset_Y * 3);
 			
 			
-			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 8 + ChunkOffset_Y * 0);
+			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 8 + ChunkOffset_Y * 0, 0b1111111111110011);
 			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 8 + ChunkOffset_Y * 1);
 			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 8 + ChunkOffset_Y * 2);
 			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 8 + ChunkOffset_Y * 3);
 			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 8 + ChunkOffset_Y * 4);
 			
-			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 10 + ChunkOffset_Y * 0);
+			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 10 + ChunkOffset_Y * 0, 0b1111001100000000);
 			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 10 + ChunkOffset_Y * 1);
 			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 10 + ChunkOffset_Y * 2);
 			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 10 + ChunkOffset_Y * 3);
 			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 10 + ChunkOffset_Y * 4);
-
-
+			
+			
 			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset_Y * 7);
 			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset_Y * 7 + ChunkOffset_X * 2);
 			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset_Y * 7 + ChunkOffset_X * 3);
@@ -85,17 +85,20 @@ namespace Game {
 			
 			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset_Y * 9 + ChunkOffset_X * 5);
 			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset_Y * 9 + ChunkOffset_X * 7);
+
+			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset_Y * 10 + ChunkOffset_X * 5, 0b000000011111111);
+			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset_Y * 10 + ChunkOffset_X * 7, 0b000000011111111);
 			
-			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset_Y * 8 + ChunkOffset_X * 6);
+			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset_Y * 8 + ChunkOffset_X * 6, 0b1111111100000000);
+			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset_Y * 9 + ChunkOffset_X * 6, 0b0000000011111111);
 			
 			// around base
-			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset_Y * 11 + ChunkOffset_X * 7);
-			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset_Y * 11 + ChunkOffset_X * 6);
-			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset_Y * 11 + ChunkOffset_X * 5);
+			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset_Y * 11 + ChunkOffset_X * 7, 0b0011001100000000);
+			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset_Y * 11 + ChunkOffset_X * 6, 0b1111111100000000);
+			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset_Y * 11 + ChunkOffset_X * 5, 0b1100110000000000);
 			
-			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset_Y * 12 + ChunkOffset_X * 7);
-			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset_Y * 12 + ChunkOffset_X * 5);
-			//
+			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset_Y * 12 + ChunkOffset_X * 7, 0b0011001100110011);
+			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset_Y * 12 + ChunkOffset_X * 5, 0b1100110011001100);
 			
 			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 0 + ChunkOffset_Y * 8);
 			BlockModular::SpawnModularBrickBlock(this, ChunkZero + ChunkOffset + ChunkOffset_X * 0 + ChunkOffset_Y * 9);
@@ -126,41 +129,22 @@ namespace Game {
 	void TankiLevel_0::OnStart()
 	{
 		// todo: handle spawn collision
-		//if (auto GM = dynamic_cast<TankiGameMode*>(GetGameMode()))
-		//{
-		//	if (auto AICon = GM->GetCustomAIController())
-		//	{
-		//		// activate enemy tank spawner
-		//		EnemyTankSpawner->SetEnemyAIController(AICon);
-		//		EnemyTankSpawner->SetActivate(true);
-		//	}
-		//	else
-		//	{
-		//		GAME_LOG(error, "TankiLevel_0::OnStart() AI Controller in TankiGameMode is nullptr!!");
-		//	}
-		//}
-		//else
-		//{
-		//	GAME_LOG(error, "TankiLevel_0::OnStart() casting GameMode to TankiGameMode failed!!");
-		//
-	
-		// debug, testing ai controller
 		if (auto GM = dynamic_cast<TankiGameMode*>(GetGameMode()))
 		{
 			if (auto AICon = GM->GetCustomAIController())
 			{
-				auto Tank_0 = Tank::SpawnBasicTank(this, TankSpawnPoint::TopLeftSpawnPoint, TankType::EnemyTank);
-				auto Tank_1 = Tank::SpawnBasicTank(this, TankSpawnPoint::TopCenterSpawnPoint, TankType::EnemyTank);
-				auto Tank_2 = Tank::SpawnBasicTank(this, TankSpawnPoint::TopRightSpawnPoint, TankType::EnemyTank);
-				auto Tank_3 = Tank::SpawnBasicTank(this, TankSpawnPoint::BottomLeftSpawnPoint, TankType::EnemyTank);
-				auto Tank_4 = Tank::SpawnBasicTank(this, TankSpawnPoint::BottomRightSpawnPoint, TankType::EnemyTank);
-
-				AICon->AddTank(Tank_0);
-				AICon->AddTank(Tank_1);
-				AICon->AddTank(Tank_2);
-				AICon->AddTank(Tank_3);
-				AICon->AddTank(Tank_4);
+				// activate enemy tank spawner
+				EnemyTankSpawner->SetEnemyAIController(AICon);
+				EnemyTankSpawner->SetActivate(true);
 			}
+			else
+			{
+				GAME_LOG(error, "TankiLevel_0::OnStart() AI Controller in TankiGameMode is nullptr!!");
+			}
+		}
+		else
+		{
+			GAME_LOG(error, "TankiLevel_0::OnStart() casting GameMode to TankiGameMode failed!!");
 		}
 	}
 

@@ -78,7 +78,7 @@ namespace Game {
 					Brain.LastPositiveCollidedResult = std::move(AITank->GetLastCollisionResult());
 
 					// check for on collision for stop once per sec
-					TankStop(Brain);
+					//TankStop(Brain);
 				}
 
 				// if tank moved too long in signle dir -> change tank dir

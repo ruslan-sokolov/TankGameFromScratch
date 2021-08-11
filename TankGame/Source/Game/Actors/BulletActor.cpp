@@ -16,8 +16,7 @@ namespace Game {
 		// Enable collision
 		EnableCollision(CollisionType::CT_Projectile);
 		
-		// debug bug here!
-		// Instigator->AddToCollisionFilter(this);
+		AddToCollisionFilter(Instigator);
 
 		const char* BulletTexPath;
 		switch (SpawnDirection)
@@ -92,9 +91,6 @@ namespace Game {
 	{
 		std::string Name = TankFrom->GetName() + "_Bullet";
 		Direction BulletDirection = TankFrom->GetDirection();
-
-		//debug
-		//Vec2 SpawnPos = TankFrom->GetSidePosition(TankFrom->GetDirection()) + DirectionToVec2(BulletDirection) * 20.f;
 		Vec2 SpawnPos = TankFrom->GetSidePosition(TankFrom->GetDirection());
 		
 		constexpr float Speed = GameConst::BULLET_BASIC_SPEED;

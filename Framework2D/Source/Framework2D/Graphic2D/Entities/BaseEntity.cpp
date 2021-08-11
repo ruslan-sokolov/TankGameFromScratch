@@ -56,21 +56,21 @@ namespace Framework2D {
 			const float Cos_Unsigned = Engine::Abs(Dot);
 			const float Sin_Unsigned = Engine::Sqrt(1 - Dot * Dot);
 
-			const float OffsetMax_X = Size.X * 0.5f;
-			const float OffsetMax_Y = Size.Y * 0.5f;
+			const float OffsetMax_X = Size.X;
+			const float OffsetMax_Y = Size.Y;
 
 			const float DistOffset_X = OffsetMax_X * Sin_Unsigned;
 			const float DistOffset_Y = OffsetMax_Y * Cos_Unsigned;
 
 			const float DistOffset = Engine::Sqrt(DistOffset_X * DistOffset_X + DistOffset_Y * DistOffset_Y);
 
-			float TempDist = Dist;
+			float TempDist = 0;
 			float DistOffsetNormalized;
 			Vec2 DistPoint;
 
-			while (TempDist > DistOffset)
+			while (TempDist < Dist)
 			{
-				TempDist -= DistOffset;
+				TempDist += DistOffset;
 				DistOffsetNormalized = 1.0f - TempDist / Dist;
 
 				DistPoint = Vec2((1.0f - DistOffsetNormalized) * PrevPos.X + DistOffsetNormalized * NextPosition.X,
@@ -102,9 +102,16 @@ namespace Framework2D {
 		std::vector<BaseEntity*>::iterator Iter;
 		Iter = std::find(CollisionFilterList.begin(), CollisionFilterList.end(), Collidable);
 
-		bool bIsInCollidableFilter = Iter != CollisionFilterList.end();
+		bool bIsInCollidableFilterList = Iter != CollisionFilterList.end();
 
-		bool bCanCollide = !(bIsInCollidableFilter ^ bCollisionFilterIsWhiteList); // XNOR, if 1 and 1 -> 1, elif 0 and 0 -> 1, else -> 0
+		bool bCanCollide;
+
+		if (bCollisionFilterIsWhiteList && bIsInCollidableFilterList)
+			bCanCollide = true;
+		else if (!bCollisionFilterIsWhiteList && !bIsInCollidableFilterList)
+			bCanCollide = true;
+		else
+			bCanCollide = false;
 
 		if (bCheckOtherFilterList)
 			bCanCollide = bCanCollide && Collidable->CanCollideWith(this, false); // if check other, then 1 and 1 -> 1 else -> 0

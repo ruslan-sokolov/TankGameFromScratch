@@ -29,7 +29,7 @@ namespace Game {
 	Boom* Boom::SpawnBoomBig(Level* Level, const Vec2& Position)
 	{
 		auto BoomBig = Level->SpawnActorFromClass<Boom>("BoomBig", Position, Anchor::CENTER,
-			std::initializer_list{ ResPath::T_BOOM_BIG_0, ResPath::T_BOOM_BIG_1, ResPath::T_BOOM_SMALL_0, ResPath::T_BOOM_SMALL_1, ResPath::T_BOOM_SMALL_2 },
+			std::initializer_list{ResPath::T_BOOM_SMALL_0, ResPath::T_BOOM_SMALL_1, ResPath::T_BOOM_SMALL_2, ResPath::T_BOOM_BIG_0, ResPath::T_BOOM_BIG_1 },
 			GameConst::BOOM_SMALL_ANIM_SPEED);
 
 		return BoomBig;

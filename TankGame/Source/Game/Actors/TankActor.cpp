@@ -7,8 +7,8 @@
 #include <Game/Gameplay/TankiGameMode.h>
 #include <Game/Gameplay/TankiAIController.h>
 #include <Game/Gameplay/TankiPlayerController.h>
+#include <Game/Actors/BoomActor.h>
 
-// debug
 #include <Framework2D/Systems/SystemTimer.h>
 
 namespace Game {
@@ -93,34 +93,33 @@ namespace Game {
 		}
 	}
 
-	void Tank::DebugHit()
+	void Tank::TankHitFX()
 	{
-		SpriteComp_Down->GetSprite()->SetColor(Vec4::WhiteColor);
-		SpriteComp_Up->GetSprite()->SetColor(Vec4::WhiteColor);
-		SpriteComp_Left->GetSprite()->SetColor(Vec4::WhiteColor);
-		SpriteComp_Right->GetSprite()->SetColor(Vec4::WhiteColor);
-	}
+		Boom::SpawnBoomBig(GetLevel(), Position);
 
-	void Tank::OnDeath()
-	{
-		// todo: check if possesed by PC -> tryRepawn()
-
-		// todo: check if drop pickable on death -> DropPickable()
-
-		// Destroy();
-
-		
-		HealthComp->SetHealth(HealthComp->GetBaseHealth());
-		
 		SpriteComp_Down->GetSprite()->SetColor(Vec4::RedColor);
 		SpriteComp_Up->GetSprite()->SetColor(Vec4::RedColor);
 		SpriteComp_Left->GetSprite()->SetColor(Vec4::RedColor);
 		SpriteComp_Right->GetSprite()->SetColor(Vec4::RedColor);
 
-		GAME_LOG(info, "Tank hit");
-
 		TimerHandle TimerHandle_Empty;
-		SystemTimer::SetTimer(TimerHandle_Empty, TIMER_CALLBACK(Tank::DebugHit), 1.0f);
+		SystemTimer::SetTimer(TimerHandle_Empty, TIMER_CALLBACK(Tank::TankHitFX_End), 0.5f);
+	}
+
+	void Tank::TankHitFX_End()
+	{
+		Destroy();
+	}
+
+	void Tank::OnDeath()
+	{
+		bCanMove = false;
+
+		// todo: check if possesed by PC -> tryRepawn()
+
+		// todo: check if drop pickable on death -> DropPickable()
+	
+		TankHitFX();
 	}
 
 	inline EntityComponent<SpriteFlipFlop>* Tank::GetDirectionSpriteComp(Direction Dir)
@@ -167,6 +166,8 @@ namespace Game {
 
 	void Tank::MoveBegin(Direction DirectionTo)
 	{
+		if (HealthComp->IsDead()) return;
+
 		ChangeDirection(DirectionTo);
 		EnableMoveAnim(true, DirectionTo);
 		
@@ -183,7 +184,7 @@ namespace Game {
 
 	void Tank::Fire()
 	{
-		// if (IsPossesedByPlayerController() && ActiveBullet) return;  // player can only shoot if prev bullet is destroyed
+		if (IsPossesedByPlayerController() && ActiveBullet) return;  // player can only shoot if prev bullet is destroyed
 
 		ActiveBullet = Bullet::SpawnBasicBullet(this);
 	}
