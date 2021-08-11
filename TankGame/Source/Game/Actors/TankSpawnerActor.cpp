@@ -59,6 +59,9 @@ namespace Game {
 
 		TankSpawnPoint& RandSpawnPoint = SpawnPoints[RandIndex];
 
+		// debug
+		GAME_LOG(info, "Rand Spawn Point {}", RandSpawnPoint.SpawnPosition);
+
 		return RandSpawnPoint;
 	}
 
@@ -76,35 +79,35 @@ namespace Game {
 			
 			Destroy();
 		}
-		//else
-		//{
-		//	// spawn enemy tank
-		//	auto SpawnedTank = Tank::SpawnBasicTank(GetLevel(), GetRandSpawnPoint(), TankType::EnemyTank);
-		//
-		//	// add enemy tank to AI Controller
-		//	if (EnemyAICon) EnemyAICon->AddTank(SpawnedTank);
-		//
-		//	// check flashy tank, incr SpawnedTankNum
-		//	for (auto& FlashyIndex : FlashyTankNums)
-		//	{
-		//		if (SpawnedTankNum == FlashyIndex)
-		//		{
-		//			SpawnedTank->bDropPickableOnDeath = true;
-		//
-		//			// debug
-		//			GAME_LOG(info, "TANKSPAWNER Flashy index used: {}", SpawnedTankNum - 1);
-		//		}
-		//	}
-		//	
-		//	// incr spawner tank num
-		//	++SpawnedTankNum;
-		//
-		//	// reset spawn timer
-		//	// ResetSpawnTimer();
-		//
-		//	// debug
-		//	GAME_LOG(info, "TANKSPAWNER SPAWNED num: {}", SpawnedTankNum);
-		//}
+		else
+		{
+			// spawn enemy tank
+			auto SpawnedTank = Tank::SpawnBasicTank(GetLevel(), GetRandSpawnPoint(), TankType::EnemyTank);
+
+			// add enemy tank to AI Controller
+			if (EnemyAICon) EnemyAICon->AddTank(SpawnedTank);
+		
+			// check flashy tank, incr SpawnedTankNum
+			for (auto& FlashyIndex : FlashyTankNums)
+			{
+				if (SpawnedTankNum == FlashyIndex)
+				{
+					SpawnedTank->bDropPickableOnDeath = true;
+		
+					// debug
+					GAME_LOG(info, "TANKSPAWNER Flashy index used: {}", SpawnedTankNum - 1);
+				}
+			}
+
+			// incr spawner tank num
+			++SpawnedTankNum;
+		
+			// reset spawn timer
+			ResetSpawnTimer();
+		
+			// debug
+			GAME_LOG(info, "TANKSPAWNER SPAWNED num: {}", SpawnedTankNum);
+		}
 	}
 
 

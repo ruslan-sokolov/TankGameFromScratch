@@ -99,8 +99,6 @@ namespace Framework2D
 		glGenBuffers(1, &QuadIB); // generate index buffer
 
 		shader = ResourceLoader::GetShader(ShaderType::QuadBatchColor);
-
-		glDrawElements(GL_TRIANGLES, 6 * VertQuads.size(), GL_UNSIGNED_INT, NULL);  // draw call
 	}
 
 	template<> template<> 

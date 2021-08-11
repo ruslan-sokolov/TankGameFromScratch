@@ -11,7 +11,7 @@ namespace Game {
 		: Actor(Name, Position)
 	{
 		// Enable static collision
-		EnableCollision(false);
+		EnableCollision(CollisionType::CT_Static);
 
 		// Create actor components
 		SpriteComp = new EntityComponent<SpriteEntity>((Actor*)this, Name, Position, TexPath.c_str());

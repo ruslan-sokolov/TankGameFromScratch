@@ -117,6 +117,7 @@ namespace Game {
 			LoadTextures();
 
 			Game2D* game = GetGame();
+			game->OnInitialize();
 			
 			// bg sprite
 			Layer2D* MainLayer = game->GetMainLayer();

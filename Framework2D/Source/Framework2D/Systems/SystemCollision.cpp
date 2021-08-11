@@ -3,6 +3,9 @@
 
 #include <Framework2D/Graphic2D/Entities/BaseEntity.h>
 
+// debug
+// #include <Framework2D/Gameplay/Game2D.h>
+
 namespace Framework2D {
 
 	// for now this function only generetes CF_BLOCK when collided
@@ -38,7 +41,7 @@ namespace Framework2D {
 
 				if (CollidableLeft->CanCollideWith(CollidableRight, true))  // process black/white list filter
 				{
-					if (CollidableLeft->IsCollidingWith(CollidableLeft->GetPosition(true), CollidableRight, CollidableRight->GetPosition(true)))
+					if (CollidableLeft->IsCollidingWith(CollidableRight, CollidableRight->GetPosition()))
 					{
 						CollidableLeft->LastCollisonResult.UpdateResult(CollidableLeft, CollidableRight);
 						CollidableRight->LastCollisonResult.UpdateResult(CollidableRight, CollidableLeft);
@@ -47,9 +50,9 @@ namespace Framework2D {
 			}
 		}
 
-		// Check dynamic against dynamic (loop with unique pairs traversing
+		// Check dynamic against dynamic (loop with unique pairs traversing)
 	    // complexity: 0.5 * m * (m - 1), total complexity: 0.5 * m * (m - 1) + m * n, but consider that m is small
-		for (IterLeft = DynamicCollidables.begin(); std::next(IterLeft) != DynamicCollidables.end(); IterLeft++)
+		for (IterLeft = DynamicCollidables.begin(); std::next(IterLeft) != DynamicCollidables.end(); ++IterLeft)
 		{
 			CollidableLeft = *(IterLeft);
 		
@@ -64,25 +67,17 @@ namespace Framework2D {
 		
 				if (CollidableLeft->CanCollideWith(CollidableRight, true))  // process black/white list filter
 				{
-					if (CollidableLeft->IsCollidingWith(CollidableLeft->GetPosition(true), CollidableRight, CollidableRight->GetPosition(true)))
+					if (CollidableLeft->IsCollidingWith(CollidableRight, CollidableRight->GetPosition(true)))
 					{
+						// dbg
+						// GetGame()->DrawDebugBox(CollidableRight->PrevPosition, CollidableRight->GetSize(), Vec4::BlueColor, 1);
+		
 						CollidableLeft->LastCollisonResult.UpdateResult(CollidableLeft, CollidableRight);
 						CollidableRight->LastCollisonResult.UpdateResult(CollidableRight, CollidableLeft);
 					}
 				}
 			}
 		}
-
-		// Handle onCollide() for Static collidables, no need to call this actually
-		//for (IterLeft = StaticCollidables.begin(); IterLeft != StaticCollidables.end(); ++IterLeft)
-		//{
-		//	CollidableLeft = *(IterLeft);
-		//
-		//	CollisionCheckResult& Result = CollidableLeft->LastCollisonResult;
-		//
-		//	if (Result.bCollided)
-		//		CollidableLeft->OnCollide(Result.LastCollided, CollisionFilter::CF_BLOCK);
-		//}
 
 		// Handle onCollide() and Position Sweep for Dynamic collidables
 		for (IterLeft = DynamicCollidables.begin(); IterLeft != DynamicCollidables.end(); ++IterLeft)

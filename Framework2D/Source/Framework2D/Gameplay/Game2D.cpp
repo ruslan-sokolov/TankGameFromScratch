@@ -4,7 +4,7 @@
 #include <Framework2D/Layers/Layer2D.h>
 #include <Framework2D/Layers/LayerSystem.h>
 #include <Framework2D/Layers/LayerGameplay.h>
-
+#include <Framework2D/Layers/Layer2DDebug.h>
 
 namespace Framework2D {
 	
@@ -16,6 +16,7 @@ namespace Framework2D {
 	{
 		// create layers
 		SystemLayer = new LayerSystem("SystemLayer");
+		DebugLayer = new Layer2DDebug("DebugLayer");
 		HUDLayer = new Layer2D("HUDLayer");
 		MainLayer = new Layer2D("MainLayer");
 		GameplayLayer = new LayerGameplay("GameplayLayer");
@@ -24,6 +25,12 @@ namespace Framework2D {
 		PushLayer(GameplayLayer);
 		PushOverlay(HUDLayer);
 		PushOverlay(SystemLayer);
+		PushOverlay(DebugLayer);
+	}
+
+	void Game2D::OnInitialize()
+	{
+		DebugLayer->OnInitialize();
 	}
 
 	Game2D::~Game2D()
@@ -33,8 +40,23 @@ namespace Framework2D {
 		delete CurrentGameMode;
 		delete HUDLayer;
 		delete MainLayer;
+		delete DebugLayer;
 	}
 	
+	void Game2D::DragDebugSolid(const Vec2& Position, const Vec2& Size, const Vec4& Color, float Time)
+	{
+		ENGINE_ASSERT(DebugLayer, "DebugLayer is nullptr!!!");
+
+		if (DebugLayer) DebugLayer->DrawDebugSolid(Position, Size, Color, Time);
+	}
+
+	void Game2D::DrawDebugBox(const Vec2& Position, const Vec2& Size, const Vec4& Color, float Time)
+	{
+		ENGINE_ASSERT(DebugLayer, "DebugLayer is nullptr!!!");
+
+		if (DebugLayer) DebugLayer->DrawDebugBox(Position, Size, Color, Time);
+	}
+
 	inline void Game2D::ChangeGameMode(GameMode* NewGameMode, bool bAutoStart)
 	{
 		auto PrevGM = CurrentGameMode;

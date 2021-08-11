@@ -16,6 +16,9 @@ namespace Framework2D {
 		GroupSolid(const std::string& GroupName);
 		~GroupSolid();
 
+		inline std::vector<BaseEntity*>::iterator begin() { return Entities.begin(); }
+		inline std::vector<BaseEntity*>::iterator end() { return Entities.end(); }
+
 		void OnUpdate(float DeltaTime) override;
 		void OnDraw() override;
 

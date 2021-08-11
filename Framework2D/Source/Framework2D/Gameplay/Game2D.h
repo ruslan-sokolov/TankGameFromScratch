@@ -11,6 +11,7 @@ namespace Framework2D {
 
 	class LayerSystem;
 	class Layer2D;
+	class Layer2DDebug;
 	class LayerGameplay;
 
 	class FRAMEWORK2D_API Game2D : public Engine::Application
@@ -18,6 +19,7 @@ namespace Framework2D {
 		// Engine layers
 		LayerSystem* SystemLayer;
 		Layer2D* HUDLayer;
+		Layer2DDebug* DebugLayer;
 		Layer2D* MainLayer;
 		LayerGameplay* GameplayLayer;
 
@@ -36,6 +38,7 @@ namespace Framework2D {
 			const Vec2& GameBoundLeft, const Vec2& GameBoundRight);
 
 	public:
+		void OnInitialize();
 		inline ~Game2D();
 
 		inline LayerSystem* GetSystemLayer() const { return SystemLayer; }
@@ -50,7 +53,11 @@ namespace Framework2D {
 		inline GameMode* GetCurrentGameMode() const { return CurrentGameMode; }
 		inline void ChangeGameMode(GameMode* NewGameMode, bool bAutoStart = true);
 
+		void DragDebugSolid(const Vec2& Position, const Vec2& Size, const Vec4& Color = Vec4::MagentaColor, float Time = 0.f);
+		void DrawDebugBox(const Vec2& Position, const Vec2& Size, const Vec4& Color = Vec4::MagentaColor, float Time = 0.f);
+
 		static Game2D* Instance;
+
 	};
 
 	// Scripting usefull functions

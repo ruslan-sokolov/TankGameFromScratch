@@ -59,33 +59,21 @@ namespace Framework2D {
 		template<class T, class... Args>
 		T* SpawnActorFromClass(const std::string& Name, const Vec2& Pos, Anchor Anchor, Args&&... args)
 		{
+			// create actor
 			T* SpawnedActor = new T(Name, Pos, std::forward<Args>(args)...);
 
-			// anchor pos offset
-			SpawnedActor->SetPosition(Pos - GetAnchorOffset(SpawnedActor->GetSize(), Anchor));
-			
+			// anchor pos offset and sweep position handle
+			Vec2 PosOffseted = Pos - GetAnchorOffset(SpawnedActor->GetSize(), Anchor);
+			bool bSweepPosition = SpawnedActor->IsCollisionDynamic();
+			SpawnedActor->SetPosition(PosOffseted, bSweepPosition);
+
+			// register actor on level
 			SpawnedActor->LevelOwner = this;
 			Actors.insert(SpawnedActor);
 
 			// GAME_LOG(warn, "Spawned Actor: {}_{} {}", SpawnedActor->GetName(), SpawnedActor->GetId(), (void*)SpawnedActor);
 			return SpawnedActor;
 		}
-
-		//// todo: some kind of fabric generic method for variadic params
-		//template <class T>
-		//T* SpawnActorFromClassWithDirection(const std::string& Name, const Vec2& Pos, Direction Dir = Direction::UP, Anchor Anchor = //Anchor::TOP_LEFT)
-		//{
-		//	T* SpawnedActor = new T(Name, Pos, Dir);
-		//
-		//	// anchor pos offset
-		//	SpawnedActor->SetPosition(Pos - GetAnchorOffset(SpawnedActor->GetSize(), Anchor));
-		//
-		//	SpawnedActor->LevelOwner = this;
-		//	Actors.insert(SpawnedActor);
-		//
-		//	GAME_LOG(warn, "Spawned Actor: {}_{}", SpawnedActor->GetName(), SpawnedActor->GetId());
-		//	return SpawnedActor;
-		//}
 
 		inline void RemoveActor(Actor* ActorToRemove);
 		

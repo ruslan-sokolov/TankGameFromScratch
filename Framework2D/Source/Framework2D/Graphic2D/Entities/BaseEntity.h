@@ -4,8 +4,9 @@
 
 #include <Framework2D/Structs/Vectors.h>
 #include <Framework2D/Structs/Direction.h>
-#include <Framework2D/Structs/Collision.h>
 #include <Framework2D/Structs/Anchor.h>
+
+#include <Framework2D/Structs/Collision.h>
 
 #include <Framework2D/Gameplay/Game2D.h>
 
@@ -13,6 +14,7 @@ namespace Framework2D {
 
 	class Group;
 	class SystemCollision;
+
 
 	class FRAMEWORK2D_API BaseEntity
 	{
@@ -33,7 +35,7 @@ namespace Framework2D {
 		Vec2 Size;
 		Vec2 Position;
 
-		bool bIsDynamicCollision = false;
+		CollisionType Collision = CollisionType::CT_Static;
 		/** control if Collision Ignore Is BlackList or WhiteList */
 		bool bCollisionFilterIsWhiteList = false;
 		/** collision filter list, can work as blacklist or as whitelist */
@@ -61,10 +63,14 @@ namespace Framework2D {
 		inline void SetEnableRender(bool bEnable) { bRenderEnabled = bEnable; }
 		inline bool IsRenderEnabled() const { return bRenderEnabled;}
 
-		inline void EnableCollision(bool bIsDynamic = false /* mean if object can move */);
+		inline void EnableCollision(CollisionType Type = CollisionType::CT_Static);
 		inline void DisableCollision();
 		inline bool IsCollisionEnabled() const { return bCollisionEnabled; }
-		inline bool IsCollisionDynamic() const { return bCollisionEnabled & bIsDynamicCollision; }
+		inline bool IsCollisionDynamic() const { return bCollisionEnabled && (Collision == CollisionType::CT_Dynamic || Collision == CollisionType::CT_Projectile); }
+		
+		// if projectile very fast ( it can trevel through one corner of game area to another)
+		// then it's should be very dynamic to collide with something in the way
+		inline bool IsCollisionVeryDynamic() const { return bCollisionEnabled && Collision == CollisionType::CT_Projectile; }
 		inline bool IsLastTimeCollisionPositive() const { return LastCollisonResult.bCollided; }
 		inline CollisionCheckResult GetLastCollisionResult() const { return LastCollisonResult; }
 
@@ -98,137 +104,24 @@ namespace Framework2D {
 				CollisionFilterList.erase(It);
 		}
 
-	protected:
 		// Collision Block ----------------------------------------------------------------------------------------------- //
-
+	public:
 		/** Raw check for two Boxed object collision. Should be accessible only form class SystemCollision */
-		inline bool IsCollidingWith(const Vec2& Position, BaseEntity* Other, const Vec2& OtherPosition)
-		{
-			if (Other == nullptr) return false;
-
-			Vec2 OtherSize = Other->GetSize();
-
-			if (Position.X < OtherPosition.X + OtherSize.X && Position.X + Size.X > OtherPosition.X &&
-				Position.Y < OtherPosition.Y + OtherSize.Y && Position.Y + Size.Y > OtherPosition.Y)
-				return true;
-			else
-				return false;
-		}
+		inline bool IsCollidingWith(BaseEntity* Other, const Vec2& OtherPosition);
 
 		/** Handle Collidable Black/White list. Should be accessible only from class SystemCollision  */
-		inline bool CanCollideWith(BaseEntity* Collidable, bool bCheckOtherFilterList = false)
-		{
-			std::vector<BaseEntity*>::iterator Iter;
-			Iter = std::find(CollisionFilterList.begin(), CollisionFilterList.end(), Collidable);
+		inline bool CanCollideWith(BaseEntity* Collidable, bool bCheckOtherFilterList = false);
 
-			bool bIsInCollidableFilter = Iter != CollisionFilterList.end();
+		/** Check if entity bound in game area setted in Game2D */
+		inline bool IsPosGameBound(const Vec2& NewPosition);
 
-			bool bCanCollide = !(bIsInCollidableFilter ^ bCollisionFilterIsWhiteList); // XNOR, if 1 and 1 -> 1, elif 0 and 0 -> 1, else -> 0
-
-			if (bCheckOtherFilterList)
-				bCanCollide = bCanCollide && Collidable->CanCollideWith(this, false); // if check other, then 1 and 1 -> 1 else -> 0
-
-			return bCanCollide;
-		}
-
-		inline bool IsPosGameBound(const Vec2& NewPosition)
-		{
-			auto Game = GetGame();
-			const Vec2& BoundLeft = Game->GetGameBoundLeft();
-			const Vec2& BoundRight = Game->GetGameBoundRight();
-			
-			if (NewPosition.X < BoundLeft.X) return false;
-			if (NewPosition.X + Size.X > BoundRight.X) return false;
-			if (NewPosition.Y < BoundLeft.Y) return false;
-			if (NewPosition.Y + Size.Y > BoundRight.Y) return false;
-
-			return true;
-		}
-
-		inline void SetPosBoundClamped(Vec2 NewPosition)
-		{
-			auto Game = GetGame();
-			const Vec2& BoundLeft = Game->GetGameBoundLeft();
-			const Vec2& BoundRight = Game->GetGameBoundRight();
-
-			// clamp x
-			if (NewPosition.X < BoundLeft.X)
-			{
-				NewPosition.X = BoundLeft.X;
-			}
-			else if (NewPosition.X + Size.X > BoundRight.X)
-			{
-				NewPosition.X = BoundRight.X - Size.X;
-			}
-
-			// clamp y
-			if (NewPosition.Y < BoundLeft.Y)
-			{
-				NewPosition.Y = BoundLeft.Y;
-			}
-			else if (NewPosition.Y + Size.Y > BoundRight.Y)
-			{
-				NewPosition.Y = BoundRight.Y - Size.Y;
-			}
-
-			// set new position
-			Position = NewPosition;
-		}
+	protected:
+		inline void SetPosBoundClamped(Vec2 NewPosition);
 		 
-		inline void SetPosBlockClamped(const Vec2& NewPosition, BaseEntity* Blocker)
-		{
-			Vec2 DeltaPos = NewPosition - Position;
-			Vec2 BlockerSize = Blocker->Size;
-			Vec2 BlockerPos = Blocker->Position;
-			
-			Vec2 FixedPos = NewPosition;
-
-			if (DeltaPos.X > 0)  // NewPosition is on the right side from old Position and on left from blocker
-			{
-				FixedPos.X = BlockerPos.X - Size.X;  // Set to blocker left side x
-			}
-			else if (DeltaPos.X < 0)
-			{
-				FixedPos.X = BlockerPos.X + BlockerSize.X; // Set to blocker right side x
-			}
-			else if (DeltaPos.Y > 0)  // New Position is lower from old position and higher from blocker
-			{
-				FixedPos.Y = BlockerPos.Y - Size.Y;  // Set to blocker top y
-			}
-			else if (DeltaPos.Y < 0)
-			{
-				FixedPos.Y = BlockerPos.Y + BlockerSize.Y; // set to blocker bottom y
-			}
-			else 
-			{
-				return;
-			}
-
-			// set new position
-			Position = FixedPos;
-		}
+		inline void SetPosBlockClamped(const Vec2& NewPosition, BaseEntity* Blocker);
 
 		// Call only in class SystemCollision
-		inline void HandleSweepPosition(const Vec2& NewPosition, const CollisionCheckResult& CollisionResult)
-		{
-			if (CollisionResult.bCollided)
-			{
-				SetPosBlockClamped(NewPosition, CollisionResult.LastCollided);
-				return;
-			}
-
-			if (!IsPosGameBound(NewPosition))
-			{
-				SetPosBoundClamped(NewPosition);
-				OnCollide(InvisibleWall, CollisionFilter::CF_BLOCK);
-				return;
-			}
-
-			PrevPosition = Position;
-			bPrevPositionRelevent = true;
-			Position = NewPosition;
-			bNextPositionRelevent = false;
-		}
+		inline void HandleSweepPosition(const Vec2& NewPosition, const CollisionCheckResult& CollisionResult);
 
 		// Collision Block End ------------------------------------------------------------------------------------------- //
 

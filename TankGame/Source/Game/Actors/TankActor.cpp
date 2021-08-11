@@ -8,6 +8,8 @@
 #include <Game/Gameplay/TankiAIController.h>
 #include <Game/Gameplay/TankiPlayerController.h>
 
+// debug
+#include <Framework2D/Systems/SystemTimer.h>
 
 namespace Game {
 
@@ -31,7 +33,7 @@ namespace Game {
 		: Actor(Name, Position), CurrentDirection(StartDirection), Speed(Speed), MoveAnimRate(MoveAnimRate)
 	{
 		// Enable collision
-		EnableCollision(true);
+		EnableCollision(CollisionType::CT_Dynamic);
 
 		// Create actor components
 		SpriteComp_Up = new EntityComponent<SpriteFlipFlop>((Actor*)this, "FFSpriteUp" + Name, Position, MoveAnimRate, Skin.Up_0, Skin.Up_1);
@@ -91,13 +93,34 @@ namespace Game {
 		}
 	}
 
+	void Tank::DebugHit()
+	{
+		SpriteComp_Down->GetSprite()->SetColor(Vec4::WhiteColor);
+		SpriteComp_Up->GetSprite()->SetColor(Vec4::WhiteColor);
+		SpriteComp_Left->GetSprite()->SetColor(Vec4::WhiteColor);
+		SpriteComp_Right->GetSprite()->SetColor(Vec4::WhiteColor);
+	}
+
 	void Tank::OnDeath()
 	{
 		// todo: check if possesed by PC -> tryRepawn()
 
 		// todo: check if drop pickable on death -> DropPickable()
 
-		Destroy();
+		// Destroy();
+
+		
+		HealthComp->SetHealth(HealthComp->GetBaseHealth());
+		
+		SpriteComp_Down->GetSprite()->SetColor(Vec4::RedColor);
+		SpriteComp_Up->GetSprite()->SetColor(Vec4::RedColor);
+		SpriteComp_Left->GetSprite()->SetColor(Vec4::RedColor);
+		SpriteComp_Right->GetSprite()->SetColor(Vec4::RedColor);
+
+		GAME_LOG(info, "Tank hit");
+
+		TimerHandle TimerHandle_Empty;
+		SystemTimer::SetTimer(TimerHandle_Empty, TIMER_CALLBACK(Tank::DebugHit), 1.0f);
 	}
 
 	inline EntityComponent<SpriteFlipFlop>* Tank::GetDirectionSpriteComp(Direction Dir)
@@ -160,7 +183,7 @@ namespace Game {
 
 	void Tank::Fire()
 	{
-		if (IsPossesedByPlayerController() && ActiveBullet) return;  // player can only shoot if prev bullet is destroyed
+		// if (IsPossesedByPlayerController() && ActiveBullet) return;  // player can only shoot if prev bullet is destroyed
 
 		ActiveBullet = Bullet::SpawnBasicBullet(this);
 	}

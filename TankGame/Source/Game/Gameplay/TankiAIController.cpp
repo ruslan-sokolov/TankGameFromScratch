@@ -77,6 +77,7 @@ namespace Game {
 					Brain.TimeSinceLastCollide = 0.f;
 					Brain.LastPositiveCollidedResult = std::move(AITank->GetLastCollisionResult());
 
+					// check for on collision for stop once per sec
 					TankStop(Brain);
 				}
 

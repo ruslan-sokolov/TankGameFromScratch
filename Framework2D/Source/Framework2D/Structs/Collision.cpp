@@ -9,7 +9,7 @@ namespace Framework2D {
 	{
 		bCollided = true;
 
-		int CollidableDistance = (Left->GetPosition() - Right->GetPosition()).Size();
+		int CollidableDistance = (Left->GetCenterPosition() - Right->GetCenterPosition()).Size();
 
 		if (LastCollided == nullptr || CollidableDistance <= Distance)
 		{
