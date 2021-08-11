@@ -116,9 +116,7 @@ namespace Game {
 		PlayerSpawnPoint = TankSpawnPoint(BasePosition - ChunkOffset_X * 2, Direction::UP, Anchor::BOTTOM);
 		RespawnPlayerTank();
 
-		// todo: add player base
-		PlayerBase = nullptr;
-
+		PhoenixBase::SpawnDefaultBase(this, BasePosition, Anchor::BOTTOM);
 		EnemyTankSpawner = TankSpawner::CreateBasicTankAISpawnerCorners(this);
 	}
 
@@ -138,6 +136,7 @@ namespace Game {
 				// activate enemy tank spawner
 				EnemyTankSpawner->SetEnemyAIController(AICon);
 				EnemyTankSpawner->SetActivate(true);
+				EnemyTankSpawner = nullptr;
 			}
 			else
 			{

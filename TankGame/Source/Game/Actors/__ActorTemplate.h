@@ -31,6 +31,7 @@ namespace Game {
 		// will be called when actor overlaps with other entity with enabled collision
 		virtual void OnCollide(BaseEntity* Other, CollisionFilter Filter) override;
 
-
+		// will be called when Destroy() called
+		virtual void OnDestroy() override;
 	};
 }

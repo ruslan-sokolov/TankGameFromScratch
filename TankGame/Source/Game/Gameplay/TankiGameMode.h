@@ -36,8 +36,6 @@ namespace Game {
 		virtual void OnEnd() override;
 		virtual void OnRestart() override;
 
-		inline PhoenixBase* GetLevelPhoenixBase();
-
 		/** called in base instance */
 		void OnBaseDestroyed();
 

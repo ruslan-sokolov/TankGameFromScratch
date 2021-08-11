@@ -64,15 +64,15 @@ namespace Framework2D {
 
 	inline Game2D* GetGame() { return Game2D::Instance; }
 	
-	inline GameMode* GetGM() { Game2D::Instance ? Game2D::Instance->GetCurrentGameMode() : nullptr; }
+	inline GameMode* GetGM() { return Game2D::Instance ? Game2D::Instance->GetCurrentGameMode() : nullptr; }
 	
-	inline Level* GetLevel() { if (auto GM = GetGM()) GM->GetLevel(); }
+	inline Level* GetLevel() { if (auto GM = GetGM()) return GM->GetLevel(); else return nullptr; }
 	
-	inline PlayerController* GetPlayerController() { if (auto GM = GetGM()) GM->GetLevel(); }
+	inline PlayerController* GetPlayerController() { if (auto GM = GetGM()) return GM->GetPlayerController(); else return nullptr; }
 	
-	inline HUD* GetHUD() { if (auto GM = GetGM()) GM->GetHUD(); }
+	inline HUD* GetHUD() { if (auto GM = GetGM()) return GM->GetHUD(); else return nullptr; }
 	
-	inline AIController* GetAIController() { if (auto GM = GetGM()) GM->GetAIController(); }
+	inline AIController* GetAIController() { if (auto GM = GetGM()) return GM->GetAIController(); else return nullptr; }
 
 	//
 

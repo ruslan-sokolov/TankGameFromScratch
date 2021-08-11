@@ -8,7 +8,7 @@ namespace Game {
 		: Actor(Name, Position)
 	{
 		// Enable collision
-		//EnableCollision(false);
+		//EnableCollision(CollisionType::CT_Static);
 
 		// Create actor components
 		auto* TankUp = new EntityComponent<SpriteEntity>((Actor*)this, Name, Position,
@@ -32,4 +32,8 @@ namespace Game {
 
 	}
 
+	void __ActorTemplate::OnDestroy() 
+	{
+
+	}
 }

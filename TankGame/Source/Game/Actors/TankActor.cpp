@@ -116,14 +116,11 @@ namespace Game {
 
 	void Tank::OnDeath()
 	{
-		if (!HealthComp->IsDead())
-		{
-			bCanMove = false;
+		bCanMove = false;
 			
-			if (bDropPickableOnDeath) DropPickable();
+		if (bDropPickableOnDeath) DropPickable();
 
-			TankHitFX();
-		}
+		TankHitFX();
 	}
 
 	inline EntityComponent<SpriteFlipFlop>* Tank::GetDirectionSpriteComp(Direction Dir)

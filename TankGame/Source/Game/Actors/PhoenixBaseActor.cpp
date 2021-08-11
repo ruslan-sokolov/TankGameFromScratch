@@ -1,8 +1,11 @@
 #include "PhoenixBaseActor.h"
 
-#include <Framework2D/Gameplay/Level.h>
-#include <Game/Game.h>
+
 #include <Framework2D/Gameplay/Actor/Components/EntityComponent.h>
+#include <Framework2D/Gameplay/Level.h>
+
+#include <Game/Game.h>
+#include <Game/Gameplay/TankiGameMode.h>
 
 namespace Game {
 
@@ -10,28 +13,31 @@ namespace Game {
 		: Actor(Name, Position)
 	{
 		// Enable collision
-		//EnableCollision(false);
+		EnableCollision(CollisionType::CT_Static);
 
 		// Create actor components
-		auto* TankUp = new EntityComponent<SpriteEntity>((Actor*)this, Name, Position,
-			ResPath::T_TANK_UP_0);
-		//auto TankLeft = new EntityComponent<SpriteFlipFlop>((Actor*)this, Name, Position, 0.3f, ResPath::T_TANK_LEFT_0, ResPath::T_TANK_LEFT_1);
-		//TankLeft->SetRelativePosition({ 50, 0 });
-		//auto BoomComp = new EntityComponent<SpriteSequence>((Actor*)this, Name, Position, 1.f,
-		//	std::initializer_list<const char*>{ ResPath::T_BOOM_BIG_0, ResPath::T_BOOM_BIG_1, ResPath::T_BOOM_SMALL_0, ResPath::T_BOOM_SMALL_1, ResPath::T_BOOM_SMALL_2 });
+		auto* Sprite = new EntityComponent<SpriteEntity>((Actor*)this, Name, Position, ResPath::T_PHOENIX_PNG);
+		
+		HealthComp = new HealthComponent(this);
+		HealthComp->SetHealth(GameConst::PHOENIX_BASE_HEALTH);
+		HealthComp->SetOnDeathCb(HEALTH_ON_DEATH_CB(PhoenixBase::OnDeath));
 
 		// Initialize actor size
-		SetSize(TankUp->GetSize());
+		SetSize(Sprite->GetSize());
 	}
 
-	void PhoenixBase::OnTick(float DeltaTime)
+	void PhoenixBase::OnDeath()
 	{
+		if (auto GM = dynamic_cast<TankiGameMode*>(GetGM()))
+		{
+			GM->OnBaseDestroyed();
+		}
 
+		Destroy();
 	}
 
-	void PhoenixBase::OnCollide(BaseEntity* Other, CollisionFilter Filter)
+	PhoenixBase* PhoenixBase::SpawnDefaultBase(Level* Level, const Vec2& Position, Anchor Anchor)
 	{
-
+		return Level->SpawnActorFromClass<PhoenixBase>("PlayerBase", Position, Anchor);
 	}
-
 }

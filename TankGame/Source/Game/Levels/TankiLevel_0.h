@@ -11,7 +11,6 @@ namespace Game {
 	{
 		Tank* PlayerTank;
 		TankSpawnPoint PlayerSpawnPoint;
-		class PhoenixBase* PlayerBase;
 		class TankSpawner* EnemyTankSpawner;
 
 
@@ -21,9 +20,6 @@ namespace Game {
 		virtual void OnStart() override;
 
 		Tank* GetPlayerTank() const { return PlayerTank; }
-		PhoenixBase* GetPlayerBase() const { return PlayerBase; }
-		TankSpawner* GetEnemySpawner() const { return EnemyTankSpawner; }
-
 		inline Tank* RespawnPlayerTank();
 
 	};

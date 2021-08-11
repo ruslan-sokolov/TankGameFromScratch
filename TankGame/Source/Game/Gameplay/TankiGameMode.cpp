@@ -38,30 +38,21 @@ namespace Game {
 	{
 		if (bEndConditionIsWin)
 		{
-			GAME_LOG(trace, "GM: YOU WON!!!!");
+			GAME_LOG(warn, "GM: YOU WON!!!!");
 			// todo show win plate
 		}
 		else
 		{
-			GAME_LOG(trace, "GM: YOU LOOSE!!!");
+			GAME_LOG(warn, "GM: YOU LOOSE!!!");
 			// todo show loose plate
 		}
 
 		// inf loop here
-		Restart();
+		// Restart();
 	}
 
 	void TankiGameMode::OnRestart()
 	{
-	}
-
-	inline PhoenixBase* TankiGameMode::GetLevelPhoenixBase()
-	{
-		if (BasicLevel)
-		{
-			return BasicLevel->GetPlayerBase();
-		}
-		return nullptr;
 	}
 
 	void TankiGameMode::OnBaseDestroyed()
