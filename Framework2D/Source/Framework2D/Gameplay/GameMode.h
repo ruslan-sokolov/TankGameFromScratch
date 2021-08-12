@@ -24,11 +24,6 @@ namespace Framework2D
 
 	class FRAMEWORK2D_API GameMode
 	{
-		std::unique_ptr<Level> m_Level;
-		std::unique_ptr<PlayerController> m_PlayerController;
-		std::unique_ptr<HUD> m_HUD;
-		std::unique_ptr<AIController> m_AIController;
-
 		GMState State = (GMState)0;
 
 		friend class LayerGameplay;
@@ -36,6 +31,21 @@ namespace Framework2D
 		inline void Update(float DeltaTime);
 
 		inline void SetState(GMState NewState, bool bForce = false);
+
+		inline void RunInternal(float DeltaTime);
+		inline void StartInternal();
+		inline void EndInternal();
+		inline void RestartInternal();
+
+	protected:
+		Level* m_Level;
+		PlayerController* m_PlayerController;
+		HUD* m_HUD;
+		AIController* m_AIController;
+
+	protected:
+		/** add GM ref to  Level, PC, HUD, AICon, etc.*/
+		inline void Initialize();
 
 	public:
 		GameMode(Level* InLevel, PlayerController* InPlayerController, HUD* InHUD, 
@@ -45,14 +55,14 @@ namespace Framework2D
 		// on gamemode change all shit should be deleted
 		virtual ~GameMode();
 
-		Level* GetLevel() const { return m_Level.get(); }
-		PlayerController* GetPlayerController() const { return m_PlayerController.get(); }
-		HUD* GetHUD() const { return m_HUD.get(); }
-		AIController* GetAIController() const { return m_AIController.get(); }
+		Level* GetLevel() const { return m_Level; }
+		PlayerController* GetPlayerController() const { return m_PlayerController; }
+		HUD* GetHUD() const { return m_HUD; }
+		AIController* GetAIController() const { return m_AIController; }
 
-		inline void Start();
-		inline void Restart();
-		inline void End();
+		void Start();
+		void Restart();
+		void End();
 
 		virtual void OnTick(float DeltaTime) {}
 

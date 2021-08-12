@@ -4,7 +4,6 @@
 
 #include <Game/Gameplay/TankiGameMode.h>
 
-// debug
 #include <Game/Gameplay/TankiAIController.h>
 
 #include <Game/Actors/Blocks/BlockSolidActor.h>
@@ -115,7 +114,7 @@ namespace Game {
 
 		PlayerSpawnPoint = TankSpawnPoint(BasePosition - ChunkOffset_X * 2, Direction::UP, Anchor::BOTTOM);
 		RespawnPlayerTank();
-
+		
 		PhoenixBase::SpawnDefaultBase(this, BasePosition, Anchor::BOTTOM);
 		EnemyTankSpawner = TankSpawner::CreateBasicTankAISpawnerCorners(this);
 	}
@@ -133,7 +132,6 @@ namespace Game {
 		{
 			if (auto AICon = GM->GetCustomAIController())
 			{
-				// activate enemy tank spawner
 				EnemyTankSpawner->SetEnemyAIController(AICon);
 				EnemyTankSpawner->SetActivate(true);
 				EnemyTankSpawner = nullptr;

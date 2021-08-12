@@ -24,6 +24,7 @@ namespace Game {
 
 		bool bEndConditionIsWin;
 
+	
 	public:
 		TankiAIController* GetCustomAIController() const { return AITankController; }
 		TankiPlayerController* GetCustomPlayerTankController() const { return PlayerTankController; }
@@ -47,7 +48,6 @@ namespace Game {
 		
 		/** Check game condition after each dependent event */
 		inline void CheckLooseWinCondition();
-
 	};
 
 }

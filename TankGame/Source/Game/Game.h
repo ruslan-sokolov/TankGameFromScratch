@@ -116,7 +116,7 @@ namespace GameConst
 
 	constexpr auto BRICK_BASIC_HEALTH = 1.0f;
 
-	constexpr auto TANK_SPAWN_NUM_DEFAULT = 5;
+	constexpr auto TANK_SPAWN_NUM_DEFAULT = 20;
 	constexpr auto TANK_SPAWN_RATE_DEFAULT = 3.0f; // sec
 
 	constexpr auto PLAYER_TANK_RESPAWN_NUM = 5;

@@ -8,6 +8,14 @@
 
 #include <Game/Game.h>
 
+#include <Framework2D/Systems/SystemTimer.h>
+
+// debug
+#include <Framework2D/Systems/SystemCollision.h>
+#include <Framework2D/Systems/SystemInput.h>
+#include <Framework2D/Layers/Layer2D.h>
+
+
 namespace Game {
 
 	// todo: looks nasty, fix that later on
@@ -47,12 +55,40 @@ namespace Game {
 			// todo show loose plate
 		}
 
-		// inf loop here
-		// Restart();
+		Restart();
 	}
 
 	void TankiGameMode::OnRestart()
 	{
+		SystemTimer::RemoveAllTimers();
+		SystemCollision::ClearCheckCollisionSet();
+		SystemInput::RemoveAllBinds();
+
+		
+		delete PlayerTankController;
+		PlayerTankController = new TankiPlayerController();
+		m_PlayerController = PlayerTankController;
+		
+		delete AITankController;
+		AITankController = new TankiAIController;
+		m_AIController = AITankController;
+		
+		delete BasicLevel;
+		BasicLevel = new TankiLevel_0();
+		m_Level = BasicLevel;
+		
+		delete CustomHUD;
+		CustomHUD = new TankiHUD();
+		m_HUD = CustomHUD;
+
+		// Pass Tank To Player Controller
+		Tank* PlayerTank = BasicLevel->GetPlayerTank();
+		PlayerTankController->SetControlledTank(PlayerTank);
+		 
+		PlayerRespawnNum = GameConst::PLAYER_TANK_RESPAWN_NUM;
+		EnemyTankToKill = GameConst::TANK_SPAWN_NUM_DEFAULT;
+		bBaseIsDestroyed = false;
+		bEndConditionIsWin = false;
 	}
 
 	void TankiGameMode::OnBaseDestroyed()
