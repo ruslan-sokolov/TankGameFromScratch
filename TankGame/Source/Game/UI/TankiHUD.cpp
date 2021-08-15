@@ -7,7 +7,7 @@ namespace Game {
 
 	}
 
-	void TankiHUD::OnTick(float DeltaTime)
+	void TankiHUD::DrawHUD(float DeltaTime)
 	{
 
 	}

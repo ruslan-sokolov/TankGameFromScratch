@@ -8,15 +8,20 @@ namespace Framework2D {
 
 	class GameMode;
 	class HUDElement;
+	class HUDCanvas;
 
 	class FRAMEWORK2D_API HUD
 	{
-		friend class GameMode;
-		GameMode* GM_Owner = nullptr;
+		friend GameMode;
+		
 		// call OnTick for HUD and it's elements;
-		void Update(float DeltaTime);
+		inline void Update(float DeltaTime);
 
+	protected:
+		GameMode* GM_Owner = nullptr;
+		
 		std::vector<HUDElement*> Elements;
+		HUDCanvas* Canvas;
 
 	public:
 		HUD();
@@ -27,7 +32,7 @@ namespace Framework2D {
 		virtual void OnEnd() {};
 
 		/** Called in GameMode Update() each frame */
-		virtual void OnTick(float DeltaTime) {}
+		virtual void DrawHUD(float DeltaTime) {}
 	};
 
 }

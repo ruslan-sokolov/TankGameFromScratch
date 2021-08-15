@@ -13,12 +13,13 @@ namespace Framework2D {
 	class Layer2D;
 	class Layer2DDebug;
 	class LayerGameplay;
+	class LayerHUD;
 
 	class FRAMEWORK2D_API Game2D : public Engine::Application
 	{
 		// Engine layers
 		LayerSystem* SystemLayer;
-		Layer2D* HUDLayer;
+		LayerHUD* HUDLayer;
 		Layer2DDebug* DebugLayer;
 		Layer2D* MainLayer;
 		LayerGameplay* GameplayLayer;
@@ -42,7 +43,7 @@ namespace Framework2D {
 		inline ~Game2D();
 
 		inline LayerSystem* GetSystemLayer() const { return SystemLayer; }
-		inline Layer2D* GetHUDLayer() const { return HUDLayer; }
+		inline LayerHUD* GetHUDLayer() const { return HUDLayer; }
 		inline Layer2D* GetMainLayer() const { return MainLayer; }
 		inline LayerGameplay* GetGameplayLayer() const { return GameplayLayer; }
 

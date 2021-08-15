@@ -7,7 +7,7 @@
 #include <glm/glm.hpp>
 #include <GL/glew.h>
 
-#include <vector>
+#include "Vertex.h"
 
 namespace Framework2D
 {
@@ -24,30 +24,6 @@ namespace Framework2D
 		static glm::mat4 ProjViewModel;
 
 		inline static void Init(float Width, float Height);
-	};
-
-	struct FRAMEWORK2D_API VertexBatchTexture
-	{
-		Vec2 Position;
-		Vec4 Color;
-		Vec2 TexCoord;
-		float TextureSlot;
-	};
-
-	struct FRAMEWORK2D_API VertexBatchTextureQuad
-	{
-		VertexBatchTexture Vertices[4];
-	};
-
-	struct FRAMEWORK2D_API VertexBatchColor
-	{
-		Vec2 Position;
-		Vec4 Color;
-	};
-
-	struct FRAMEWORK2D_API VertexBatchColorQuad
-	{
-		VertexBatchColor Vertices[4];
 	};
 
 	template <typename T>  // primary template
@@ -185,13 +161,13 @@ namespace Framework2D
 
 	template <typename T> inline void Renderer<T>::PushVertexQuad(const T& VertQuad)
 	{
-		VertQuads.push_back(VertQuad);
+		VertQuads.emplace_back(VertQuad);
 		PushIndex();
 	}
 
 	template <typename T> inline void Renderer<T>::PushVertexQuad(T&& VertQuad)
 	{
-		VertQuads.push_back(VertQuad);
+		VertQuads.emplace_back(std::move(VertQuad));
 		PushIndex();
 	}
 

@@ -11,8 +11,6 @@ namespace Framework2D {
 		friend class HUD;
 		HUD* HUD_Owner = nullptr;
 
-		virtual void OnHUDElemTick(float DeltaTime) {}
-
 	public:
 		HUDElement();
 		virtual ~HUDElement();

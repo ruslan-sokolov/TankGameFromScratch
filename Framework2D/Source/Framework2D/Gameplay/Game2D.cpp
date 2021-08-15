@@ -5,6 +5,7 @@
 #include <Framework2D/Layers/LayerSystem.h>
 #include <Framework2D/Layers/LayerGameplay.h>
 #include <Framework2D/Layers/Layer2DDebug.h>
+#include <Framework2D/Layers/LayerHUD.h>
 
 namespace Framework2D {
 	
@@ -17,7 +18,7 @@ namespace Framework2D {
 		// create layers
 		SystemLayer = new LayerSystem("SystemLayer");
 		DebugLayer = new Layer2DDebug("DebugLayer");
-		HUDLayer = new Layer2D("HUDLayer");
+		HUDLayer = new LayerHUD("HUDLayer");
 		MainLayer = new Layer2D("MainLayer");
 		GameplayLayer = new LayerGameplay("GameplayLayer");
 

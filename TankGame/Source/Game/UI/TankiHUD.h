@@ -10,7 +10,7 @@ namespace Game {
 
 		TankiHUD();
 
-		virtual void OnTick(float DeltaTime) override;
+		virtual void DrawHUD(float DeltaTime) override;
 	};
 
 }
