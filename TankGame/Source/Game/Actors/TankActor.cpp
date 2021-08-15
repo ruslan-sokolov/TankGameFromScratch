@@ -1,15 +1,16 @@
 #include "TankActor.h"
 
+#include <Framework2D/Systems/SystemTimer.h>
 #include <Framework2D/Gameplay/Level.h>
-#include <Game/Actors/BulletActor.h>
 
 #include <Game/Game.h>
 #include <Game/Gameplay/TankiGameMode.h>
 #include <Game/Gameplay/TankiAIController.h>
 #include <Game/Gameplay/TankiPlayerController.h>
-#include <Game/Actors/BoomActor.h>
 
-#include <Framework2D/Systems/SystemTimer.h>
+#include <Game/Actors/BoomActor.h>
+#include <Game/Actors/BulletActor.h>
+#include <Game/Actors/Pickups/PickupRespawnPointActor.h>
 
 namespace Game {
 
@@ -93,7 +94,7 @@ namespace Game {
 
 	void Tank::DropPickable()
 	{
-		// todo
+		PickupRespawnPoint::SpawnPickupRespawnPoint(GetLevel(), GetCenterPosition());
 	}
 
 	void Tank::TankHitFX()

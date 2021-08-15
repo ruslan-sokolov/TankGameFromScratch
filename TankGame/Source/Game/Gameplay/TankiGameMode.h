@@ -43,6 +43,9 @@ namespace Game {
 		/** called in tank instance */
 		void OnEnemyTankKilled();
 
+		/** called in BoosterAddRespawnPoint::OnActivated(...) */
+		void AddRespawnPoint(int Val);
+
 		/** called in tank player controller instane */
 		void TryRespawnPlayerTank();
 		

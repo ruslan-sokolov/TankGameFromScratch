@@ -109,6 +109,12 @@ namespace Game {
 		CheckLooseWinCondition();
 	}
 
+	void TankiGameMode::AddRespawnPoint(int Val)
+	{
+		PlayerRespawnNum += Val;
+		GAME_LOG(info, "GM: Added RespawnPoint, Total: {}", PlayerRespawnNum);
+	}
+
 	void TankiGameMode::TryRespawnPlayerTank()
 	{
 		--PlayerRespawnNum;

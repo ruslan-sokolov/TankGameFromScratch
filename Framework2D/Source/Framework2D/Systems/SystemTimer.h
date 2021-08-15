@@ -22,7 +22,7 @@ namespace Framework2D
 		bool bLoop;
 		float Rate;
 
-		float TimeAcc;
+		float ExpireTime;
 
 		TimerHandle Handle;
 
@@ -33,14 +33,14 @@ namespace Framework2D
 		{
 			if (Handle.IsValid())
 			{
-				TimeAcc += DeltaTime;
+				ExpireTime -= DeltaTime;
 
-				if (TimeAcc >= Rate)
+				if (ExpireTime <= 0.f)
 				{
 					Callback();
 
 					if (bLoop)
-						TimeAcc = 0;
+						ExpireTime = Rate;
 					else
 					{
 
@@ -51,9 +51,9 @@ namespace Framework2D
 		}
 
 	public:
-		TimerData() : bLoop(false), Rate(0), TimeAcc(0) {}
-		TimerData(bool bLoop, float Rate, const TimerHandle& Handle, TimerCbFn&& Callback) 
-			: bLoop(bLoop), Rate(Rate), TimeAcc(0), Handle(Handle), Callback(std::move(Callback)) {}
+		TimerData() : bLoop(false), Rate(0), ExpireTime(0) {}
+		TimerData(bool bLoop, float Rate, float ExpireTime, const TimerHandle& Handle, TimerCbFn&& Callback) 
+			: bLoop(bLoop), Rate(Rate), ExpireTime(ExpireTime), Handle(Handle), Callback(std::move(Callback)) {}
 
 		// Movable only
 		TimerData(TimerData&& Data) = default;
@@ -92,7 +92,7 @@ namespace Framework2D
 		/** Use to remove timer if handle is valid */
 		static inline void RemoveTimer(TimerHandle& InOutHandle);
 		/** use to set new timer, if handle is valid - remove existing timer first */
-		static inline void SetTimer(TimerHandle& InOutHandle, TimerCbFn&& Callback, float Rate, bool bLoop = false);
+		static inline void SetTimer(TimerHandle& InOutHandle, TimerCbFn&& InCallback, float InRate, bool InbLoop = false, float InFirstDelay = -1.f);
 		/** Uste to remove all timers, on level change for e.g. */
 		static inline void RemoveAllTimers();
 	};

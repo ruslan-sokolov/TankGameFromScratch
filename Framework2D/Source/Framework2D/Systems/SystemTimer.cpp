@@ -57,11 +57,13 @@ namespace Framework2D {
 		}
 	}
 
-	inline void SystemTimer::SetTimer(TimerHandle& InOutHandle, TimerCbFn&& Callback, float Rate, bool bLoop)
+	inline void SystemTimer::SetTimer(TimerHandle& InOutHandle, TimerCbFn&& InCallback, float InRate, bool InbLoop, float InFirstDelay)
 	{
 		RemoveTimer(InOutHandle);  // try remove old timer if exists
 
-		TimerData NewTimer(bLoop, Rate, InOutHandle, std::move(Callback));
+		const float FirstDelay = InFirstDelay >= 0.f ? InFirstDelay : InRate;
+
+		TimerData NewTimer(InbLoop, InRate, FirstDelay, InOutHandle, std::move(InCallback));
 		AddTimer(std::move(NewTimer));
 
 		InOutHandle = NewTimer.Handle;  // out updated valid handler;

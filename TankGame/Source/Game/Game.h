@@ -129,13 +129,16 @@ namespace GameConst
 	constexpr auto BOOM_SMALL_ANIM_SPEED = 0.05f; // sec
 	constexpr auto BOOM_BIG_ANIM_SPEED = 0.06f; // sec
 	
-	constexpr int FLASHY_ARRAY_DEFAULT[] = { 4, 11, 18 }; // sec
+	constexpr int FLASHY_ARRAY_DEFAULT[] = { 0, 4, 11, 18 }; // indexes of spawned tanks to spawn boost pickup
 	constexpr int FLASHY_ARRAY_DEFAULT_SIZE = sizeof FLASHY_ARRAY_DEFAULT / sizeof * FLASHY_ARRAY_DEFAULT;
-
 	constexpr auto FLASHY_ANIM_SPEED = 0.1f; // sec
-	constexpr auto RESPAWN_PROTECTION_TIME = 1.0f;  // sec
 	
-	constexpr auto HP_BOOSTER_VAL = 1.0f;  //
+	constexpr auto BOOSTER_RESPAWN_PROTECTION_TIME = 4.0f;  // sec
+	constexpr auto BOOSTER_ADD_RESPAWN_POINT_NUM = 1;  //
+
+	constexpr auto PICKUP_PICK_TIME = 6.0f;  // time in which we can pickup booster before it will be destroyed
+	constexpr auto PICKUP_TIME_START_FLICK = 3.0f;  // time in which booster start flicking and signaling as that it will be destroyed soon
+	constexpr auto PICKUP_FLICK_RATE = 0.25f;
 
 	constexpr auto RESTART_TIME = 3.0f;  // sec
 

@@ -161,8 +161,12 @@
     <ClCompile Include="Source\Game\Actors\Blocks\BlockModularActor.cpp" />
     <ClCompile Include="Source\Game\Actors\BoomActor.cpp" />
     <ClCompile Include="Source\Game\Actors\Blocks\BlockSolidActor.cpp" />
+    <ClCompile Include="Source\Game\Actors\Boosters\BoosterAddRespawnPointActor.cpp" />
+    <ClCompile Include="Source\Game\Actors\Boosters\BoosterBaseActor.cpp" />
+    <ClCompile Include="Source\Game\Actors\Pickups\PickupBaseActor.cpp" />
     <ClCompile Include="Source\Game\Actors\BulletActor.cpp" />
     <ClCompile Include="Source\Game\Actors\PhoenixBaseActor.cpp" />
+    <ClCompile Include="Source\Game\Actors\Pickups\PickupRespawnPointActor.cpp" />
     <ClCompile Include="Source\Game\Actors\TankActor.cpp" />
     <ClCompile Include="Source\Game\Actors\TankSpawnerActor.cpp" />
     <ClCompile Include="Source\Game\Game.cpp" />
@@ -185,8 +189,12 @@
     <ClInclude Include="Source\Game\Actors\Blocks\BlockModularActor.h" />
     <ClInclude Include="Source\Game\Actors\BoomActor.h" />
     <ClInclude Include="Source\Game\Actors\Blocks\BlockSolidActor.h" />
+    <ClInclude Include="Source\Game\Actors\Boosters\BoosterAddRespawnPointActor.h" />
+    <ClInclude Include="Source\Game\Actors\Boosters\BoosterBaseActor.h" />
+    <ClInclude Include="Source\Game\Actors\Pickups\PickupBaseActor.h" />
     <ClInclude Include="Source\Game\Actors\BulletActor.h" />
     <ClInclude Include="Source\Game\Actors\PhoenixBaseActor.h" />
+    <ClInclude Include="Source\Game\Actors\Pickups\PickupRespawnPointActor.h" />
     <ClInclude Include="Source\Game\Actors\TankActor.h" />
     <ClInclude Include="Source\Game\Actors\TankSpawnerActor.h" />
     <ClInclude Include="Source\Game\Game.h" />
