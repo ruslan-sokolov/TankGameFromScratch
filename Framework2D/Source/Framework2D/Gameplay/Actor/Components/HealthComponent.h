@@ -18,7 +18,9 @@ namespace Framework2D
 
 		float Health = 1.f;
 		float BaseHealth = 1.f;
-		bool bIsDead = false;		
+		bool bIsDead = false;
+
+		bool bCanBeDamaged = true;
 
 		OnDamageCbFn OnDamageCb;
 		OnDeathCbFn OnDeathCb;
@@ -35,6 +37,9 @@ namespace Framework2D
 		inline float GetBaseHealth() const { return BaseHealth; }
 		/** True if Health is was zero and not reseted back */
 		inline bool IsDead() const { return bIsDead; }
+		/** Set bCanBeDamaged value, if false -> actor can't be damaged */
+		inline void SetCanBeDamaged(bool InbCanBeDamaged) { bCanBeDamaged = InbCanBeDamaged; }
+		inline bool IsCanBeDamaged() const { return bCanBeDamaged; }
 
 		inline void SetOnDamageCb(OnDamageCbFn&& OnDamageCb) { this->OnDamageCb = OnDamageCb; }
 		inline void SetOnDeathCb(OnDeathCbFn&& OnDeathCb) { this->OnDeathCb = OnDeathCb; }
@@ -69,8 +74,11 @@ namespace Framework2D
 		/** Can be called from elsewhere to damage another actor */
 		inline void OnDamage(float Damage, Direction From, Actor* Instigator)
 		{
-			SetHealth(Health - Damage);
-			if (OnDamageCb) OnDamageCb(Damage, From, Instigator);
+			if (bCanBeDamaged)
+			{
+				SetHealth(Health - Damage);
+				if (OnDamageCb) OnDamageCb(Damage, From, Instigator);
+			}
 		}
 
 #define HEALTH_ON_DEATH_CB(x) std::bind(&x, this)

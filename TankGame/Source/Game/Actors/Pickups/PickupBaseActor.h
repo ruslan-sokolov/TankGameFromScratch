@@ -14,6 +14,8 @@ namespace Game {
 	 * 
 	 * We use global values GameConst::PICKUP_PICK_TIME, GameConst::PICKUP_TIME_START_FLICK, GameConst::PICKUP_FLICK_RATE
 	 * to set timer on which booster can be picked, and also visualizing this by flick fx
+	 * 
+	 * DESTROYED ON SUCCESSFULL PICK
 	 */
 	class PickupBase : public Framework2D::Actor
 	{

@@ -100,6 +100,12 @@ namespace Game {
 		
 		TankType Type = TankType::None;
 
+		TimerHandle TimerHandle_HitFX;
+		TimerHandle TimerHandle_FlashyFX;
+
+		EntityComponent<SpriteFlipFlop>* SpriteComp_Flashy;
+		class BoosterTempInvincibility* Booster_RespawnProteciton = nullptr;
+
 	public:
 		void MoveBegin(Direction DirectionTo);
 		void MoveEnd(Direction DirectionTo);
@@ -119,7 +125,15 @@ namespace Game {
 
 		void DropPickable();
 
-		void TankHitFX();
+		void TankHitFX_Activate();
 		void TankHitFX_End();
+
+		// Tank effect when enemy is gonna drop pickable on death, or player respawned
+		void TankFlashyFX_Activate();
+		// Timercallback to Disable flashy anim
+		void TankFlashyFX_End();
+
+		// activates tank flash effect, activate tempory invincibility booster
+		void RespawnProtection_Activate();
 	};
 }

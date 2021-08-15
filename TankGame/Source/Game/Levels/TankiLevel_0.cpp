@@ -113,13 +113,13 @@ namespace Game {
 		}
 
 		PlayerSpawnPoint = TankSpawnPoint(BasePosition - ChunkOffset_X * 2, Direction::UP, Anchor::BOTTOM);
-		RespawnPlayerTank();
+		SpawnPlayerTank();
 		
 		PhoenixBase::SpawnDefaultBase(this, BasePosition, Anchor::BOTTOM);
 		EnemyTankSpawner = TankSpawner::CreateBasicTankAISpawnerCorners(this);
 	}
 
-	Tank* TankiLevel_0::RespawnPlayerTank()
+	Tank* TankiLevel_0::SpawnPlayerTank()
 	{
 		PlayerTank = Tank::SpawnBasicTank(this, PlayerSpawnPoint, TankType::PlayerTank);
 		return PlayerTank;

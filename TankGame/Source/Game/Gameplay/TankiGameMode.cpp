@@ -31,7 +31,8 @@ namespace Game {
 		Tank* PlayerTank = BasicLevel->GetPlayerTank();
 		PlayerTankController->SetControlledTank(PlayerTank);
 
-		PlayerRespawnNum = GameConst::PLAYER_TANK_RESPAWN_NUM;
+		PlayerRespawnNumMax = GameConst::PLAYER_TANK_RESPAWN_NUM;
+		PlayerRespawnNum = PlayerRespawnNumMax;
 		EnemyTankToKill = GameConst::TANK_SPAWN_NUM_DEFAULT;
 		bBaseIsDestroyed = false;
 		bEndConditionIsWin = false;
@@ -85,7 +86,7 @@ namespace Game {
 		Tank* PlayerTank = BasicLevel->GetPlayerTank();
 		PlayerTankController->SetControlledTank(PlayerTank);
 		 
-		PlayerRespawnNum = GameConst::PLAYER_TANK_RESPAWN_NUM;
+		PlayerRespawnNum = PlayerRespawnNumMax;
 		EnemyTankToKill = GameConst::TANK_SPAWN_NUM_DEFAULT;
 		bBaseIsDestroyed = false;
 		bEndConditionIsWin = false;
@@ -112,6 +113,11 @@ namespace Game {
 	void TankiGameMode::AddRespawnPoint(int Val)
 	{
 		PlayerRespawnNum += Val;
+		
+		// clamp
+		if (PlayerRespawnNum >= PlayerRespawnNumMax)
+			PlayerRespawnNum = PlayerRespawnNumMax;
+
 		GAME_LOG(info, "GM: Added RespawnPoint, Total: {}", PlayerRespawnNum);
 	}
 
@@ -123,7 +129,8 @@ namespace Game {
 
 		if (PlayerRespawnNum >= 0)
 		{
-			auto Tank = BasicLevel->RespawnPlayerTank();
+			auto Tank = BasicLevel->SpawnPlayerTank();
+			Tank->RespawnProtection_Activate();
 			PlayerTankController->SetControlledTank(Tank);
 		}
 

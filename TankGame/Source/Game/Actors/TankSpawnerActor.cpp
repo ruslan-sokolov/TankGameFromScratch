@@ -93,6 +93,7 @@ namespace Game {
 				if (SpawnedTankNum == FlashyIndex)
 				{
 					SpawnedTank->bDropPickableOnDeath = true;
+					SpawnedTank->TankFlashyFX_Activate();
 		
 					// debug
 					// GAME_LOG(info, "TANKSPAWNER Flashy index used: {}", SpawnedTankNum - 1);

@@ -11,6 +11,7 @@
 #include <Game/Actors/BoomActor.h>
 #include <Game/Actors/BulletActor.h>
 #include <Game/Actors/Pickups/PickupRespawnPointActor.h>
+#include <Game/Actors/Boosters/BoosterTempInvincibilityActor.h>
 
 namespace Game {
 
@@ -72,6 +73,10 @@ namespace Game {
 
 	void Tank::OnDestroy()
 	{
+		if (Booster_RespawnProteciton) Booster_RespawnProteciton->Destroy();
+		SystemTimer::RemoveTimer(TimerHandle_HitFX);
+		SystemTimer::RemoveTimer(TimerHandle_FlashyFX);
+
 		if (IsPossesedByPlayerController() && GetLevel())  // remove from player controller
 		{
 			if (auto GM = dynamic_cast<TankiGameMode*>(GetLevel()->GetGameMode()))
@@ -97,7 +102,7 @@ namespace Game {
 		PickupRespawnPoint::SpawnPickupRespawnPoint(GetLevel(), GetCenterPosition());
 	}
 
-	void Tank::TankHitFX()
+	void Tank::TankHitFX_Activate()
 	{
 		Boom::SpawnBoomBig(GetLevel(), Position);
 
@@ -106,13 +111,42 @@ namespace Game {
 		SpriteComp_Left->GetSprite()->SetColor(Vec4::RedColor);
 		SpriteComp_Right->GetSprite()->SetColor(Vec4::RedColor);
 
-		TimerHandle TimerHandle_Empty;
-		SystemTimer::SetTimer(TimerHandle_Empty, TIMER_CALLBACK(Tank::TankHitFX_End), 0.5f);
+		SystemTimer::SetTimer(TimerHandle_HitFX, TIMER_CALLBACK(Tank::TankHitFX_End), 0.5f);
 	}
 
 	void Tank::TankHitFX_End()
 	{
 		Destroy();
+	}
+
+	void Tank::TankFlashyFX_Activate()
+	{
+		if (SpriteComp_Flashy == nullptr) // create component on fly
+		{
+			SpriteComp_Flashy = new EntityComponent<SpriteFlipFlop>((Actor*)this, "FlashyFX" + Name, GetPosition(true), FLASHY_ANIM_SPEED, T_FLASHY_0, T_FLASHY_1);
+		}
+
+		SpriteComp_Flashy->GetEntity()->SetEnableRender(true);
+
+		SystemTimer::SetTimer(TimerHandle_FlashyFX, TIMER_CALLBACK(Tank::TankFlashyFX_End), FLASHY_ANIM_TIME);
+	}
+
+	void Tank::TankFlashyFX_End()
+	{
+		ENGINE_ASSERT(SpriteComp_Flashy, "TankFlashyFX_End() Tank::SpriteComp_Flashy is nullptr!");
+		SpriteComp_Flashy->GetEntity()->SetEnableRender(false);
+	}
+
+	void Tank::RespawnProtection_Activate()
+	{
+		if (Booster_RespawnProteciton == nullptr)
+		{
+			const std::string BoosterName = "BoosterInvincibility_" + GetName();
+			Booster_RespawnProteciton = BoosterTempInvincibility::SpawnBoosterTempInvincibility(GetLevel(), BoosterName);
+		}
+		
+		Booster_RespawnProteciton->ActivateBoost(this, true);
+		TankFlashyFX_Activate();
 	}
 
 	void Tank::OnDeath()
@@ -121,7 +155,7 @@ namespace Game {
 			
 		if (bDropPickableOnDeath) DropPickable();
 
-		TankHitFX();
+		TankHitFX_Activate();
 	}
 
 	inline EntityComponent<SpriteFlipFlop>* Tank::GetDirectionSpriteComp(Direction Dir)

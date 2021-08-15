@@ -132,6 +132,7 @@ namespace GameConst
 	constexpr int FLASHY_ARRAY_DEFAULT[] = { 0, 4, 11, 18 }; // indexes of spawned tanks to spawn boost pickup
 	constexpr int FLASHY_ARRAY_DEFAULT_SIZE = sizeof FLASHY_ARRAY_DEFAULT / sizeof * FLASHY_ARRAY_DEFAULT;
 	constexpr auto FLASHY_ANIM_SPEED = 0.1f; // sec
+	constexpr auto FLASHY_ANIM_TIME = 3.0f; // sec
 	
 	constexpr auto BOOSTER_RESPAWN_PROTECTION_TIME = 4.0f;  // sec
 	constexpr auto BOOSTER_ADD_RESPAWN_POINT_NUM = 1;  //

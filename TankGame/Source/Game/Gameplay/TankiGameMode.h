@@ -18,6 +18,7 @@ namespace Game {
 		TankiLevel_0* BasicLevel;
 		TankiHUD* CustomHUD;
 
+		int PlayerRespawnNumMax;
 		int PlayerRespawnNum;
 		int EnemyTankToKill;
 		bool bBaseIsDestroyed;

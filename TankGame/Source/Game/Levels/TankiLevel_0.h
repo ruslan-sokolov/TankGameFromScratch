@@ -20,7 +20,7 @@ namespace Game {
 		virtual void OnStart() override;
 
 		Tank* GetPlayerTank() const { return PlayerTank; }
-		Tank* RespawnPlayerTank();
+		Tank* SpawnPlayerTank();
 
 	};
 

@@ -10,6 +10,9 @@ namespace Game {
 	 * This class is represent base of all boosters class.
 	 * Common usage is in pair with Pickup actors - activate booster on pickup picked
 	 * Or it can be spawned elsewhere for example, on player respawn give him boost -> respawn protection
+	 * 
+	 * THIS ACTOR IS NOT DESTROY ITSELF OnExpired() !
+	 * This is because booster can be reusable
 	 */
 	class BoosterBase : public Framework2D::Actor
 	{
@@ -39,8 +42,8 @@ namespace Game {
 		
 		virtual void OnDestroy() override;
 
-		// start executing boost logic
-		void ActivateBoost(Actor* Activator);
+		// start executing boost logic, if reactivate -> start booster logic all over again
+		void ActivateBoost(Actor* Activator, bool bReactivate=false);
 
 		// execute custom logic on activate
 		virtual void OnActivated(Actor* Activator) =0;
@@ -48,6 +51,7 @@ namespace Game {
 		// execute custom boost tick logic
 		virtual void OnBoostTicked() {}
 
+		// if booster is not reusable, please call Destroy() here to destroy it
 		virtual void OnExpired() {}
 	};
 }

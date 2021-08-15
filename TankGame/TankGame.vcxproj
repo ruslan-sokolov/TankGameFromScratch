@@ -163,6 +163,7 @@
     <ClCompile Include="Source\Game\Actors\Blocks\BlockSolidActor.cpp" />
     <ClCompile Include="Source\Game\Actors\Boosters\BoosterAddRespawnPointActor.cpp" />
     <ClCompile Include="Source\Game\Actors\Boosters\BoosterBaseActor.cpp" />
+    <ClCompile Include="Source\Game\Actors\Boosters\BoosterTempInvincibilityActor.cpp" />
     <ClCompile Include="Source\Game\Actors\Pickups\PickupBaseActor.cpp" />
     <ClCompile Include="Source\Game\Actors\BulletActor.cpp" />
     <ClCompile Include="Source\Game\Actors\PhoenixBaseActor.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="Source\Game\Actors\Blocks\BlockSolidActor.h" />
     <ClInclude Include="Source\Game\Actors\Boosters\BoosterAddRespawnPointActor.h" />
     <ClInclude Include="Source\Game\Actors\Boosters\BoosterBaseActor.h" />
+    <ClInclude Include="Source\Game\Actors\Boosters\BoosterTempInvincibilityActor.h" />
     <ClInclude Include="Source\Game\Actors\Pickups\PickupBaseActor.h" />
     <ClInclude Include="Source\Game\Actors\BulletActor.h" />
     <ClInclude Include="Source\Game\Actors\PhoenixBaseActor.h" />
