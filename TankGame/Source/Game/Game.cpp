@@ -60,7 +60,7 @@ namespace Game {
 
 				, T_BOOST_HP
 
-				, T_WON_UI
+				, T_UI_ATLAS
 				, T_LOOSE_UI
 				, T_TANK_ICO_UI
 

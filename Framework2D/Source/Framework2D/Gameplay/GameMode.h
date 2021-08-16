@@ -25,6 +25,7 @@ namespace Framework2D
 	class FRAMEWORK2D_API GameMode
 	{
 		GMState State = (GMState)0;
+		GMState OldState = (GMState)0;
 
 		friend class LayerGameplay;
 		// called in LayerGameplay will tick for Level, HUD, PlayerContoller, AIController and GM itself

@@ -34,7 +34,7 @@ namespace Framework2D
 		unsigned int QuadIB = 0;
 
 		Shader* shader;
-
+		
 		std::vector<uint32_t> Indicies;
 		std::vector<T> VertQuads;
 
@@ -49,6 +49,7 @@ namespace Framework2D
 		inline void PushVertexQuad(const T& VertQuad);
 		inline void PushVertexQuad(T&& VertQuad);
 		
+		// todo: try std::forward<Args>(args)...
 		template <typename... Args>  // variadic args template for definition in each specializtion
 		inline void CreateAndPushVertexQuad(Args&& ... args) = delete;
 

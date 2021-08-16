@@ -23,6 +23,7 @@ namespace Game {
 		int EnemyTankToKill;
 		bool bBaseIsDestroyed;
 
+		bool bIsGameEnd;
 		bool bEndConditionIsWin;
 
 	

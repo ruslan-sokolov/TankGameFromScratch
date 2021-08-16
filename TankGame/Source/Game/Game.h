@@ -75,6 +75,8 @@ namespace ResPath
 	constexpr auto T_UI_NUM_7 = "..\\Resources\\Textures\\Tank\\Num\\7.png";
 	constexpr auto T_UI_NUM_8 = "..\\Resources\\Textures\\Tank\\Num\\8.png";
 	constexpr auto T_UI_NUM_9 = "..\\Resources\\Textures\\Tank\\Num\\9.png";
+
+	constexpr auto T_UI_ATLAS = "..\\Resources\\Textures\\Tank\\UI\\UI_Atlas.png";
 }
 
 namespace GameConst
@@ -153,7 +155,7 @@ namespace GameConst
 	constexpr auto GAME_OVER_PLATE_H = 225;
 
 	constexpr auto TANK_UI_FIRST_W = 496;
-	constexpr auto TANK_UI_FIRST_H = 496;
+	constexpr auto TANK_UI_FIRST_H = 60;
 	constexpr auto TANK_UI_OFFSET_W = 16;
 	constexpr auto TANK_UI_OFFSET_H = 16;
 	constexpr auto TANK_UI_MAX = 20;
@@ -162,5 +164,8 @@ namespace GameConst
 	constexpr auto PLAYER_RESPAWN_NUM_W = 514;
 	constexpr auto PLAYER_RESPAWN_NUM_H = 274;
 	constexpr auto UI_NUM_DIGIT_OFFSET = 16;
+	constexpr auto UI_NUM_DIGIT_MIN = 2;  // if 5 -> 05
+	constexpr auto UI_NUM_DIGIT_MAX = 2;  // if 100 -> 99
+
 
 }

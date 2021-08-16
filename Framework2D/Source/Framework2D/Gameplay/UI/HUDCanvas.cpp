@@ -4,6 +4,7 @@
 namespace Framework2D {
 	
 
+
 	HUDCanvas::HUDCanvas()
 	{
 	}

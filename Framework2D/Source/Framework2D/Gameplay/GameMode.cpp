@@ -63,6 +63,7 @@ namespace Framework2D {
 	{
 		if (bForce)
 		{
+			OldState = State;
 			State = NewState;
 			return;
 		}
@@ -72,6 +73,7 @@ namespace Framework2D {
 			return;
 		}
 
+		OldState = State;
 		State = NewState;
 	}
 
@@ -112,12 +114,16 @@ namespace Framework2D {
 
 	inline void GameMode::EndInternal()
 	{
+		if (OldState == State) return;
+
 		m_Level->OnEnd();
 		m_PlayerController->OnEnd();
 		m_HUD->OnEnd();
 		m_AIController->OnEnd();
 
 		OnEnd();
+
+		OldState = State;
 	}
 
 	inline void GameMode::End()

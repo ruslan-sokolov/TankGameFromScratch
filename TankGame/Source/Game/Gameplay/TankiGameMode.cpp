@@ -9,11 +9,8 @@
 #include <Game/Game.h>
 
 #include <Framework2D/Systems/SystemTimer.h>
-
-// debug
 #include <Framework2D/Systems/SystemCollision.h>
 #include <Framework2D/Systems/SystemInput.h>
-#include <Framework2D/Layers/Layer2D.h>
 
 
 namespace Game {
@@ -36,26 +33,17 @@ namespace Game {
 		EnemyTankToKill = GameConst::TANK_SPAWN_NUM_DEFAULT;
 		bBaseIsDestroyed = false;
 		bEndConditionIsWin = false;
+		bIsGameEnd = false;
 	}
 
 	void TankiGameMode::OnStart()
 	{
-		// todo
+		CustomHUD->UpdateTankDrawNum(EnemyTankToKill);
+		CustomHUD->UpdatePlayerRespawnNum(PlayerRespawnNum);
 	}
 
 	void TankiGameMode::OnEnd()
 	{
-		if (bEndConditionIsWin)
-		{
-			GAME_LOG(warn, "GM: YOU WON!!!!");
-			// todo show win plate
-		}
-		else
-		{
-			GAME_LOG(warn, "GM: YOU LOOSE!!!");
-			// todo show loose plate
-		}
-
 		Restart();
 	}
 
@@ -90,6 +78,7 @@ namespace Game {
 		EnemyTankToKill = GameConst::TANK_SPAWN_NUM_DEFAULT;
 		bBaseIsDestroyed = false;
 		bEndConditionIsWin = false;
+		bIsGameEnd = false;
 	}
 
 	void TankiGameMode::OnBaseDestroyed()
@@ -103,7 +92,7 @@ namespace Game {
 
 	void TankiGameMode::OnEnemyTankKilled()
 	{
-		--EnemyTankToKill;
+		CustomHUD->UpdateTankDrawNum(--EnemyTankToKill);
 
 		GAME_LOG(warn, "GM: Enemy to kill left: {}", EnemyTankToKill);
 
@@ -123,8 +112,8 @@ namespace Game {
 
 	void TankiGameMode::TryRespawnPlayerTank()
 	{
-		--PlayerRespawnNum;
-
+		CustomHUD->UpdatePlayerRespawnNum(--PlayerRespawnNum);
+		
 		GAME_LOG(error, "GM: Player respawn num left: {}", PlayerRespawnNum);
 
 		if (PlayerRespawnNum >= 0)
@@ -139,15 +128,29 @@ namespace Game {
 
 	inline void TankiGameMode::CheckLooseWinCondition()
 	{
+		if (bIsGameEnd) return;
+
 		if (PlayerRespawnNum <= -1 || bBaseIsDestroyed) 
 		{
+			bIsGameEnd = true;
 			bEndConditionIsWin = false;
-			End();
+
+			CustomHUD->EnableWinPlate(true);
+			GAME_LOG(warn, "GM: YOU WON!!!!");
+
+			TimerHandle TimerHandle_Empty;
+			SystemTimer::SetTimer(TimerHandle_Empty, TIMER_CALLBACK(GameMode::End), GameConst::RESTART_TIME);
 		}
 		else if (EnemyTankToKill <= 0)
 		{
+			bIsGameEnd = true;
 			bEndConditionIsWin = true;
-			End();
+			
+			CustomHUD->EnablewLoosePlate(true);
+			GAME_LOG(warn, "GM: YOU LOOSE!!!");
+
+			TimerHandle TimerHandle_Empty;
+			SystemTimer::SetTimer(TimerHandle_Empty, TIMER_CALLBACK(GameMode::End), GameConst::RESTART_TIME);
 		}
 	}
 }
