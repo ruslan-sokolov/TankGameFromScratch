@@ -107,6 +107,8 @@ namespace Game {
 		if (PlayerRespawnNum >= PlayerRespawnNumMax)
 			PlayerRespawnNum = PlayerRespawnNumMax;
 
+		CustomHUD->UpdatePlayerRespawnNum(PlayerRespawnNum);
+
 		GAME_LOG(info, "GM: Added RespawnPoint, Total: {}", PlayerRespawnNum);
 	}
 
