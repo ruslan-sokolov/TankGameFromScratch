@@ -3,6 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31402.337
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TankGame", "TankGame\TankGame.vcxproj", "{AF3D1A21-F989-4942-9704-4AD6BA0C771D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EB1A5819-43E6-4F05-97DD-42851881FF63} = {EB1A5819-43E6-4F05-97DD-42851881FF63}
+		{31D448CC-AA44-4AAE-BBE3-ADB6595F2138} = {31D448CC-AA44-4AAE-BBE3-ADB6595F2138}
+	EndProjectSection
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GLFW", "Engine\Vendor\GLFW\GLFW.vcxproj", "{6A68A5EB-25F5-4647-9849-285F1BAB32B2}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcxproj", "{31D448CC-AA44-4AAE-BBE3-ADB6595F2138}"
@@ -11,12 +17,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcx
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Framework2D", "Framework2D\Framework2D.vcxproj", "{EB1A5819-43E6-4F05-97DD-42851881FF63}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TankGame", "TankGame\TankGame.vcxproj", "{AF3D1A21-F989-4942-9704-4AD6BA0C771D}"
-	ProjectSection(ProjectDependencies) = postProject
-		{EB1A5819-43E6-4F05-97DD-42851881FF63} = {EB1A5819-43E6-4F05-97DD-42851881FF63}
-		{31D448CC-AA44-4AAE-BBE3-ADB6595F2138} = {31D448CC-AA44-4AAE-BBE3-ADB6595F2138}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GLEW", "Engine\Vendor\GLEW\GLEW.vcxproj", "{9406E4F2-F962-4F7C-A186-89D46D271E10}"
 EndProject
