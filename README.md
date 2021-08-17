@@ -99,7 +99,7 @@ Game - main exe file
 
 #### Third parties source libs list:
 
-GLEW, GLFW, GLM, spdlog
+GLEW, GLFW, GLM, spdlog, stbimage(import png textures)
 
 _____
 # How to run
