@@ -1,3 +1,5 @@
+# RIGHT NOW THIS WORKS ONLY IN MY PC, WILL FIX THIS SOON
+
 # About project
 This is my attempt to create simple 2D game engine and game builded upon it (Battle City 1985 mini clone)
 Right now it provides enough(or almost enough :) ) functionality to make simple 2D games with fixed camera view
