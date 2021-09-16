@@ -1,6 +1,8 @@
 #include <PCH_Framework.h>
 #include "Shader.h"
 
+#include "Renderer.h"
+
 namespace Framework2D {
 
 	Shader::Shader(const std::string& Path)
@@ -21,47 +23,47 @@ namespace Framework2D {
 	Shader::~Shader()
 	{
 		if (RendererID != 0)
-			glDeleteProgram(RendererID);
+			GLCall(glDeleteProgram(RendererID));
 	}
 
 	inline void Shader::Bind()
 	{
-		glUseProgram(RendererID);
+		GLCall(glUseProgram(RendererID));
 	}
 
 	inline void Shader::Unbind()
 	{
-		glUseProgram(0);
+		GLCall(glUseProgram(0));
 	}
 
 	inline void Shader::SetUniform1i(const std::string& Name, int Value)
 	{
-		glUniform1i(GetUniformLocation(Name), Value);
+		GLCall(glUniform1i(GetUniformLocation(Name), Value));
 	}
 
 	inline void Shader::SetUniform1iv(const std::string& Name, int Count, int* Values)
 	{
-		glUniform1iv(GetUniformLocation(Name), Count, Values);
+		GLCall(glUniform1iv(GetUniformLocation(Name), Count, Values));
 	}
 
 	inline void Shader::SetUniform1f(const std::string& Name, float Value)
 	{
-		glUniform1f(GetUniformLocation(Name), Value);
+		GLCall(glUniform1f(GetUniformLocation(Name), Value));
 	}
 
 	inline void Shader::SetUniform4f(const std::string& Name, float V0, float V1, float V2, float V3)
 	{
-		glUniform4f(GetUniformLocation(Name), V0, V1, V2, V3);
+		GLCall(glUniform4f(GetUniformLocation(Name), V0, V1, V2, V3));
 	}
 
 	inline void Shader::SetUniform4f(const std::string& Name, const float Arr[4])
 	{
-		glUniform4f(GetUniformLocation(Name), Arr[0], Arr[1], Arr[2], Arr[3]);
+		GLCall(glUniform4f(GetUniformLocation(Name), Arr[0], Arr[1], Arr[2], Arr[3]));
 	}
 
 	inline void Shader::SetUniformMat4f(const std::string& Name, const glm::mat4& Matrix)
 	{
-		glUniformMatrix4fv(GetUniformLocation(Name), 1, GL_FALSE, &Matrix[0][0]);
+		GLCall(glUniformMatrix4fv(GetUniformLocation(Name), 1, GL_FALSE, &Matrix[0][0]));
 	}
 
 	inline GLint Shader::GetUniformLocation(const std::string& Name) const
@@ -69,7 +71,7 @@ namespace Framework2D {
 		if (UniformLocationCache.find(Name) != UniformLocationCache.end())
 			return UniformLocationCache.at(Name);
 
-		GLint Location = glGetUniformLocation(RendererID, Name.c_str());
+		GLCall(GLint Location = glGetUniformLocation(RendererID, Name.c_str()));
 		if (Location == -1)
 		{
 			ENGINE_LOG(error, "Uniform location {0} doesn't exists!");
@@ -118,25 +120,25 @@ namespace Framework2D {
 
 	unsigned int Shader::CompileShader(unsigned int Type, const std::string& Source)
 	{
-		unsigned int Id = glCreateShader(Type);
+		GLCall(unsigned int Id = glCreateShader(Type));
 		const char* Src = Source.c_str();
-		glShaderSource(Id, 1, &Src, NULL);
-		glCompileShader(Id);
+		GLCall(glShaderSource(Id, 1, &Src, NULL));
+		GLCall(glCompileShader(Id));
 
 		// error handle
 		int Result;
-		glGetShaderiv(Id, GL_COMPILE_STATUS, &Result);
+		GLCall(glGetShaderiv(Id, GL_COMPILE_STATUS, &Result));
 		if (Result == GL_FALSE)
 		{
 			int Length;
-			glGetShaderiv(Id, GL_INFO_LOG_LENGTH, &Length);
+			GLCall(glGetShaderiv(Id, GL_INFO_LOG_LENGTH, &Length));
 			char* Msg = new char[Length];
-			glGetShaderInfoLog(Id, Length, &Length, Msg);
+			GLCall(glGetShaderInfoLog(Id, Length, &Length, Msg));
 			ENGINE_LOG(error, "Failed to compile {0} shader!", Type == GL_VERTEX_SHADER ? "vertex" : "fragment");
 			ENGINE_LOG(error, "{0}", Msg);
 			delete[] Msg;
 
-			glDeleteShader(Id);
+			GLCall(glDeleteShader(Id));
 			return 0;
 		}  //
 
@@ -146,19 +148,19 @@ namespace Framework2D {
 	unsigned int Shader::CreateShader(const std::string& VertexShader, const std::string& FragmentShader, bool& bIsSuccess)
 	{
 		
-		unsigned int Program = glCreateProgram();
-		unsigned int vs = CompileShader(GL_VERTEX_SHADER, VertexShader);
-		unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, FragmentShader);
+		GLCall(unsigned int Program = glCreateProgram());
+		GLCall(unsigned int vs = CompileShader(GL_VERTEX_SHADER, VertexShader));
+		GLCall(unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, FragmentShader));
 
 		bIsSuccess = vs != 0 && fs != 0;
 
-		glAttachShader(Program, vs);
-		glAttachShader(Program, fs);
-		glLinkProgram(Program);
-		glValidateProgram(Program);
+		GLCall(glAttachShader(Program, vs));
+		GLCall(glAttachShader(Program, fs));
+		GLCall(glLinkProgram(Program));
+		GLCall(glValidateProgram(Program));
 
-		glDeleteShader(vs);
-		glDeleteShader(fs);
+		GLCall(glDeleteShader(vs));
+		GLCall(glDeleteShader(fs));
 
 		return Program;
 	}

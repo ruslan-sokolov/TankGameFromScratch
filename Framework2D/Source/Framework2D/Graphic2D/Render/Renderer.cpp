@@ -3,6 +3,22 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
+void GLClearError()
+{
+	while (glGetError() != GL_NO_ERROR);
+}
+
+bool GLLogCall(const char* function, const char* file, int line)
+{
+	GLenum error;
+	while (error = glGetError())
+	{
+		std::cout << "[OpenGL Error] (" << error << ")" << function << " " << file << ":" << line << std::endl;
+		return false;
+	}
+	return true;
+}
+
 namespace Framework2D {
 
 	glm::mat4 RendererStatics::IdentityMatrix{ 1.0f };
