@@ -62,8 +62,9 @@ namespace Framework2D {
 		inline GLint GetUniformLocation(const std::string& Name) const;
 
 		static ShaderProgramSource ParseShader(const std::string& FilePath, bool& bIsSuccess);
-		static unsigned int CompileShader(unsigned int Type, const std::string& Source);
-		static unsigned int CreateShader(const std::string& VertexShader, const std::string& FragmentShader, bool& bIsSuccess);
+		static GLuint CompileShader(GLuint Type, const std::string& Source);
+		static GLuint CreateShader(const std::string& VertexShader, const std::string& FragmentShader, bool& bIsSuccess);
+		static void CheckShaderError(GLuint Id, GLuint Type, GLint *Ret, const char *OnFail);
 
 	};
 

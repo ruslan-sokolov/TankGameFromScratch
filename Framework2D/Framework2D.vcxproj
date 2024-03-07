@@ -21,13 +21,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -139,6 +139,7 @@
     <ClInclude Include="Source\Framework2D\Graphic2D\Groups\Group.h" />
     <ClInclude Include="Source\Framework2D\Graphic2D\Groups\GroupSolid.h" />
     <ClInclude Include="Source\Framework2D\Graphic2D\Groups\GroupSprite.h" />
+    <ClInclude Include="Source\Framework2D\Graphic2D\Render\LogGL.h" />
     <ClInclude Include="Source\Framework2D\Graphic2D\Render\Vertex.h" />
     <ClInclude Include="Source\Framework2D\Layers\Layer2D.h" />
     <ClInclude Include="Source\Framework2D\Graphic2D\Render\Renderer.h" />
@@ -182,6 +183,7 @@
     <ClCompile Include="Source\Framework2D\Graphic2D\Groups\Group.cpp" />
     <ClCompile Include="Source\Framework2D\Graphic2D\Groups\GroupSolid.cpp" />
     <ClCompile Include="Source\Framework2D\Graphic2D\Groups\GroupSprite.cpp" />
+    <ClCompile Include="Source\Framework2D\Graphic2D\Render\LogGL.cpp" />
     <ClCompile Include="Source\Framework2D\Layers\Layer2D.cpp" />
     <ClCompile Include="Source\Framework2D\Graphic2D\Render\Renderer.cpp" />
     <ClCompile Include="Source\Framework2D\Graphic2D\Render\ResourceLoader.cpp" />

@@ -1,5 +1,6 @@
 #include <PCH_Framework.h>
 #include "Shader.h"
+#include "LogGL.h"
 
 namespace Framework2D {
 
@@ -26,7 +27,7 @@ namespace Framework2D {
 
 	inline void Shader::Bind()
 	{
-		glUseProgram(RendererID);
+		GLCall(glUseProgram(RendererID));
 	}
 
 	inline void Shader::Unbind()
@@ -116,12 +117,13 @@ namespace Framework2D {
 		return { SS[0].str(), SS[1].str() };
 	}
 
-	unsigned int Shader::CompileShader(unsigned int Type, const std::string& Source)
+	GLuint Shader::CompileShader(GLuint Type, const std::string& Source)
 	{
-		unsigned int Id = glCreateShader(Type);
+		GLCall(GLuint Id = glCreateShader(Type);)
 		const char* Src = Source.c_str();
-		glShaderSource(Id, 1, &Src, NULL);
-		glCompileShader(Id);
+		const GLint SrcLen = Source.length();
+		GLCall(glShaderSource(Id, 1, &Src, &SrcLen);)  //(GLuint shader, GLsizei count, const GLchar *const* string, const GLint* length);
+		GLCall(glCompileShader(Id);)
 
 		// error handle
 		int Result;
@@ -143,24 +145,65 @@ namespace Framework2D {
 		return Id;
 	}
 
-	unsigned int Shader::CreateShader(const std::string& VertexShader, const std::string& FragmentShader, bool& bIsSuccess)
+	GLuint Shader::CreateShader(const std::string& VertexShader, const std::string& FragmentShader, bool& bIsSuccess)
 	{
 		
-		unsigned int Program = glCreateProgram();
-		unsigned int vs = CompileShader(GL_VERTEX_SHADER, VertexShader);
-		unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, FragmentShader);
+		GLCall(const GLuint Program = glCreateProgram();)
+		GLuint VS_ID = CompileShader(GL_VERTEX_SHADER, VertexShader);
+		GLuint FS_ID = CompileShader(GL_FRAGMENT_SHADER, FragmentShader);
 
-		bIsSuccess = vs != 0 && fs != 0;
+		GLint Ret;
+		CheckShaderError(VS_ID, GL_COMPILE_STATUS, &Ret, "Failed to compile vertex shader!");
+		CheckShaderError(FS_ID, GL_COMPILE_STATUS, &Ret, "Failed to compile fragment shader!");
+		
+		bIsSuccess = VS_ID != 0 && FS_ID != 0;
 
-		glAttachShader(Program, vs);
-		glAttachShader(Program, fs);
-		glLinkProgram(Program);
-		glValidateProgram(Program);
+		GLCall(glAttachShader(Program, VS_ID);)
+		GLCall(glAttachShader(Program, FS_ID);)
+		GLCall(glLinkProgram(Program);)
+		CheckShaderError(Program, GL_LINK_STATUS, &Ret, "Failed to link program!");
+		GLCall(glValidateProgram(Program);)
 
-		glDeleteShader(vs);
-		glDeleteShader(fs);
+		GLCall(glDeleteShader(VS_ID);)
+		GLCall(glDeleteShader(FS_ID);)
 
 		return Program;
 	}
+
+	void Shader::CheckShaderError(GLuint Id, GLuint Type, GLint* Ret, const char* OnFail)
+	{
+		switch(Type)
+		{
+		case(GL_COMPILE_STATUS):
+			glGetShaderiv(Id, Type, Ret);
+			if (*Ret == false)
+			{
+				GLint Length;
+				glGetShaderiv(Id, GL_INFO_LOG_LENGTH, &Length);
+				GLchar* Msg = new GLchar[Length];
+				GLsizei CharsWritten = 0;
+				glGetShaderInfoLog(Id, Length, &CharsWritten, Msg);
+				ENGINE_LOG(error, "{0}\n\t{1}", OnFail, Msg);
+				delete[] Msg;
+			}
+			break;
+		case (GL_LINK_STATUS):
+			glGetProgramiv(Id, Type, Ret);
+			if (*Ret == false)
+			{
+				GLint Length;
+				glGetProgramiv(Id, GL_INFO_LOG_LENGTH, &Length);
+				GLchar* Msg = new GLchar[Length];
+				GLsizei CharsWritten = 0;
+				glGetProgramInfoLog(Id, Length, &CharsWritten, Msg);
+				ENGINE_LOG(error, "{0}\n\t{1}", OnFail, Msg);
+				delete[] Msg;
+			}
+			break;
+		default:
+			break;
+		}
+	}
+
 	// --------------------------------------------------------
 }

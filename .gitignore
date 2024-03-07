@@ -2,6 +2,6 @@
 .vs/
 Binary/
 Intermediate/
-
+.idea/
 # files
 *.user
